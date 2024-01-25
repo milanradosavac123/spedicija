@@ -1,11 +1,13 @@
 "use client";
 
-import { Button, SegmentedControl } from "@mantine/core";
+import { Button } from "@mantine/core";
 import IconBackToTab from "#/public/material-symbols_back-to-tab.svg";
 import Image from "next/image";
 import Link from "next/link";
 import OutlinedTextField from "@/components/OutlinedTextField";
 import { useState } from "react";
+import { StandardSegmentedControl } from "@/components/StandardSegmentedControl";
+import Header from "@/components/Header";
 
 export default function NewTourPage() {
 
@@ -13,13 +15,10 @@ export default function NewTourPage() {
 
     return (
         <div className="p-5">
+            <Header headerText="Active Tours" />
+            <hr />
             <div className="flex flex-row justify-between py-5">
-                <SegmentedControl
-                    className="bg-gray-400 max-w-fit"
-                    radius="xl"
-                    size="md"
-                    data={["Current Tours", "Upcoming Tours", "Past tours"]}
-                />
+                <StandardSegmentedControl />
 
                 <Button
                     component={Link}
@@ -29,7 +28,7 @@ export default function NewTourPage() {
                     rightSection={
                         <Image
                             src={IconBackToTab}
-                            alt="new tour"
+                            alt="back to tab"
                         />
                     }
                 >

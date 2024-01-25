@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import '@mantine/core/styles.css';
 import "./globals.css";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
-import Header from "@/components/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,8 +23,6 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <MantineProvider>
-          <Header headerText="Active Tours" />
-          <hr />
           {children}
         </MantineProvider>
       </body>

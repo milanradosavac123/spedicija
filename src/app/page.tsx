@@ -1,20 +1,19 @@
-import { Button, SegmentedControl, rem } from "@mantine/core";
+import { Button } from "@mantine/core";
 import IconTabNew from "#/public/fluent_tab-new-24-filled.svg";
 import Image from "next/image";
 import { TourDataTable } from "../components/TourDataTable";
 import Link from "next/link";
+import Header from "@/components/Header";
+import { StandardSegmentedControl } from "@/components/StandardSegmentedControl";
 
 export default function Home() {
 
   return (
     <div className="p-5">
+      <Header headerText="Active Tours" />
+      <hr />
       <div className="flex flex-row justify-between py-5">
-        <SegmentedControl
-          className="bg-gray-400 max-w-fit"
-          radius="xl"
-          size="md"
-          data={["Current Tours", "Upcoming Tours", "Past tours"]}
-        />
+        <StandardSegmentedControl />
 
         <Button
           component={Link}
