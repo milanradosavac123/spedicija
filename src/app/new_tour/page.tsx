@@ -2,24 +2,47 @@
 
 import { Button } from "@mantine/core";
 import IconBackToTab from "#/public/material-symbols_back-to-tab.svg";
-import IconTabNew from "#/public/fluent_tab-new-24-filled.svg";
 import Image from "next/image";
 import Link from "next/link";
 import OutlinedTextField from "@/components/OutlinedTextField";
 import { StandardSegmentedControl } from "@/components/StandardSegmentedControl";
 import Header from "@/components/Header";
-import { usePathname, useSearchParams } from "next/navigation"
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+
+interface Location {
+    name: string,
+    address: string
+}
 
 export default function NewTourPage() {
 
-    const searchParams = useSearchParams();
-    const pathname = usePathname();
-    const { replace } = useRouter();
+    const [driverName, setDriverName] = useState("");
+    const [vehicleName, setVehicleName] = useState("");
 
-    const [shouldShowButton, setShouldShowButton] = useState(true);
-    const [additionalTextFieldTypes, setAdditionalTextFieldTypes] = useState<string[]>([])
+    const [locationsList, setLocationsList] = useState<Location[]>(
+        [
+            {
+                name: "",
+                address: "",
+            }
+        ]
+    );
+
+    function setLocationName(index: number, name: string) {
+        locationsList[index].name = name;
+        setLocationsList(locationsList);
+    }
+
+    function setLocationAddress(index: number, address: string) {
+        locationsList[index].address = address;
+        setLocationsList(locationsList);
+    }
+
+    function addLocation(location: Location) {
+        setLocationsList([...locationsList, location]);
+        const addButton = document.getElementById("add-button-div");
+        addButton?.scrollIntoView();
+    }
 
     return (
         <div className="p-5">
@@ -43,98 +66,58 @@ export default function NewTourPage() {
                     Back To Tab
                 </Button>
             </div>
-            <div className="flex flex-row gap-5">
+            <div className="flex flex-row flex-auto gap-5">
                 <OutlinedTextField
-                    label="Add your Driver here..."
-                    value={searchParams.get("driverName") !== null ? searchParams.get("driverName") as string : ""}
+                    label="Driver Name"
+                    placeholder="Add your Driver here..."
+                    value={driverName}
                     onChange={(s) => {
-                        const params = new URLSearchParams(searchParams);
-                        params.set("driverName", s);
-                        replace(`${pathname}?${params.toString()}`);
+                        setDriverName(s);
                     }}
                 />
                 <OutlinedTextField
-                    label="Add your Vehicle here..."
-                    value={searchParams.get("vehicleName") !== null ? searchParams.get("vehicleName") as string : ""}
+                    label="Vehicle Name"
+                    placeholder="Add your Vehicle here..."
+                    value={vehicleName}
                     onChange={(s) => {
-                        const params = new URLSearchParams(searchParams);
-                        params.set("vehicleName", s);
-                        replace(`${pathname}?${params.toString()}`);
+                        setVehicleName(s);
                     }}
                 />
             </div>
-            <div className="grid grid-cols-3 gap-x-5 ">
-                <OutlinedTextField
-                    label="Add your Load Location here..."
-                    value={searchParams.get("loadLocation") !== null ? searchParams.get("loadLocation") as string : ""}
-                    onChange={(s) => {
-                        const params = new URLSearchParams(searchParams);
-                        params.set("loadLocation", s);
-                        replace(`${pathname}?${params.toString()}`);
-                    }}
-                />
-                <OutlinedTextField
-                    label="Add your Unload Location here..."
-                    value={searchParams.get("unloadLocation") !== null ? searchParams.get("unloadLocation") as string : ""}
-                    onChange={(s) => {
-                        const params = new URLSearchParams(searchParams);
-                        params.set("unloadLocation", s);
-                        replace(`${pathname}?${params.toString()}`);
-                    }}
-                />
-                {additionalTextFieldTypes.map((value) => (
+            {locationsList.map((location, i) => (
+                <div className="flex flex-row flex-auto gap-5" key={i}>
                     <OutlinedTextField
-                        label={`Add your ${value} Location here...`}
-                        value={searchParams.get(`${value.toLowerCase()}Location`) !== null ? searchParams.get(`${value.toLowerCase()}Location`) as string : ""}
+                        label="Location Name"
+                        placeholder="Add your Location Name here..."
+                        value={location.name}
                         onChange={(s) => {
-                            const params = new URLSearchParams(searchParams);
-                            params.set(`${value.toLowerCase()}Location`, s);
-                            replace(`${pathname}?${params.toString()}`);
+                            setLocationName(i, s);
                         }}
                     />
-                ))}
-                {shouldShowButton &&
-                    <Button
-                        className="bg-[#282147] min-w-[30vw] min-h-max"
-                        rightSection={
-                            <Image
-                                src={IconTabNew}
-                                alt="add new tab"
-                            />
-                        }
-                        onClick={() => {
-                            setShouldShowButton(false);
-                        }}
-                    >
-                        Add New Tab
-                    </Button>
-                }
-                {!shouldShowButton &&
                     <OutlinedTextField
-                        label="Add your New Location Type here..."
-                        value={searchParams.get("newLocationType") !== null ? searchParams.get("newLocationType") as string : ""}
-                        rightSectionWidth={52}
-                        rightSection={
-                            <Button
-                                className="bg-[#282147] min-w-fit rounded-s-none cursor-pointer"
-                                onClick={() => {
-                                    setAdditionalTextFieldTypes([...additionalTextFieldTypes, searchParams.get("newLocationType") !== null ? searchParams.get("newLocationType") as string : ""]);
-                                    const params = new URLSearchParams(searchParams);
-                                    params.set("newLocationType", "");
-                                    replace(`${pathname}?${params.toString()}`);
-                                    setShouldShowButton(true);
-                                }}
-                            >
-                                Ok
-                            </Button>
-                        }
+                        label="Location Address"
+                        placeholder="Add your Location Address here..."
+                        value={location.address}
                         onChange={(s) => {
-                            const params = new URLSearchParams(searchParams);
-                            params.set("newLocationType", s);
-                            replace(`${pathname}?${params.toString()}`);
+                            setLocationAddress(i, s)
                         }}
                     />
-                }
+                </div>
+            ))}
+            <div className="flex" id="add-button-div">
+                <Button
+                    className="bg-[#282147] flex-1"
+                    onClick={() => {
+                        addLocation(
+                            {
+                                name: "",
+                                address: "",
+                            }
+                        )
+                    }}
+                >
+                    Add
+                </Button>
             </div>
         </div>
     );
