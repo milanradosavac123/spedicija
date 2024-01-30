@@ -10,7 +10,7 @@ import { StandardSegmentedControl } from "@/components/StandardSegmentedControl"
 import Header from "@/components/Header";
 import { useState } from "react";
 import { IconPencil, IconPlus } from "@tabler/icons-react";
-import { FormControl } from "react-bootstrap";
+import { Dropdown, FormControl } from "react-bootstrap";
 
 interface Location {
     name: string,
@@ -52,7 +52,7 @@ export default function NewTourPage() {
 
     const [comment, setComment] = useState("");
 
-    const [openedDropDownIndex, setOpenedDropDownIndex] = useState<number | undefined>()
+    const [openedDropDown, setOpenedDropDown] = useState(false)
 
     function editLocationName(index: number, name: string) {
         setLocationsList((oldLocationsList) => {
@@ -117,6 +117,7 @@ export default function NewTourPage() {
             <div className="grid grid-cols-3 gap-x-5 ">
                 {locationsList.map((value, i) => (
                     <OutlinedTextField
+                        key={i}
                         isLabelEditable={true}
                         label={value.name}
                         placeholder={`Add your ${value.name} here...`}
@@ -128,15 +129,21 @@ export default function NewTourPage() {
                             editLocationName(i, s);
                         }}
                         rightSection={
-                            <ActionIcon
-                                variant="outlined"
-                                color="black"
-                                onClick={(e) => {
-                                    
-                                }}
-                            >
-                                <IconPlus style={{ width: rem(18), height: rem(18), color: "black" }} stroke={1.5} />
-                            </ActionIcon>
+                            <div style={{ position: 'relative' }}>
+                                <ActionIcon onClick={() => setOpenedDropDown(!openedDropDown)} pt={2} fw={500} fz="xs">
+                                    <IconPlus style={{ width: rem(18), height: rem(18), color: '#282147' }} stroke={1.5} />
+                                </ActionIcon>
+                                {openedDropDown && (
+                                    <Dropdown show={true} style={{ position: 'absolute', top: '100%', left: 0 }}>
+                                        <Dropdown.Menu>
+                                            {/* Add your dropdown items here */}
+                                            <Dropdown.Item>Item 1</Dropdown.Item>
+                                            <Dropdown.Item>Item 2</Dropdown.Item>
+                                            {/* ... */}
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                                )}
+                            </div>
                         }
                     />
                 ))}
