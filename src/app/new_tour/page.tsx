@@ -9,7 +9,7 @@ import OutlinedTextField from "@/components/OutlinedTextField";
 import { StandardSegmentedControl } from "@/components/StandardSegmentedControl";
 import Header from "@/components/Header";
 import { useState } from "react";
-import { IconCheck, IconPencil, IconPlus, IconTicketOff } from "@tabler/icons-react";
+import { IconCheck, IconHome, IconPencil, IconPlus, IconTicketOff } from "@tabler/icons-react";
 import { FormControl } from "react-bootstrap";
 import { IconX } from "@tabler/icons-react";
 
@@ -33,6 +33,7 @@ export default function NewTourPage() {
 
     const [shouldShowAddNewTaskTextField, setShouldShowAddNewTaskTextField] = useState(false);
 
+
     const [locationsList, setLocationsList] = useState<Location[]>(
         [
             {
@@ -52,6 +53,12 @@ export default function NewTourPage() {
     const [comment, setComment] = useState("");
 
     const [openedDropDownIndex, setOpenedDropDownIndex] = useState<number | undefined>(undefined);
+
+    const [areTasksAddedIndexes, setAreTasksAddedIndexes] = useState<number[]>([]);
+
+    function addAreTasksAddedIndex(index: number) {
+        setAreTasksAddedIndexes([...areTasksAddedIndexes, index])
+    }
 
     function editLocationName(index: number, name: string) {
         setLocationsList((oldLocationsList) => {
@@ -130,7 +137,8 @@ export default function NewTourPage() {
                 {locationsList.map((value, i) => (
                     <div key={i} style={{ position: 'relative' }}>
                         <OutlinedTextField
-                            className="min-w-[32vw] max-w-[32vw]"
+                            className="min-w-[20vw] max-w-[32vw]"
+                            id="location-text-field"
                             shouldBottomBeRounded={!(openedDropDownIndex === i && openedDropDownIndex !== undefined)}
                             isLabelEditable={true}
                             label={value.name}
@@ -143,20 +151,68 @@ export default function NewTourPage() {
                                 editLocationName(i, s);
                             }}
                             rightSection={
-                                <ActionIcon onClick={() => {
-                                    if (openedDropDownIndex === undefined) {
-                                        setOpenedDropDownIndex(i);
-                                    } else setOpenedDropDownIndex(undefined);
-                                }} pt={2} fw={500} fz="xs">
-                                    <IconPlus style={{ width: rem(18), height: rem(18), color: '#282147' }} stroke={1.5} />
+                                <ActionIcon
+                                    onClick={
+                                        !areTasksAddedIndexes.includes(i) ? (() => {
+                                            if (openedDropDownIndex === undefined) {
+                                                setOpenedDropDownIndex(i);
+                                            } else setOpenedDropDownIndex(undefined);
+                                        }) : undefined
+                                    }
+                                    onMouseEnter={areTasksAddedIndexes.includes(i) ? (() => {
+                                        if (openedDropDownIndex === undefined) {
+                                            setOpenedDropDownIndex(i);
+                                        } else setOpenedDropDownIndex(undefined);
+                                    }) : undefined}
+                                    onMouseLeave={areTasksAddedIndexes.includes(i) ? (() => {
+                                        if (openedDropDownIndex === undefined) {
+                                            setOpenedDropDownIndex(i);
+                                        } else setOpenedDropDownIndex(undefined);
+                                    }) : undefined}
+                                pt={2} fw={500} fz="xs">
+                                    {!areTasksAddedIndexes.includes(i)
+                                        ?
+                                        <IconPlus style={{ width: rem(18), height: rem(18), color: '#282147' }} stroke={1.5} />
+                                        :
+                                        <IconHome style={{ width: rem(18), height: rem(18), color: "#282147" }} stroke={1.5} />
+                                    }
                                 </ActionIcon>
                             }
                         />
-                        {openedDropDownIndex !== undefined && openedDropDownIndex === i && <div className="min-w-[32vw] max-w-[32vw] bg-white p-5 border-solid border-2 border-b-[#282147] border-r-[#282147] border-l-[#282147] border-t-[#282147] rounded-b-[10px]" style={{ position: "absolute", zIndex: "999", top: "73px", left: "0px" }}>
+                        {openedDropDownIndex !== undefined && openedDropDownIndex === i && <div className={`min-w-[27.73vw] max-w-[32vw] bg-white p-2 border-solid border-2 border-b-[#282147] border-r-[#282147] border-l-[#282147] border-t-[#282147] rounded-b-[10px]`} style={{ position: "absolute", zIndex: "999", top: "73px", left: "0px" }}>
+                            {!areTasksAddedIndexes.includes(i) && <div className="flex flex-auto justify-end">
+                                <ActionIcon disabled={value.tasks === undefined} onClick={() => {
+                                    addAreTasksAddedIndex(i);
+                                    setOpenedDropDownIndex(undefined);
+                                    setCurrentTaskText("");
+                                }}>
+                                    <IconCheck style={{ width: rem(18), height: rem(18), color: "black" }} stroke={1.5} />
+                                </ActionIcon>
+                                <ActionIcon onClick={() => {
+                                    setLocationsList((oldLocationsList) => {
+                                        const newLocationsList = oldLocationsList.map((location, j) => {
+                                            if (i === j && location.tasks) {
+                                                return {
+                                                    ...location,
+                                                    tasks: undefined,
+                                                };
+                                            }
+                                            return location;
+                                        });
+
+                                        return newLocationsList;
+                                    });
+                                    setCurrentTaskText("");
+                                    setShouldShowAddNewTaskTextField(false);
+                                    setOpenedDropDownIndex(undefined);
+                                }}>
+                                    <IconX style={{ width: rem(18), height: rem(18), color: "black" }} stroke={1.5} />
+                                </ActionIcon>
+                            </div>}
                             {value.tasks && value.tasks.map((task, index) => (
-                                <div className="flex flex-auto justify-center items-center">
+                                <div className="flex flex-auto justify-center items-center p-3">
                                     <h1>{task.text}</h1>
-                                    <ActionIcon onClick={() => {
+                                    {!areTasksAddedIndexes.includes(i) && <ActionIcon onClick={() => {
                                         setLocationsList((oldLocationsList) => {
                                             const newLocationsList = oldLocationsList.map((location, j) => {
                                                 if (i === j && location.tasks) {
@@ -172,10 +228,10 @@ export default function NewTourPage() {
                                         });
                                     }}>
                                         <IconX style={{ width: rem(18), height: rem(18), color: "black" }} stroke={1.5} />
-                                    </ActionIcon>
+                                    </ActionIcon>}
                                 </div>
                             ))}
-                            {shouldShowAddNewTaskTextField && <div className="flex flex-auto justify-center items-center">
+                            {shouldShowAddNewTaskTextField && <div className="flex flex-auto justify-center items-center p-3">
                                 <OutlinedTextField
                                     label="Task"
                                     placeholder="Add your Task here..."
@@ -201,7 +257,7 @@ export default function NewTourPage() {
                                     <IconX style={{ width: rem(18), height: rem(18), color: "black" }} stroke={1.5} />
                                 </ActionIcon>
                             </div>}
-                            <div className="flex flex-auto justify-center">
+                            {!areTasksAddedIndexes.includes(i) && <div className="flex flex-auto justify-center">
                                 <Button
                                     className="bg-[#282147] max-w-fit"
                                     pr={12}
@@ -212,24 +268,29 @@ export default function NewTourPage() {
                                 >
                                     Add New Task
                                 </Button>
-                            </div>
+                            </div>}
                         </div>}
                     </div>
                 ))}
                 {shouldShowAddNewTabButton &&
                     <div className="flex flex-col flex-auto" >
                         <Group justify="space-between" mb={5}>
-                            <Text className="text-white select-none" component="label" htmlFor="outlined-text-field" size="sm" fw={500} >
-                                dasiopdkasopidaksopdkaspd
-                            </Text>
+                            <FormControl disabled={true} value={"fidj[aofdjsodisfdosiopsf"} className="text-white no-select" size="sm" />
 
-                            <ActionIcon className="cursor-default" onClick={() => { }} pt={2} fw={500} fz="xs">
-                                <IconPencil style={{ width: rem(18), height: rem(18), color: "" }} stroke={1.5} />
-                            </ActionIcon>
+                            <div>
+                                <ActionIcon className="cursor-default" pt={2} fw={500} fz="xs">
+                                    <IconPencil style={{ width: rem(18), height: rem(18), color: "" }} stroke={1.5} />
+                                </ActionIcon>
+                                <ActionIcon className="cursor-default">
+                                    <IconCheck style={{ width: rem(18), height: rem(18), color: "" }} stroke={1.5} />
+                                </ActionIcon>
+                                <ActionIcon className="cursor-default">
+                                    <IconX style={{ width: rem(18), height: rem(18), color: "" }} stroke={1.5} />
+                                </ActionIcon>
+                            </div>
                         </Group>
                         <Button
-                            className="bg-[#282147] min-w-[30vw]"
-                            id="add-button"
+                            className="bg-[#282147] min-w-[20vw]"
                             rightSection={
                                 <Image
                                     src={IconTabNew}

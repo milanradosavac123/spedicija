@@ -4,7 +4,8 @@ import { IconCheck, IconPencil, IconX } from '@tabler/icons-react';
 import { FormControl } from 'react-bootstrap';
 
 interface OutlinedTextFieldProps {
-	className?: string
+	className?: string;
+	id?: string;
 	isLabelEditable?: boolean;
 	shouldBottomBeRounded?: boolean
 	label: string;
@@ -17,7 +18,7 @@ interface OutlinedTextFieldProps {
 	onLabelChange?: (value: string) => void;
 }
 
-export default function OutlinedTextField({ className, isLabelEditable = false, shouldBottomBeRounded = true, label, placeholder, value, leftSection, rightSectionWidth, rightSection, onChange, onLabelChange = undefined }: OutlinedTextFieldProps) {
+export default function OutlinedTextField({ className, id = undefined, isLabelEditable = false, shouldBottomBeRounded = true, label, placeholder, value, leftSection, rightSectionWidth, rightSection, onChange, onLabelChange = undefined }: OutlinedTextFieldProps) {
 
 	const [isPencilClicked, setIsPencilClicked] = useState(false);
 
@@ -51,7 +52,7 @@ export default function OutlinedTextField({ className, isLabelEditable = false, 
 			<TextInput
 				className={`mb-4 border-solid border-2 border-[#282147] rounded-t-[10px] ${shouldBottomBeRounded ? "rounded-b-[10px]" : ""} overflow-hidden`}
 				placeholder={placeholder}
-				id="outlined-text-field"
+				id={id !== undefined ? id : "outlined-text-field"}
 				value={value}
 				onChange={(event) => onChange(event.currentTarget.value)}
 				variant="outline"

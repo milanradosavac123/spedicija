@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import '@mantine/core/styles.css';
 import "./globals.css";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
+import { StandardNavBar } from "@/components/StandardNavBar";
+import React from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,7 +25,10 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <MantineProvider>
-          {children}
+          <div className="grid grid-cols-8">
+            <StandardNavBar />
+            <div className="col-span-7">{children}</div>
+          </div>
         </MantineProvider>
       </body>
     </html>
