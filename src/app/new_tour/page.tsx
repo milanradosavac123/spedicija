@@ -1,6 +1,6 @@
 "use client";
 
-import { ActionIcon, Button, Group, Menu, Text, rem } from "@mantine/core";
+import { ActionIcon, Button, Group, NumberFormatterFactory, Text, rem } from "@mantine/core";
 import IconBackToTab from "#/public/material-symbols_back-to-tab.svg";
 import IconTabNew from "#/public/fluent_tab-new-24-filled.svg";
 import Image from "next/image";
@@ -9,22 +9,19 @@ import OutlinedTextField from "@/components/OutlinedTextField";
 import { StandardSegmentedControl } from "@/components/StandardSegmentedControl";
 import Header from "@/components/Header";
 import { useState } from "react";
-import { IconPencil, IconPlus } from "@tabler/icons-react";
-import { Dropdown, FormControl } from "react-bootstrap";
-
-interface Location {
-    name: string,
-    address: string
-}
+import { IconCheck, IconPencil, IconPlus, IconTicketOff } from "@tabler/icons-react";
+import { FormControl } from "react-bootstrap";
+import { IconX } from "@tabler/icons-react";
 
 interface Task {
     text: string,
     isDone: boolean
 }
 
-interface LocationTasks {
-    locationName: string,
-    tasks: Task[]
+interface Location {
+    name: string,
+    address: string,
+    tasks?: Task[]
 }
 
 export default function NewTourPage() {
@@ -33,6 +30,9 @@ export default function NewTourPage() {
     const [vehicleName, setVehicleName] = useState("");
 
     const [shouldShowAddNewTabButton, setShouldShowAddNewTabButton] = useState(true);
+
+    const [shouldShowAddNewTaskTextField, setShouldShowAddNewTaskTextField] = useState(false);
+
     const [locationsList, setLocationsList] = useState<Location[]>(
         [
             {
@@ -46,13 +46,12 @@ export default function NewTourPage() {
         ]
     );
     const [newLocationName, setNewLocationName] = useState("");
-    const [shouldShowAddNewCommentButton, setShouldShowAddNewCommentButton] = useState(true);
 
-    const [tasksList, setTasksList] = useState<LocationTasks[]>([]);
+    const [currentTaskText, setCurrentTaskText] = useState("")
 
     const [comment, setComment] = useState("");
 
-    const [openedDropDown, setOpenedDropDown] = useState(false)
+    const [openedDropDownIndex, setOpenedDropDownIndex] = useState<number | undefined>(undefined);
 
     function editLocationName(index: number, name: string) {
         setLocationsList((oldLocationsList) => {
@@ -72,6 +71,19 @@ export default function NewTourPage() {
 
     function addLocation(location: Location) {
         setLocationsList([...locationsList, location]);
+    }
+
+    function addTask(locationIndex: number, task: Task) {
+        setLocationsList((oldLocationsList) => {
+            const newLocationsList = [...oldLocationsList];
+            const tasks = newLocationsList[locationIndex]?.tasks ?? [];
+            newLocationsList[locationIndex] = {
+                ...newLocationsList[locationIndex],
+                tasks: [...tasks, task],
+            };
+
+            return newLocationsList;
+        });
     }
 
     return (
@@ -116,36 +128,93 @@ export default function NewTourPage() {
             </div>
             <div className="grid grid-cols-3 gap-x-5 ">
                 {locationsList.map((value, i) => (
-                    <OutlinedTextField
-                        key={i}
-                        isLabelEditable={true}
-                        label={value.name}
-                        placeholder={`Add your ${value.name} here...`}
-                        value={value.address}
-                        onChange={(s) => {
-                            setLocationAddress(i, s);
-                        }}
-                        onLabelChange={(s) => {
-                            editLocationName(i, s);
-                        }}
-                        rightSection={
-                            <div style={{ position: 'relative' }}>
-                                <ActionIcon onClick={() => setOpenedDropDown(!openedDropDown)} pt={2} fw={500} fz="xs">
+                    <div key={i} style={{ position: 'relative' }}>
+                        <OutlinedTextField
+                            className="min-w-[32vw] max-w-[32vw]"
+                            shouldBottomBeRounded={!(openedDropDownIndex === i && openedDropDownIndex !== undefined)}
+                            isLabelEditable={true}
+                            label={value.name}
+                            placeholder={`Add your ${value.name} here...`}
+                            value={value.address}
+                            onChange={(s) => {
+                                setLocationAddress(i, s);
+                            }}
+                            onLabelChange={(s) => {
+                                editLocationName(i, s);
+                            }}
+                            rightSection={
+                                <ActionIcon onClick={() => {
+                                    if (openedDropDownIndex === undefined) {
+                                        setOpenedDropDownIndex(i);
+                                    } else setOpenedDropDownIndex(undefined);
+                                }} pt={2} fw={500} fz="xs">
                                     <IconPlus style={{ width: rem(18), height: rem(18), color: '#282147' }} stroke={1.5} />
                                 </ActionIcon>
-                                {openedDropDown && (
-                                    <Dropdown show={true} style={{ position: 'absolute', top: '100%', left: 0 }}>
-                                        <Dropdown.Menu>
-                                            {/* Add your dropdown items here */}
-                                            <Dropdown.Item>Item 1</Dropdown.Item>
-                                            <Dropdown.Item>Item 2</Dropdown.Item>
-                                            {/* ... */}
-                                        </Dropdown.Menu>
-                                    </Dropdown>
-                                )}
+                            }
+                        />
+                        {openedDropDownIndex !== undefined && openedDropDownIndex === i && <div className="min-w-[32vw] max-w-[32vw] bg-white p-5 border-solid border-2 border-b-[#282147] border-r-[#282147] border-l-[#282147] border-t-[#282147] rounded-b-[10px]" style={{ position: "absolute", zIndex: "999", top: "73px", left: "0px" }}>
+                            {value.tasks && value.tasks.map((task, index) => (
+                                <div className="flex flex-auto justify-center items-center">
+                                    <h1>{task.text}</h1>
+                                    <ActionIcon onClick={() => {
+                                        setLocationsList((oldLocationsList) => {
+                                            const newLocationsList = oldLocationsList.map((location, j) => {
+                                                if (i === j && location.tasks) {
+                                                    return {
+                                                        ...location,
+                                                        tasks: [...location.tasks.slice(0, index), ...location.tasks.slice(index + 1)],
+                                                    };
+                                                }
+                                                return location;
+                                            });
+
+                                            return newLocationsList;
+                                        });
+                                    }}>
+                                        <IconX style={{ width: rem(18), height: rem(18), color: "black" }} stroke={1.5} />
+                                    </ActionIcon>
+                                </div>
+                            ))}
+                            {shouldShowAddNewTaskTextField && <div className="flex flex-auto justify-center items-center">
+                                <OutlinedTextField
+                                    label="Task"
+                                    placeholder="Add your Task here..."
+                                    value={currentTaskText}
+                                    onChange={(s) => {
+                                        setCurrentTaskText(s);
+                                    }}
+                                />
+                                <ActionIcon onClick={() => {
+                                    addTask(i, {
+                                        text: currentTaskText,
+                                        isDone: false
+                                    } as Task)
+                                    setCurrentTaskText("");
+                                    setShouldShowAddNewTaskTextField(false);
+                                }}>
+                                    <IconCheck style={{ width: rem(18), height: rem(18), color: "black" }} stroke={1.5} />
+                                </ActionIcon>
+                                <ActionIcon onClick={() => {
+                                    setCurrentTaskText("");
+                                    setShouldShowAddNewTaskTextField(false);
+                                }}>
+                                    <IconX style={{ width: rem(18), height: rem(18), color: "black" }} stroke={1.5} />
+                                </ActionIcon>
+                            </div>}
+                            <div className="flex flex-auto justify-center">
+                                <Button
+                                    className="bg-[#282147] max-w-fit"
+                                    pr={12}
+                                    onClick={() => {
+                                        setCurrentTaskText("");
+                                        setShouldShowAddNewTaskTextField(!shouldShowAddNewTaskTextField);
+                                    }}
+                                >
+                                    Add New Task
+                                </Button>
                             </div>
-                        }
-                    />
+                        </div>}
+                    </div>
                 ))}
                 {shouldShowAddNewTabButton &&
                     <div className="flex flex-col flex-auto" >
@@ -202,39 +271,21 @@ export default function NewTourPage() {
                     />
                 }
             </div>
-            {shouldShowAddNewCommentButton &&
-                <Button
-                    className="bg-[#282147] min-w-[32vw]"
-                    rightSection={
-                        <Image
-                            src={IconTabNew}
-                            alt="add new comment"
-                        />
-                    }
-                    onClick={() => {
-                        setShouldShowAddNewCommentButton(false);
+            <div className="flex flex-col flex-auto">
+                <Text className="text-[#282147] py-1" component="label" htmlFor="comment-text-area" size="sm" fw={500} >
+                    Comment
+                </Text>
+                <FormControl
+                    className="max-w-[32vw] min-h-fit mb-4 border-solid border-2 border-[#282147] rounded-[10px] p-2"
+                    value={comment}
+                    placeholder="Add your Comment here..."
+                    id="comment-text-area"
+                    as="textarea"
+                    onChange={(e) => {
+                        setComment(e.target.value);
                     }}
-                >
-                    Add New Comment
-                </Button>
-            }
-            {!shouldShowAddNewCommentButton &&
-                <div className="flex flex-col flex-auto">
-                    <Text className="text-[#282147]" component="label" htmlFor="comment-text-area" size="sm" fw={500} >
-                        Comment
-                    </Text>
-                    <FormControl
-                        className="max-w-[32vw] min-h-fit mb-4 border-solid border-2 border-[#282147] rounded-[10px] p-2"
-                        value={comment}
-                        placeholder="Add your Comment here..."
-                        id="comment-text-area"
-                        as="textarea"
-                        onChange={(e) => {
-                            setComment(e.target.value);
-                        }}
-                    />
-                </div>
-            }
+                />
+            </div>
         </div>
     );
 }
