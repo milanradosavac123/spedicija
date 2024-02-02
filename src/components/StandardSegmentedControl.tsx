@@ -8,7 +8,7 @@ export function StandardSegmentedControl() {
             className="bg-gray-400 max-w-fit"
             radius="xl"
             size="md"
-            data={["Current Tours", "Upcoming Tours", "Past tours"]}
+            data={["Active Tours", "Upcoming Tours", "Completed tours"]}
             classNames={styles}
         />
     );

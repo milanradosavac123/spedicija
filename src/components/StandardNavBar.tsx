@@ -49,7 +49,7 @@ export function StandardNavBar() {
     <nav className="bg-[#2A2830] min-h-[100vh] p-[1rem] flex flex-col justify-between">
 
       <div>
-        <div>
+        <div className="flex flex-row">
           <Image
             src={IconTruckFilled}
             alt="truck"

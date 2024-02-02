@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { ActionIcon, Group, TextInput, rem } from '@mantine/core';
 import { IconCheck, IconPencil, IconX } from '@tabler/icons-react';
 import { FormControl } from 'react-bootstrap';
@@ -16,9 +16,11 @@ interface OutlinedTextFieldProps {
 	rightSection?: React.ReactNode;
 	onChange: (value: string) => void;
 	onLabelChange?: (value: string) => void;
+	onLabelEditDismissed?: () => void;
+	onMouseEnter?: () => void;
 }
 
-export default function OutlinedTextField({ className, id = undefined, isLabelEditable = false, shouldBottomBeRounded = true, label, placeholder, value, leftSection, rightSectionWidth, rightSection, onChange, onLabelChange = undefined }: OutlinedTextFieldProps) {
+export default function OutlinedTextField({ className, id, isLabelEditable = false, shouldBottomBeRounded = true, label, placeholder, value, leftSection, rightSectionWidth, rightSection, onChange, onLabelChange, onLabelEditDismissed, onMouseEnter }: OutlinedTextFieldProps) {
 
 	const [isPencilClicked, setIsPencilClicked] = useState(false);
 
@@ -27,12 +29,14 @@ export default function OutlinedTextField({ className, id = undefined, isLabelEd
 	return (
 		<div className={`flex flex-col flex-auto ${className}`} >
 			<Group justify="space-between" mb={5}>
-				<FormControl disabled={!isPencilClicked} value={labelText} className={`text-[#282147] ${isPencilClicked ? "border-solid border-2 border-[#282147] pl-1" : ""}`} size="sm" onChange={(e) => {
+				<FormControl disabled={!isPencilClicked} value={labelText} className={`text-[#282147] ${isPencilClicked ? "border-solid border-2 border-b-[#282147] pl-1" : ""}`} size="sm" onChange={(e) => {
 					setLabelText(e.currentTarget.value);
 				}} />
 
 				<div>
-					{isLabelEditable && !isPencilClicked && <ActionIcon onClick={() => { setIsPencilClicked(!isPencilClicked); }} pt={2} fw={500} fz="xs">
+					{isLabelEditable && !isPencilClicked && <ActionIcon onClick={() => {
+						setIsPencilClicked(!isPencilClicked);
+					}} pt={2} fw={500} fz="xs">
 						<IconPencil style={{ width: rem(18), height: rem(18), color: "#282147" }} stroke={1.5} />
 					</ActionIcon>}
 					{isLabelEditable && isPencilClicked && <ActionIcon onClick={() => {
@@ -44,12 +48,14 @@ export default function OutlinedTextField({ className, id = undefined, isLabelEd
 					{isLabelEditable && isPencilClicked && <ActionIcon onClick={() => {
 						setLabelText(label);
 						setIsPencilClicked(false);
+						onLabelEditDismissed && onLabelEditDismissed();
 					}}>
 						<IconX style={{ width: rem(18), height: rem(18), color: "black" }} stroke={1.5} />
 					</ActionIcon>}
 				</div>
 			</Group>
 			<TextInput
+				onMouseEnter={onMouseEnter}
 				className={`mb-4 border-solid border-2 border-[#282147] rounded-t-[10px] ${shouldBottomBeRounded ? "rounded-b-[10px]" : ""} overflow-hidden`}
 				placeholder={placeholder}
 				id={id !== undefined ? id : "outlined-text-field"}
