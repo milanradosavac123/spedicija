@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Menu, Text, rem } from '@mantine/core';
+import { Button, Menu, rem } from '@mantine/core';
 import { IconBellFilled, IconChevronDown } from '@tabler/icons-react';
 
 interface AccountDropdownProps {

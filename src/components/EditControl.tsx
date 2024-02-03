@@ -1,5 +1,7 @@
-import { ActionIcon, rem } from "@mantine/core";
-import { IconCheck, IconPencil, IconX } from "@tabler/icons-react";
+import XIconButton from "./XIconButton";
+import CheckIconButton from "./CheckIconButton";
+import PencilIconButton from "./PencilIconButton";
+import SaveDismissIconButtonGroup from "./SaveDismissIconButtonGroup";
 
 interface EditControlProps {
     isEditing: boolean,
@@ -17,25 +19,33 @@ export default function EditControl({ isEditing, colour, enabled = true, iconSiz
 
     return (
         <div className="flex flex-row items-center">
-            {!isEditing && <ActionIcon onClick={() => {
-                enabled && onEditingChange && onEditingChange(true);
-                enabled && onEdit && onEdit();
-            }} pt={2} fw={500} fz="xs">
-                <IconPencil style={{ width: rem(iconSize), height: rem(iconSize), color: colour ? colour : "#282147" }} stroke={1.5} />
-            </ActionIcon>}
+            {!isEditing && enabled &&
+                <PencilIconButton
+                    iconSize={iconSize}
+                    colour={colour}
+                    onClick={() => {
+                        enabled && onEditingChange && onEditingChange(true);
+                        enabled && onEdit && onEdit();
+                    }}
+                />
+            }
             {children !== undefined && children}
-            {isEditing && <ActionIcon onClick={() => {
-                onEditingChange && onEditingChange(false);
-                onSave();
-            }}>
-                <IconCheck style={{ width: rem(iconSize), height: rem(iconSize), color: colour ? colour : "#00ff00" }} stroke={1.5} />
-            </ActionIcon>}
-            {isEditing && <ActionIcon onClick={() => {
-                onEditingChange && onEditingChange(false);
-                onDismiss();
-            }}>
-                <IconX style={{ width: rem(iconSize), height: rem(iconSize), color: colour ? colour : "#ff0000" }} stroke={1.5} />
-            </ActionIcon>}
+            {isEditing &&
+                <>
+                    <SaveDismissIconButtonGroup
+                        iconSize={iconSize}
+                        colour={colour}
+                        onSaveClick={() => {
+                            onEditingChange && onEditingChange(false);
+                            onSave();
+                        }}
+                        onDismissClick={() => {
+                            onEditingChange && onEditingChange(false);
+                            onDismiss();
+                        }}
+                    />
+                </>
+            }
         </div>
     );
 }

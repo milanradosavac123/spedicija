@@ -4,58 +4,67 @@ import { AccountDropdown } from "./AccountDropdown";
 import { SearchField } from "./SearchField";
 import chat from "#/public/chat.svg";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FormControl } from "react-bootstrap";
 import EditControl from "./EditControl";
 
 interface HeaderProps {
-    header: string,
+    headerContent: string,
     editable?: boolean,
     shouldShowSearchField?: boolean,
-    onHeaderTextChanged?: (value: string) => void,
+    onHeaderContentChanged?: (value: string) => void,
 }
 
-export default function Header({ header, editable = false, shouldShowSearchField = true, onHeaderTextChanged }: HeaderProps) {
-    
-    const [isPencilClicked, setIsPencilClicked] = useState(false);
-    
-    const [headerText, setHeaderText] = useState(header);
+export default function Header({ headerContent, editable = false, shouldShowSearchField = true, onHeaderContentChanged }: HeaderProps) {
+
+    const [isEditing, setIsEditing] = useState(false);
+
+    const [headerText, setHeaderText] = useState(headerContent);
+
+    const editHeaderContentInputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        if (isEditing && editHeaderContentInputRef.current) {
+            editHeaderContentInputRef.current.focus();
+        }
+    }, [isEditing]);
 
     return (
         <div className="p-5 flex flex-row flex-auto justify-between">
             <EditControl
-                isEditing={isPencilClicked}
+                isEditing={isEditing}
                 enabled={editable}
                 iconSize={30}
                 onDismiss={() => {
-                    setHeaderText(header);
+                    setHeaderText(headerContent);
                 }}
                 onSave={() => {
-                    onHeaderTextChanged && onHeaderTextChanged(headerText);
+                    onHeaderContentChanged && onHeaderContentChanged(headerText);
                 }}
                 onEditingChange={(newValue) => {
-                    setIsPencilClicked(newValue);
+                    setIsEditing(newValue);
                 }}
             >
-                {!isPencilClicked && <h1 className="text-gray-500" >{header}</h1>}
-                {isPencilClicked && 
-                    <FormControl 
-                        disabled={!isPencilClicked} 
-                        value={headerText} 
-                        className={`text-gray-500 font-[650] text-[28px] border-solid border-2 border-b-gray-500`} 
-                        size="sm" 
+                {!isEditing && <h1 className="text-gray-500" >{headerContent}</h1>}
+                {isEditing &&
+                    <FormControl
+                        ref={editHeaderContentInputRef}
+                        disabled={!isEditing}
+                        value={headerText}
+                        className={`text-gray-500 font-[650] text-[28px] border-solid border-2 border-b-gray-500`}
+                        size="sm"
                         onChange={(e) => {
                             setHeaderText(e.currentTarget.value);
-				        }}
+                        }}
                         onKeyDown={(e) => {
                             if (e.key === "Enter") {
-                                onHeaderTextChanged && onHeaderTextChanged(headerText);
-                                setIsPencilClicked(false);
+                                onHeaderContentChanged && onHeaderContentChanged(headerText);
+                                setIsEditing(false);
                             } else if (e.key === "Escape") {
-                                setHeaderText(header);
-                                setIsPencilClicked(false);
+                                setHeaderText(headerContent);
+                                setIsEditing(false);
                             }
-                        }} 
+                        }}
                     />
                 }
             </EditControl>

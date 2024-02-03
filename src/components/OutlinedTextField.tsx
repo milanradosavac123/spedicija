@@ -1,5 +1,5 @@
 import React, { RefObject, useEffect, useRef, useState } from 'react';
-import { Group, TextInput, rem } from '@mantine/core';
+import { Group, TextInput } from '@mantine/core';
 import { FormControl } from 'react-bootstrap';
 import EditControl from './EditControl';
 
@@ -23,46 +23,47 @@ interface OutlinedTextFieldProps {
 
 export default function OutlinedTextField({ ref, className, id, isLabelEditable = false, shouldBottomBeRounded = true, label, placeholder, value, leftSection, rightSectionWidth, rightSection, onChange, onLabelChange, onLabelEditDismissed, onMouseEnter }: OutlinedTextFieldProps) {
 
-	const [isPencilClicked, setIsPencilClicked] = useState(false);
+	const [isEditing, setIsEditing] = useState(false);
 
 	const [labelText, setLabelText] = useState(label);
 
 	const editLabelInputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
-        if (isPencilClicked && editLabelInputRef.current) {
+        if (isEditing && editLabelInputRef.current) {
           editLabelInputRef.current.focus();
 		  editLabelInputRef.current.select();
         }
-      }, [isPencilClicked]);
+      }, [isEditing]);
 
 	return (
 		<div className={`flex flex-col flex-auto ${className}`} >
-			<Group justify="space-between" mb={5}>
+			<Group justify="space-between" className="flex flex-row items-center">
 				<FormControl
+					as="input"
 					ref={editLabelInputRef}
 					type="text"
-					disabled={!isPencilClicked}
+					size="lg"
+					disabled={!isEditing}
 					value={labelText}
-					className={`text-[#282147] ${isPencilClicked ? "border-solid border-2 border-b-[#282147] pl-1" : ""}`}
-					size="sm"
+					className={`text-[#282147] ${isEditing ? "border-solid border-2 border-b-[#282147] pl-1" : ""} flex-1`}
 					onChange={(e) => {
 						setLabelText(e.currentTarget.value);
 					}}
 					onKeyDown={(e) => {
 						if (e.key === "Enter") {
 							isLabelEditable && onLabelChange && onLabelChange(labelText);
-							setIsPencilClicked(false);
+							setIsEditing(false);
 						} else if (e.key === "Escape") {
 							setLabelText(label);
 							onLabelEditDismissed && onLabelEditDismissed();
-							setIsPencilClicked(false);
+							setIsEditing(false);
 						}
 					}}
 				/>
 
 				{isLabelEditable && <EditControl
-					isEditing={isPencilClicked}
+					isEditing={isEditing}
 					onSave={() => {
 						isLabelEditable && onLabelChange && onLabelChange(labelText);
 					}}
@@ -71,7 +72,7 @@ export default function OutlinedTextField({ ref, className, id, isLabelEditable 
 						onLabelEditDismissed && onLabelEditDismissed();
 					}}
 					onEditingChange={(newValue) => {
-						setIsPencilClicked(newValue);
+						setIsEditing(newValue);
 					}}
 				/>}
 			</Group>

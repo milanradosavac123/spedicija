@@ -1,17 +1,17 @@
 "use client";
 
-import { ActionIcon, Button, Group, NumberFormatterFactory, Text, rem } from "@mantine/core";
-import IconBackToTab from "#/public/material-symbols_back-to-tab.svg";
+import { ActionIcon, Button, Group, Text, rem } from "@mantine/core";
 import IconTabNew from "#/public/fluent_tab-new-24-filled.svg";
 import Image from "next/image";
-import Link from "next/link";
 import OutlinedTextField from "@/components/OutlinedTextField";
-import { StandardSegmentedControl } from "@/components/StandardSegmentedControl";
 import Header from "@/components/Header";
-import { useRef, useState } from "react";
-import { IconCheck, IconHome, IconPencil, IconPlus, IconTicketOff } from "@tabler/icons-react";
+import { useState } from "react";
+import { IconCheck, IconHome, IconPlus } from "@tabler/icons-react";
 import { FormControl } from "react-bootstrap";
 import { IconX } from "@tabler/icons-react";
+import PencilIconButton from "@/components/PencilIconButton";
+import XIconButton from "@/components/XIconButton";
+import StandardLinkButton from "@/components/StandardLinkButton";
 
 interface Task {
     text: string,
@@ -57,7 +57,7 @@ export default function NewTourPage() {
     const [areTasksAddedIndexes, setAreTasksAddedIndexes] = useState<number[]>([]);
 
     const [headerText, setHeaderText] = useState("Tour name");
-    
+
     function addAreTasksAddedIndex(index: number) {
         setAreTasksAddedIndexes([...areTasksAddedIndexes, index])
     }
@@ -97,25 +97,16 @@ export default function NewTourPage() {
 
     return (
         <div className="p-5">
-            <Header header={headerText} shouldShowSearchField={false} editable={true} onHeaderTextChanged={(newText) => {
+            <Header headerContent={headerText} shouldShowSearchField={false} editable={true} onHeaderContentChanged={(newText) => {
                 setHeaderText(newText);
             }} />
             <hr />
             <div className="flex flex-row justify-end py-5">
-                <Button
-                    component={Link}
+                <StandardLinkButton 
                     href="/"
-                    className="bg-[#282147] max-w-fit flex-center"
-                    pr={12}
-                    rightSection={
-                        <Image
-                            src={IconBackToTab}
-                            alt="back"
-                        />
-                    }
-                >
-                    Back
-                </Button>
+                    text="Back" 
+                    forwardLink={false} 
+                />
             </div>
             <div className="flex flex-row flex-auto gap-5">
                 <OutlinedTextField
@@ -182,7 +173,7 @@ export default function NewTourPage() {
                                             setOpenedDropDownIndex(i);
                                         }
                                     }) : undefined}
-                                    pt={2} fw={500} fz="xs">
+                                >
                                     {!areTasksAddedIndexes.includes(i)
                                         ?
                                         <IconPlus style={{ width: rem(18), height: rem(18), color: '#282147' }} stroke={1.5} />
@@ -198,42 +189,42 @@ export default function NewTourPage() {
                                     <li className="flex flex-auto justify-between items-center px-3">
                                         <p className="break-all max-w-[20vw]" >{index + 1}. {task.text[0].toUpperCase()}{task.text.substring(1)}</p>
                                         <div>
-                                            <ActionIcon onClick={() => {
-                                                setShouldShowAddNewTaskTextField(true);
-                                                setCurrentTaskText(task.text);
-                                                setLocationsList((oldLocationsList) => {
-                                                    const newLocationsList = oldLocationsList.map((location, j) => {
-                                                        if (i === j && location.tasks) {
-                                                            return {
-                                                                ...location,
-                                                                tasks: [...location.tasks.slice(0, index), ...location.tasks.slice(index + 1)],
-                                                            };
-                                                        }
-                                                        return location;
-                                                    });
+                                            <PencilIconButton
+                                                onClick={() => {
+                                                    setShouldShowAddNewTaskTextField(true);
+                                                    setCurrentTaskText(task.text);
+                                                    setLocationsList((oldLocationsList) => {
+                                                        const newLocationsList = oldLocationsList.map((location, j) => {
+                                                            if (i === j && location.tasks) {
+                                                                return {
+                                                                    ...location,
+                                                                    tasks: [...location.tasks.slice(0, index), ...location.tasks.slice(index + 1)],
+                                                                };
+                                                            }
+                                                            return location;
+                                                        });
 
-                                                    return newLocationsList;
-                                                });
-                                            }}>
-                                                <IconPencil style={{ width: rem(18), height: rem(18), color: "black" }} stroke={1.5} />
-                                            </ActionIcon>
-                                            <ActionIcon onClick={() => {
-                                                setLocationsList((oldLocationsList) => {
-                                                    const newLocationsList = oldLocationsList.map((location, j) => {
-                                                        if (i === j && location.tasks) {
-                                                            return {
-                                                                ...location,
-                                                                tasks: [...location.tasks.slice(0, index), ...location.tasks.slice(index + 1)],
-                                                            };
-                                                        }
-                                                        return location;
+                                                        return newLocationsList;
                                                     });
+                                                }}
+                                            />
+                                            <XIconButton
+                                                onClick={() => {
+                                                    setLocationsList((oldLocationsList) => {
+                                                        const newLocationsList = oldLocationsList.map((location, j) => {
+                                                            if (i === j && location.tasks) {
+                                                                return {
+                                                                    ...location,
+                                                                    tasks: [...location.tasks.slice(0, index), ...location.tasks.slice(index + 1)],
+                                                                };
+                                                            }
+                                                            return location;
+                                                        });
 
-                                                    return newLocationsList;
-                                                });
-                                            }}>
-                                                <IconX style={{ width: rem(18), height: rem(18), color: "#ff0000" }} stroke={1.5} />
-                                            </ActionIcon>
+                                                        return newLocationsList;
+                                                    });
+                                                }}
+                                            />
                                         </div>
                                     </li>
                                 ))}
@@ -283,26 +274,14 @@ export default function NewTourPage() {
                 {shouldShowAddNewTabButton &&
                     <div className="flex flex-col flex-auto" >
                         <Group justify="space-between" mb={5}>
-                            <FormControl disabled={true} value={"fidj[aofdjsodisfdosiopsf"} className="text-white no-select" size="sm" />
-
-                            <div>
-                                <ActionIcon className="cursor-default" pt={2} fw={500} fz="xs">
-                                    <IconPencil style={{ width: rem(18), height: rem(18), color: "" }} stroke={1.5} />
-                                </ActionIcon>
-                                <ActionIcon className="cursor-default">
-                                    <IconCheck style={{ width: rem(18), height: rem(18), color: "" }} stroke={1.5} />
-                                </ActionIcon>
-                                <ActionIcon className="cursor-default">
-                                    <IconX style={{ width: rem(18), height: rem(18), color: "" }} stroke={1.5} />
-                                </ActionIcon>
-                            </div>
+                            <FormControl disabled={true} value="fidj[aofdjsodisfdosiopsf" className="text-white no-select" size="sm" />
                         </Group>
                         <Button
                             className="bg-[#282147] min-w-[20vw]"
                             rightSection={
                                 <Image
                                     src={IconTabNew}
-                                    alt="add new tab"
+                                    alt=""
                                 />
                             }
                             onClick={() => {
@@ -345,9 +324,8 @@ export default function NewTourPage() {
                     Comment
                 </Text>
                 <FormControl
-                    className="max-w-[85vw] min-w-[20vw] min-h-fit mb-4 border-solid border-2 border-[#282147] rounded-[10px] p-2"
+                    className="max-w-[100%] min-h-fit mb-4 border-solid border-2 border-[#282147] rounded-[10px] p-2 resize"
                     value={comment}
-                    style={{ resize: "both" }}
                     placeholder="Add your Comment here..."
                     id="comment-text-area"
                     as="textarea"
