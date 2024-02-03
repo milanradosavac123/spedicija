@@ -192,7 +192,7 @@ export default function NewTourPage() {
                                 </ActionIcon>
                             }
                         />
-                        {openedDropDownIndex !== undefined && openedDropDownIndex === i && <div className={`min-w-[100%] max-w-[100%] bg-white p-2 border-solid border-2 border-b-[#282147] border-r-[#282147] border-l-[#282147] border-t-[#282147] rounded-b-[10px]`} style={{ position: "absolute", zIndex: "999", top: "73px", left: "0px" }}>
+                        {openedDropDownIndex !== undefined && openedDropDownIndex === i && <div className={`min-w-[100%] max-w-[100%] bg-white p-2 border-solid border-2 border-[#282147] rounded-b-[10px]`} style={{ position: "absolute", zIndex: "999", top: "70px", left: "0px" }}>
                             <ul>
                                 {value.tasks && value.tasks.map((task, index) => (
                                     <li className="flex flex-auto justify-between items-center px-3">
@@ -232,7 +232,7 @@ export default function NewTourPage() {
                                                     return newLocationsList;
                                                 });
                                             }}>
-                                                <IconX style={{ width: rem(18), height: rem(18), color: "black" }} stroke={1.5} />
+                                                <IconX style={{ width: rem(18), height: rem(18), color: "#ff0000" }} stroke={1.5} />
                                             </ActionIcon>
                                         </div>
                                     </li>
@@ -256,13 +256,13 @@ export default function NewTourPage() {
                                     setShouldShowAddNewTaskTextField(false);
                                     addAreTasksAddedIndex(i);
                                 }}>
-                                    <IconCheck style={{ width: rem(18), height: rem(18), color: "black" }} stroke={1.5} />
+                                    <IconCheck style={{ width: rem(18), height: rem(18), color: "#00ff00" }} stroke={1.5} />
                                 </ActionIcon>
                                 <ActionIcon onClick={() => {
                                     setCurrentTaskText("");
                                     setShouldShowAddNewTaskTextField(false);
                                 }}>
-                                    <IconX style={{ width: rem(18), height: rem(18), color: "black" }} stroke={1.5} />
+                                    <IconX style={{ width: rem(18), height: rem(18), color: "#ff0000" }} stroke={1.5} />
                                 </ActionIcon>
                             </div>}
                             {!shouldShowAddNewTaskTextField && <div className="flex flex-auto justify-center">
