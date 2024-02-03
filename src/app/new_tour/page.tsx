@@ -8,7 +8,7 @@ import Link from "next/link";
 import OutlinedTextField from "@/components/OutlinedTextField";
 import { StandardSegmentedControl } from "@/components/StandardSegmentedControl";
 import Header from "@/components/Header";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { IconCheck, IconHome, IconPencil, IconPlus, IconTicketOff } from "@tabler/icons-react";
 import { FormControl } from "react-bootstrap";
 import { IconX } from "@tabler/icons-react";
@@ -56,6 +56,8 @@ export default function NewTourPage() {
 
     const [areTasksAddedIndexes, setAreTasksAddedIndexes] = useState<number[]>([]);
 
+    const [headerText, setHeaderText] = useState("Tour name");
+    
     function addAreTasksAddedIndex(index: number) {
         setAreTasksAddedIndexes([...areTasksAddedIndexes, index])
     }
@@ -95,7 +97,9 @@ export default function NewTourPage() {
 
     return (
         <div className="p-5">
-            <Header headerText="Tour Name" shouldShowSearchField={false} editable={true} />
+            <Header header={headerText} shouldShowSearchField={false} editable={true} onHeaderTextChanged={(newText) => {
+                setHeaderText(newText);
+            }} />
             <hr />
             <div className="flex flex-row justify-end py-5">
                 <Button
@@ -188,11 +192,11 @@ export default function NewTourPage() {
                                 </ActionIcon>
                             }
                         />
-                        {openedDropDownIndex !== undefined && openedDropDownIndex === i && <div className={`min-w-[27.73vw] max-w-[27.73vw] bg-white p-2 border-solid border-2 border-b-[#282147] border-r-[#282147] border-l-[#282147] border-t-[#282147] rounded-b-[10px]`} style={{ position: "absolute", zIndex: "999", top: "73px", left: "0px" }}>
+                        {openedDropDownIndex !== undefined && openedDropDownIndex === i && <div className={`min-w-[100%] max-w-[100%] bg-white p-2 border-solid border-2 border-b-[#282147] border-r-[#282147] border-l-[#282147] border-t-[#282147] rounded-b-[10px]`} style={{ position: "absolute", zIndex: "999", top: "73px", left: "0px" }}>
                             <ul>
                                 {value.tasks && value.tasks.map((task, index) => (
                                     <li className="flex flex-auto justify-between items-center px-3">
-                                        <p className="break-all max-w-[20vw]" >{index + 1}. {task.text}</p>
+                                        <p className="break-all max-w-[20vw]" >{index + 1}. {task.text[0].toUpperCase()}{task.text.substring(1)}</p>
                                         <div>
                                             <ActionIcon onClick={() => {
                                                 setShouldShowAddNewTaskTextField(true);
@@ -250,6 +254,7 @@ export default function NewTourPage() {
                                     } as Task)
                                     setCurrentTaskText("");
                                     setShouldShowAddNewTaskTextField(false);
+                                    addAreTasksAddedIndex(i);
                                 }}>
                                     <IconCheck style={{ width: rem(18), height: rem(18), color: "black" }} stroke={1.5} />
                                 </ActionIcon>
@@ -265,7 +270,6 @@ export default function NewTourPage() {
                                     className="bg-[#282147] max-w-fit"
                                     pr={12}
                                     onClick={() => {
-                                        addAreTasksAddedIndex(i);
                                         setCurrentTaskText("");
                                         setShouldShowAddNewTaskTextField(!shouldShowAddNewTaskTextField);
                                     }}
@@ -341,8 +345,9 @@ export default function NewTourPage() {
                     Comment
                 </Text>
                 <FormControl
-                    className="max-w-[32vw] min-h-fit mb-4 border-solid border-2 border-[#282147] rounded-[10px] p-2"
+                    className="max-w-[85vw] min-w-[20vw] min-h-fit mb-4 border-solid border-2 border-[#282147] rounded-[10px] p-2"
                     value={comment}
+                    style={{ resize: "both" }}
                     placeholder="Add your Comment here..."
                     id="comment-text-area"
                     as="textarea"

@@ -10,7 +10,7 @@ export default function Home() {
 
   return (
     <div className="p-5">
-      <Header headerText="Active Tours" />
+      <Header header="Active Tours" />
       <hr />
       <div className="flex flex-row justify-between py-5">
         <StandardSegmentedControl />

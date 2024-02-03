@@ -8,7 +8,7 @@ import { StandardSegmentedControl } from "@/components/StandardSegmentedControl"
 export default function RoutesPage() {
     return (
         <div className="p-5">
-            <Header headerText="Routes" />
+            <Header header="Routes" />
             <hr />
             <div className="flex flex-row justify-between py-5">
                 <StandardSegmentedControl />

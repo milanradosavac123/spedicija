@@ -1,9 +1,10 @@
-import React, { useRef, useState } from 'react';
-import { ActionIcon, Group, TextInput, rem } from '@mantine/core';
-import { IconCheck, IconPencil, IconX } from '@tabler/icons-react';
+import React, { RefObject, useEffect, useRef, useState } from 'react';
+import { Group, TextInput, rem } from '@mantine/core';
 import { FormControl } from 'react-bootstrap';
+import EditControl from './EditControl';
 
 interface OutlinedTextFieldProps {
+	ref?: RefObject<HTMLInputElement>
 	className?: string;
 	id?: string;
 	isLabelEditable?: boolean;
@@ -20,41 +21,63 @@ interface OutlinedTextFieldProps {
 	onMouseEnter?: () => void;
 }
 
-export default function OutlinedTextField({ className, id, isLabelEditable = false, shouldBottomBeRounded = true, label, placeholder, value, leftSection, rightSectionWidth, rightSection, onChange, onLabelChange, onLabelEditDismissed, onMouseEnter }: OutlinedTextFieldProps) {
+export default function OutlinedTextField({ ref, className, id, isLabelEditable = false, shouldBottomBeRounded = true, label, placeholder, value, leftSection, rightSectionWidth, rightSection, onChange, onLabelChange, onLabelEditDismissed, onMouseEnter }: OutlinedTextFieldProps) {
 
 	const [isPencilClicked, setIsPencilClicked] = useState(false);
 
 	const [labelText, setLabelText] = useState(label);
 
+	const editLabelInputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        if (isPencilClicked && editLabelInputRef.current) {
+          editLabelInputRef.current.focus();
+		  editLabelInputRef.current.select();
+        }
+      }, [isPencilClicked]);
+
 	return (
 		<div className={`flex flex-col flex-auto ${className}`} >
 			<Group justify="space-between" mb={5}>
-				<FormControl disabled={!isPencilClicked} value={labelText} className={`text-[#282147] ${isPencilClicked ? "border-solid border-2 border-b-[#282147] pl-1" : ""}`} size="sm" onChange={(e) => {
-					setLabelText(e.currentTarget.value);
-				}} />
+				<FormControl
+					ref={editLabelInputRef}
+					type="text"
+					disabled={!isPencilClicked}
+					value={labelText}
+					className={`text-[#282147] ${isPencilClicked ? "border-solid border-2 border-b-[#282147] pl-1" : ""}`}
+					size="sm"
+					onChange={(e) => {
+						setLabelText(e.currentTarget.value);
+					}}
+					onKeyDown={(e) => {
+						if (e.key === "Enter") {
+							isLabelEditable && onLabelChange && onLabelChange(labelText);
+							setIsPencilClicked(false);
+						} else if (e.key === "Escape") {
+							setLabelText(label);
+							onLabelEditDismissed && onLabelEditDismissed();
+							setIsPencilClicked(false);
+						}
+					}}
+				/>
 
-				<div>
-					{isLabelEditable && !isPencilClicked && <ActionIcon onClick={() => {
-						setIsPencilClicked(!isPencilClicked);
-					}} pt={2} fw={500} fz="xs">
-						<IconPencil style={{ width: rem(18), height: rem(18), color: "#282147" }} stroke={1.5} />
-					</ActionIcon>}
-					{isLabelEditable && isPencilClicked && <ActionIcon onClick={() => {
-						isLabelEditable && isPencilClicked && onLabelChange && onLabelChange(labelText);
-						setIsPencilClicked(false);
-					}}>
-						<IconCheck style={{ width: rem(18), height: rem(18), color: "black" }} stroke={1.5} />
-					</ActionIcon>}
-					{isLabelEditable && isPencilClicked && <ActionIcon onClick={() => {
+				{isLabelEditable && <EditControl
+					isEditing={isPencilClicked}
+					onSave={() => {
+						isLabelEditable && onLabelChange && onLabelChange(labelText);
+					}}
+					onDismiss={() => {
 						setLabelText(label);
-						setIsPencilClicked(false);
 						onLabelEditDismissed && onLabelEditDismissed();
-					}}>
-						<IconX style={{ width: rem(18), height: rem(18), color: "black" }} stroke={1.5} />
-					</ActionIcon>}
-				</div>
+					}}
+					onEditingChange={(newValue) => {
+						setIsPencilClicked(newValue);
+					}}
+				/>}
 			</Group>
 			<TextInput
+				autoFocus={true}
+				ref={ref}
 				onMouseEnter={onMouseEnter}
 				className={`mb-4 border-solid border-2 border-[#282147] rounded-t-[10px] ${shouldBottomBeRounded ? "rounded-b-[10px]" : ""} overflow-hidden`}
 				placeholder={placeholder}
