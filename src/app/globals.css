@@ -17,3 +17,7 @@ h1 {
   -moz-user-select: none;
   -ms-user-select: none;
 }
+
+* {
+  box-sizing: border-box;
+}

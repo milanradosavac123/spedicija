@@ -5,6 +5,7 @@ import "./globals.css";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import { StandardNavBar } from "@/components/StandardNavBar";
 import React from "react";
+import LayoutPage from "./LayoutPage";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,6 +19,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  
+
   return (
     <html lang="en">
       <head>
@@ -25,10 +29,9 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <MantineProvider>
-          <div className="grid grid-cols-8">
-            <StandardNavBar />
-            <div className="col-span-7">{children}</div>
-          </div>
+          <LayoutPage>
+            {children}
+          </LayoutPage>
         </MantineProvider>
       </body>
     </html>
