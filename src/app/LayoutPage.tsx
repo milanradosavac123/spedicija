@@ -10,7 +10,11 @@ interface LayoutPageProps {
 
 export default function LayoutPage({ children }: LayoutPageProps) {
 
-    const [isNavbarCollapsed, setIsNavBarCollapsed] = useState(false);
+    function isMobile(): boolean {
+        return navigator.maxTouchPoints > 0 && (navigator.userAgent.includes("Android") || navigator.userAgent.includes("iPhone") || navigator.userAgent.includes("iPad"));
+    }
+
+    const [isNavbarCollapsed, setIsNavBarCollapsed] = useState(isMobile());
 
     const route = usePathname()
 
