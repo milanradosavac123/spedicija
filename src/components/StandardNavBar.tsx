@@ -18,6 +18,7 @@ import {
 import Link from 'next/link';
 import IconTruckFilled from "#/public/ri_truck-fill.svg";
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 
 const data = [
   { link: '/routes', label: 'Routes', icon: IconRoute },
@@ -37,7 +38,12 @@ interface StandardNavBarProps {
 }
 
 export function StandardNavBar({ className, isNavbarCollapsed = false, onNavbarCollapseToggle }: StandardNavBarProps) {
-  const [active, setActive] = useState('Tours');
+
+  const route = usePathname();
+
+  const routeText = route.substring(1, route.indexOf("/", 1));
+
+  const [active, setActive] = useState(`${routeText[0].toUpperCase()}${routeText.substring(1)}`);
 
   const links = data.map((item) => (
     <Link

@@ -1,7 +1,7 @@
 "use client";
 
 import { AccountDropdown } from "./AccountDropdown";
-import { SearchField } from "./SearchField";
+import { HeaderSearchField } from "./HeaderSearchField";
 import chat from "#/public/chat.svg";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
@@ -68,7 +68,7 @@ export default function Header({ headerContent, editable = false, shouldShowSear
                     />
                 }
             </EditControl>
-            {shouldShowSearchField && <SearchField />}
+            {shouldShowSearchField && <HeaderSearchField />}
             <div className="flex flex-row">
                 <AccountDropdown userName="Milos" />
                 <Image

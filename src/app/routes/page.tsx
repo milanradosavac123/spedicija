@@ -10,7 +10,7 @@ export default function RoutesPage() {
             <hr />
             <div className="flex flex-row justify-between py-5">
                 <StandardSegmentedControl />
-                <StandardLinkButton text="New Route" href="" />
+                <StandardLinkButton text="New Route" href="/routes/new_route " />
             </div>
             <RouteDataTable />
         </div>
