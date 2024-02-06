@@ -19,9 +19,10 @@ interface OutlinedTextFieldProps {
 	onLabelChange?: (value: string) => void;
 	onLabelEditDismissed?: () => void;
 	onMouseEnter?: () => void;
+	onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
-export default function OutlinedTextField({ ref, className, id, isLabelEditable = false, shouldBottomBeRounded = true, label, placeholder, value, leftSection, rightSectionWidth, rightSection, onChange, onLabelChange, onLabelEditDismissed, onMouseEnter }: OutlinedTextFieldProps) {
+export default function OutlinedTextField({ ref, className, id, isLabelEditable = false, shouldBottomBeRounded = true, label, placeholder, value, leftSection, rightSectionWidth, rightSection, onChange, onLabelChange, onLabelEditDismissed, onMouseEnter, onKeyDown }: OutlinedTextFieldProps) {
 
 	const [isEditing, setIsEditing] = useState(false);
 
@@ -29,12 +30,21 @@ export default function OutlinedTextField({ ref, className, id, isLabelEditable 
 
 	const editLabelInputRef = useRef<HTMLInputElement>(null);
 
-    useEffect(() => {
-        if (isEditing && editLabelInputRef.current) {
-          editLabelInputRef.current.focus();
-		  editLabelInputRef.current.select();
-        }
-      }, [isEditing]);
+	useEffect(() => {
+		if (isEditing && editLabelInputRef.current) {
+			editLabelInputRef.current.focus();
+			editLabelInputRef.current.select();
+		}
+	}, [isEditing]);
+
+	function saveLabel() {
+		isLabelEditable && onLabelChange && onLabelChange(labelText);
+	}
+
+	function dismissLabel() {
+		setLabelText(label);
+		onLabelEditDismissed && onLabelEditDismissed();
+	}
 
 	return (
 		<div className={`flex flex-col flex-auto ${className}`} >
@@ -52,11 +62,10 @@ export default function OutlinedTextField({ ref, className, id, isLabelEditable 
 					}}
 					onKeyDown={(e) => {
 						if (e.key === "Enter") {
-							isLabelEditable && onLabelChange && onLabelChange(labelText);
+							saveLabel();
 							setIsEditing(false);
 						} else if (e.key === "Escape") {
-							setLabelText(label);
-							onLabelEditDismissed && onLabelEditDismissed();
+							dismissLabel();
 							setIsEditing(false);
 						}
 					}}
@@ -64,13 +73,8 @@ export default function OutlinedTextField({ ref, className, id, isLabelEditable 
 
 				{isLabelEditable && <EditControl
 					isEditing={isEditing}
-					onSave={() => {
-						isLabelEditable && onLabelChange && onLabelChange(labelText);
-					}}
-					onDismiss={() => {
-						setLabelText(label);
-						onLabelEditDismissed && onLabelEditDismissed();
-					}}
+					onSave={saveLabel}
+					onDismiss={dismissLabel}
 					onEditingChange={(newValue) => {
 						setIsEditing(newValue);
 					}}
@@ -90,6 +94,7 @@ export default function OutlinedTextField({ ref, className, id, isLabelEditable 
 				rightSectionWidth={rightSectionWidth}
 				rightSection={rightSection}
 				autoComplete="off"
+				onKeyDown={onKeyDown}
 			/>
 		</div>
 	);

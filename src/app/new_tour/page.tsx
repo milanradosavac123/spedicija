@@ -12,6 +12,8 @@ import { IconX } from "@tabler/icons-react";
 import PencilIconButton from "@/components/PencilIconButton";
 import XIconButton from "@/components/XIconButton";
 import StandardLinkButton from "@/components/StandardLinkButton";
+import CheckIconButton from "@/components/CheckIconButton";
+import SaveDismissIconButtonGroup from "@/components/SaveDismissIconButtonGroup";
 
 interface Task {
     text: string,
@@ -95,6 +97,21 @@ export default function NewTourPage() {
         });
     }
 
+    function saveTask(i: number) {
+        addTask(i, {
+            text: currentTaskText,
+            isDone: false
+        } as Task)
+        setCurrentTaskText("");
+        setShouldShowAddNewTaskTextField(false);
+        addAreTasksAddedIndex(i);
+    }
+
+    function dismissTask() {
+        setCurrentTaskText("");
+        setShouldShowAddNewTaskTextField(false);
+    }
+
     return (
         <div className="p-5">
             <Header headerContent={headerText} shouldShowSearchField={false} editable={true} onHeaderContentChanged={(newText) => {
@@ -102,10 +119,10 @@ export default function NewTourPage() {
             }} />
             <hr />
             <div className="flex flex-row justify-end py-5">
-                <StandardLinkButton 
+                <StandardLinkButton
                     href="/"
-                    text="Back" 
-                    forwardLink={false} 
+                    text="Back"
+                    forwardLink={false}
                 />
             </div>
             <div className="flex flex-row flex-auto gap-5">
@@ -237,24 +254,22 @@ export default function NewTourPage() {
                                     onChange={(s) => {
                                         setCurrentTaskText(s);
                                     }}
+                                    onKeyDown={(e) => {
+                                        if (e.key === "Enter") {
+                                            saveTask(i);
+                                        } else if(e.key === "Escape") {
+                                            dismissTask();
+                                        }
+                                    }}
                                 />
-                                <ActionIcon onClick={() => {
-                                    addTask(i, {
-                                        text: currentTaskText,
-                                        isDone: false
-                                    } as Task)
-                                    setCurrentTaskText("");
-                                    setShouldShowAddNewTaskTextField(false);
-                                    addAreTasksAddedIndex(i);
-                                }}>
-                                    <IconCheck style={{ width: rem(18), height: rem(18), color: "#00ff00" }} stroke={1.5} />
-                                </ActionIcon>
-                                <ActionIcon onClick={() => {
-                                    setCurrentTaskText("");
-                                    setShouldShowAddNewTaskTextField(false);
-                                }}>
-                                    <IconX style={{ width: rem(18), height: rem(18), color: "#ff0000" }} stroke={1.5} />
-                                </ActionIcon>
+                                <SaveDismissIconButtonGroup
+                                    onSaveClick={() => {
+                                        saveTask(i);
+                                    }}
+                                    onDismissClick={() => {
+                                        dismissTask();
+                                    }}
+                                />
                             </div>}
                             {!shouldShowAddNewTaskTextField && <div className="flex flex-auto justify-center">
                                 <Button
