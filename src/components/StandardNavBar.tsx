@@ -32,18 +32,24 @@ const data = [
 ];
 
 interface StandardNavBarProps {
-  className?: string,
-  isNavbarCollapsed: boolean,
-  onNavbarCollapseToggle: (newValue: boolean) => void,
+  className?: string
 }
 
-export function StandardNavBar({ className, isNavbarCollapsed = false, onNavbarCollapseToggle }: StandardNavBarProps) {
+export function StandardNavBar({ className }: StandardNavBarProps) {
 
-  const route = usePathname();
+  function isMobile(): boolean {
+    return navigator.maxTouchPoints > 0 && (navigator.userAgent.includes("Android") || navigator.userAgent.includes("iPhone") || navigator.userAgent.includes("iPad"));
+  }
 
-  const routeText = route.substring(1, route.indexOf("/", 1));
+  const pathname = usePathname();
 
-  const [active, setActive] = useState(`${routeText[0].toUpperCase()}${routeText.substring(1)}`);
+  const route = pathname.substring(1, pathname.indexOf("/", 1));
+
+  const routeText = `${route[0].toUpperCase()}${route.substring(1)}`
+
+  const [active, setActive] = useState(routeText !== "/" ? routeText : "Tours");
+
+  const [isNavbarCollapsed, setIsNavBarCollapsed] = useState(isMobile());
 
   const links = data.map((item) => (
     <Link
@@ -60,7 +66,7 @@ export function StandardNavBar({ className, isNavbarCollapsed = false, onNavbarC
   ));
 
   return (
-    <nav className={`bg-[#2A2830] min-h-[100vh] max-h-[100vh] p-[1rem] min-w-max flex flex-col justify-between fixed ${className ? className : ""}`}>
+    <nav className={`bg-[#2A2830] min-h-[100vh] max-h-[100vh] p-[1rem] min-w-max flex flex-col justify-between sticky ${className ? className : ""}`}>
 
       <div>
         <div className={`flex ${isNavbarCollapsed ? "flex-col" : "flex-row"} items-center justify-between no-underline text-[#CCCCCC]`}>
@@ -70,7 +76,7 @@ export function StandardNavBar({ className, isNavbarCollapsed = false, onNavbarC
             alt="truck"
           />
           <ActionIcon onClick={() => {
-            onNavbarCollapseToggle(!isNavbarCollapsed);
+            setIsNavBarCollapsed(!isNavbarCollapsed);
           }} >
             {isNavbarCollapsed
               ?

@@ -113,6 +113,7 @@ export default function NewTourPage() {
             } as Task)
             setCurrentTaskText("");
             setShouldShowAddNewTaskTextField(false);
+            setTaskUnderEdit("");
         } else {
             setCurrentTaskText("");
             setShouldShowAddNewTaskTextField(false);
