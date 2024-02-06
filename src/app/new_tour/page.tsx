@@ -31,7 +31,7 @@ export default function NewTourPage() {
     const [driverName, setDriverName] = useState("");
     const [vehicleName, setVehicleName] = useState("");
 
-    const [shouldShowAddNewTabButton, setShouldShowAddNewTabButton] = useState(true);
+    const [shouldShowAddNewLocationButton, setShouldShowAddNewLocationButton] = useState(true);
 
     const [shouldShowAddNewTaskTextField, setShouldShowAddNewTaskTextField] = useState(false);
 
@@ -79,6 +79,8 @@ export default function NewTourPage() {
 
     function addLocation(location: Location) {
         setLocationsList([...locationsList, location]);
+        setNewLocationName("");
+        setShouldShowAddNewLocationButton(true);
     }
 
     function addTask(locationIndex: number, task: Task) {
@@ -236,7 +238,7 @@ export default function NewTourPage() {
                                                     setLocationsList((oldLocationsList) => {
                                                         const newLocationsList = oldLocationsList.map((location, j) => {
                                                             if (i === j && location.tasks) {
-                                                                if(location.tasks.length == 1) {
+                                                                if (location.tasks.length == 1) {
                                                                     return {
                                                                         ...location,
                                                                         tasks: undefined
@@ -297,7 +299,7 @@ export default function NewTourPage() {
                         </div>}
                     </div>
                 ))}
-                {shouldShowAddNewTabButton &&
+                {shouldShowAddNewLocationButton &&
                     <div className="flex flex-col flex-auto" >
                         <Group justify="space-between" mb={5}>
                             <FormControl disabled={true} value="fidj[aofdjsodisfdosiopsf" className="text-white no-select" size="sm" />
@@ -311,14 +313,14 @@ export default function NewTourPage() {
                                 />
                             }
                             onClick={() => {
-                                setShouldShowAddNewTabButton(false);
+                                setShouldShowAddNewLocationButton(false);
                             }}
                         >
                             Add New Location
                         </Button>
                     </div>
                 }
-                {!shouldShowAddNewTabButton &&
+                {!shouldShowAddNewLocationButton &&
                     <OutlinedTextField
                         label="New Location Name"
                         placeholder="Add your New Location Name here..."
@@ -331,9 +333,7 @@ export default function NewTourPage() {
                                     addLocation({
                                         name: newLocationName,
                                         address: ""
-                                    } as Location)
-                                    setNewLocationName("");
-                                    setShouldShowAddNewTabButton(true);
+                                    } as Location);
                                 }}
                             >
                                 Ok
@@ -341,6 +341,17 @@ export default function NewTourPage() {
                         }
                         onChange={(s) => {
                             setNewLocationName(s);
+                        }}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                                addLocation({
+                                    name: newLocationName,
+                                    address: ""
+                                } as Location);
+                            } else if (e.key === "Escape") {
+                                setNewLocationName("");
+                                setShouldShowAddNewLocationButton(true);
+                            }
                         }}
                     />
                 }
