@@ -56,13 +56,10 @@ export default function NewTourPage() {
 
     const [openedDropDownIndex, setOpenedDropDownIndex] = useState<number | undefined>(undefined);
 
-    const [areTasksAddedIndexes, setAreTasksAddedIndexes] = useState<number[]>([]);
 
     const [headerText, setHeaderText] = useState("Tour name");
 
-    function addAreTasksAddedIndex(index: number) {
-        setAreTasksAddedIndexes([...areTasksAddedIndexes, index])
-    }
+    const [taskUnderEdit, setTaskUnderEdit] = useState("");
 
     function editLocationName(index: number, name: string) {
         setLocationsList((oldLocationsList) => {
@@ -104,12 +101,20 @@ export default function NewTourPage() {
         } as Task)
         setCurrentTaskText("");
         setShouldShowAddNewTaskTextField(false);
-        addAreTasksAddedIndex(i);
     }
 
-    function dismissTask() {
-        setCurrentTaskText("");
-        setShouldShowAddNewTaskTextField(false);
+    function dismissTask(i: number) {
+        if (taskUnderEdit !== "") {
+            addTask(i, {
+                text: taskUnderEdit,
+                isDone: false
+            } as Task)
+            setCurrentTaskText("");
+            setShouldShowAddNewTaskTextField(false);
+        } else {
+            setCurrentTaskText("");
+            setShouldShowAddNewTaskTextField(false);
+        }
     }
 
     return (
@@ -148,7 +153,7 @@ export default function NewTourPage() {
                     <div
                         key={i}
                         style={{ position: 'relative' }}
-                        onMouseLeave={areTasksAddedIndexes.includes(i) ? (() => {
+                        onMouseLeave={value.tasks !== undefined ? (() => {
                             if (openedDropDownIndex !== undefined) {
                                 setOpenedDropDownIndex(undefined);
                             }
@@ -162,7 +167,7 @@ export default function NewTourPage() {
                             label={value.name}
                             placeholder={`Add your ${value.name} here...`}
                             value={value.address}
-                            onMouseEnter={areTasksAddedIndexes.includes(i) ? (() => {
+                            onMouseEnter={value.tasks !== undefined ? (() => {
                                 if (openedDropDownIndex === undefined) {
                                     setOpenedDropDownIndex(i);
                                 }
@@ -179,19 +184,19 @@ export default function NewTourPage() {
                             rightSection={
                                 <ActionIcon
                                     onClick={
-                                        !areTasksAddedIndexes.includes(i) ? (() => {
+                                        value.tasks === undefined ? (() => {
                                             if (openedDropDownIndex === undefined) {
                                                 setOpenedDropDownIndex(i);
                                             } else setOpenedDropDownIndex(undefined);
                                         }) : undefined
                                     }
-                                    onMouseEnter={areTasksAddedIndexes.includes(i) ? (() => {
+                                    onMouseEnter={value.tasks !== undefined ? (() => {
                                         if (openedDropDownIndex === undefined) {
                                             setOpenedDropDownIndex(i);
                                         }
                                     }) : undefined}
                                 >
-                                    {!areTasksAddedIndexes.includes(i)
+                                    {value.tasks === undefined
                                         ?
                                         <IconPlus style={{ width: rem(18), height: rem(18), color: '#282147' }} stroke={1.5} />
                                         :
@@ -208,6 +213,7 @@ export default function NewTourPage() {
                                         <div>
                                             <PencilIconButton
                                                 onClick={() => {
+                                                    setTaskUnderEdit(task.text);
                                                     setShouldShowAddNewTaskTextField(true);
                                                     setCurrentTaskText(task.text);
                                                     setLocationsList((oldLocationsList) => {
@@ -230,7 +236,12 @@ export default function NewTourPage() {
                                                     setLocationsList((oldLocationsList) => {
                                                         const newLocationsList = oldLocationsList.map((location, j) => {
                                                             if (i === j && location.tasks) {
-                                                                return {
+                                                                if(location.tasks.length == 1) {
+                                                                    return {
+                                                                        ...location,
+                                                                        tasks: undefined
+                                                                    }
+                                                                } else return {
                                                                     ...location,
                                                                     tasks: [...location.tasks.slice(0, index), ...location.tasks.slice(index + 1)],
                                                                 };
@@ -257,8 +268,8 @@ export default function NewTourPage() {
                                     onKeyDown={(e) => {
                                         if (e.key === "Enter") {
                                             saveTask(i);
-                                        } else if(e.key === "Escape") {
-                                            dismissTask();
+                                        } else if (e.key === "Escape") {
+                                            dismissTask(i);
                                         }
                                     }}
                                 />
@@ -267,7 +278,7 @@ export default function NewTourPage() {
                                         saveTask(i);
                                     }}
                                     onDismissClick={() => {
-                                        dismissTask();
+                                        dismissTask(i);
                                     }}
                                 />
                             </div>}
