@@ -1,0 +1,24 @@
+.connector-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.circle-container {
+    margin: 8px 0;
+    /* Adjust as needed */
+}
+
+.connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dot {
+    width: 6px;
+    height: 6px;
+    background-color: black;
+    border-radius: 50%;
+    margin: 2px 0;
+}

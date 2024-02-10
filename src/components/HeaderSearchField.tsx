@@ -8,7 +8,7 @@ export function HeaderSearchField(props: TextInputProps) {
             radius="xl"
             width={100}
             size="md"
-            placeholder="Search questions"
+            placeholder="Search"
             rightSectionWidth={64}
             rightSection={
                 <>

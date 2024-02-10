@@ -43,11 +43,9 @@ export function StandardNavBar({ className }: StandardNavBarProps) {
 
   const pathname = usePathname();
 
-  const route = pathname.substring(1, pathname.indexOf("/", 1));
+  const route = pathname.split("/").filter(Boolean)[0];
 
-  const routeText = `${route[0].toUpperCase()}${route.substring(1)}`
-
-  const [active, setActive] = useState(routeText !== "/" ? routeText : "Tours");
+  const [active, setActive] = useState(route === undefined ? "Tours" : route[0].toUpperCase() + route.substring(1));
 
   const [isNavbarCollapsed, setIsNavBarCollapsed] = useState(isMobile());
 

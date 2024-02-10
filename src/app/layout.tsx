@@ -5,6 +5,7 @@ import "./globals.css";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import { StandardNavBar } from "@/components/StandardNavBar";
 import React from "react";
+import ContextWrapper from "./ContextWrapper";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -29,14 +30,16 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className}`}>
         <MantineProvider>
-            <div className="flex flex-col h-screen overflow-hidden">
-              <div className="flex overflow-hidden">
-                <StandardNavBar />
-                <main className="max-h-full flex-1 overflow-y-auto">
+          <div className="flex flex-col h-screen overflow-hidden">
+            <div className="flex overflow-hidden">
+              <StandardNavBar />
+              <main className="max-h-full flex-1 overflow-y-auto">
+                <ContextWrapper>
                   {children}
-                </main>
-              </div>
+                </ContextWrapper>
+              </main>
             </div>
+          </div>
         </MantineProvider>
       </body>
     </html>

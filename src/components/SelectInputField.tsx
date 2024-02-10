@@ -24,7 +24,7 @@ export default function SelectInputField({ name, label, placeholder, children, o
                 {...props}
                 onChange={onChange}
                 onClick={() => {
-                    
+                    setIsOptionSelected(true);
                 }}
             >
                 <option disabled={isOptionSelected}>{placeholder}</option>

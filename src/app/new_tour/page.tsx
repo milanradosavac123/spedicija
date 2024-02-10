@@ -15,12 +15,12 @@ import StandardLinkButton from "@/components/StandardLinkButton";
 import CheckIconButton from "@/components/CheckIconButton";
 import SaveDismissIconButtonGroup from "@/components/SaveDismissIconButtonGroup";
 
-interface Task {
+export interface Task {
     text: string,
     isDone: boolean
 }
 
-interface Location {
+export interface Location {
     name: string,
     address: string,
     tasks?: Task[]
