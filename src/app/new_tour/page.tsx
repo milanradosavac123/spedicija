@@ -208,7 +208,7 @@ export default function NewTourPage() {
                                 </ActionIcon>
                             }
                         />
-                        {openedDropDownIndex !== undefined && openedDropDownIndex === i && <div className={`min-w-[100%] max-w-[100%] bg-white p-2 border-solid border-2 border-[#282147] rounded-b-[10px]`} style={{ position: "absolute", zIndex: "999", top: "65px", left: "0px" }}>
+                        {openedDropDownIndex !== undefined && openedDropDownIndex === i && <div className={`min-w-[100%] max-w-[100%] bg-white p-2 border-solid border-2 border-[#282147] rounded-b-[10px]`} style={{ position: "absolute", zIndex: "999", top: "65px" }}>
                             <ul>
                                 {value.tasks && value.tasks.map((task, index) => (
                                     <li className="flex flex-auto justify-between items-center px-3">

@@ -11,7 +11,7 @@ import { useContext, useState } from "react";
 
 export default function SelectToursPage() {
 
-    const dummyLocations = Array.from({ length: 5 }, (_, index) => index + 1).map((number) => (
+    const dummyLocations = Array.from({ length: 20 }, (_, index) => index + 1).map((number) => (
         {
             name: "fodhspojhsafjkudshfoi",
             address: "Berlin, Germany",
@@ -69,6 +69,7 @@ export default function SelectToursPage() {
                     label="Select All"
                     checked={isAllSelected}
                     onCheckChange={(value) => {
+                        value ? setSelectedTourIds(dummyTourData.map((tourInfo) => tourInfo.id)) : setSelectedTourIds([]);
                         setIsAllSelected(value);
                     }}
                 />

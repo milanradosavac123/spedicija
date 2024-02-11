@@ -6,6 +6,7 @@ import { rem } from "@mantine/core";
 import { UseListStateHandlers } from "@mantine/hooks";
 import { IconCircle, IconMapPin } from "@tabler/icons-react";
 import styles from "./DottedLine.module.css";
+import { useState } from "react";
 
 interface LocationDisplayProps {
     className?: string
@@ -14,6 +15,8 @@ interface LocationDisplayProps {
 }
 
 export default function LocationDisplay({ className, locations, handlers }: LocationDisplayProps) {
+
+    const [openedSideMenuIndex, setOpenedSideMenuIndex] = useState<number | undefined>()
 
     const connectors = Array.from({ length: locations.length - 1 }, (_, index) => (
         <div key={index} className={styles.connector}>
@@ -51,11 +54,40 @@ export default function LocationDisplay({ className, locations, handlers }: Loca
                     {...provided.dragHandleProps}
                     ref={provided.innerRef}
                 >
-                    <p
-                        className="rounded-[60px] bg-gray-400 text-white p-2"
+                    <div
+                        className="flex flex-row rounded-[60px] bg-gray-400 p-2 pl-6 drop-shadow-lg"
                     >
-                        {location.name} - {location.address}
-                    </p>
+                        <p className="text-white">
+                            {location.name} - {location.address}
+                        </p>
+                        <div
+                            className="relative"
+                            onMouseLeave={() => {
+                                if (openedSideMenuIndex !== undefined) {
+                                    setOpenedSideMenuIndex(undefined);
+                                }
+                            }}
+                        >
+                            <IconCircle
+                                style={
+                                    {
+                                        width: "24px",
+                                        height: "24px",
+                                        color: "#9ca3af"
+                                    }
+                                }
+                                stroke={1.5}
+                                onMouseEnter={() => {
+                                    if (openedSideMenuIndex === undefined) {
+                                        setOpenedSideMenuIndex(i);
+                                    }
+                                }}
+                            />
+                            {openedSideMenuIndex !== undefined && openedSideMenuIndex === i && <div className={`flex flex-row absolute z-[999] top-0 left-[30px] bg-black w-[100px] h-[100px]`}>
+                                
+                            </div>}
+                        </div>
+                    </div>
                 </div>
             )}
         </Draggable>
@@ -70,7 +102,7 @@ export default function LocationDisplay({ className, locations, handlers }: Loca
                     handlers.reorder({ from: source.index, to: destination?.index || 0 })
                 }
             >
-                <Droppable droppableId="dnd-list" direction="vertical">
+                <Droppable key="droppable-location" droppableId="dnd-list" direction="vertical">
                     {(provided) => (
                         <div {...provided.droppableProps} ref={provided.innerRef}>
                             <div className="flex flex-row">
