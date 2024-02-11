@@ -30,7 +30,7 @@ export default function Header({ headerContent, editable = false, shouldShowSear
     }, [isEditing]);
 
     return (
-        <div className="p-5 flex flex-row flex-auto justify-between">
+        <div className="p-5 flex flex-row flex-auto justify-between max-h-min">
             <EditControl
                 isEditing={isEditing}
                 enabled={editable}

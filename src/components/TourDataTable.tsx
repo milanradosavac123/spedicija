@@ -2,255 +2,10 @@
 
 import cx from 'clsx';
 import { useState } from 'react';
-import { Table, ScrollArea } from '@mantine/core';
+import { Table, ScrollArea, Pagination } from '@mantine/core';
 import styles from "./TourDataTable.module.css";
 
-const data = [
-    {
-        tourName: "Berlin - Bonn",
-        driver: "Milos",
-        startDate: "12/12/2023",
-        endDate: "13/12/2023",
-        luStatus: "Loaded",
-    },
-    {
-        tourName: "Berlin - Bonn",
-        driver: "Milos",
-        startDate: "12/12/2023",
-        endDate: "13/12/2023",
-        luStatus: "Loaded",
-    },
-    {
-        tourName: "Berlin - Bonn",
-        driver: "Milos",
-        startDate: "12/12/2023",
-        endDate: "13/12/2023",
-        luStatus: "Loaded",
-    },
-    {
-        tourName: "Berlin - Bonn",
-        driver: "Milos",
-        startDate: "12/12/2023",
-        endDate: "13/12/2023",
-        luStatus: "Loaded",
-    },
-    {
-        tourName: "Berlin - Bonn",
-        driver: "Milos",
-        startDate: "12/12/2023",
-        endDate: "13/12/2023",
-        luStatus: "Loaded",
-    },
-    {
-        tourName: "Berlin - Bonn",
-        driver: "Milos",
-        startDate: "12/12/2023",
-        endDate: "13/12/2023",
-        luStatus: "Loaded",
-    },
-    {
-        tourName: "Berlin - Bonn",
-        driver: "Milos",
-        startDate: "12/12/2023",
-        endDate: "13/12/2023",
-        luStatus: "Loaded",
-    },
-    {
-        tourName: "Berlin - Bonn",
-        driver: "Milos",
-        startDate: "12/12/2023",
-        endDate: "13/12/2023",
-        luStatus: "Loaded",
-    },
-    {
-        tourName: "Berlin - Bonn",
-        driver: "Milos",
-        startDate: "12/12/2023",
-        endDate: "13/12/2023",
-        luStatus: "Loaded",
-    },
-    {
-        tourName: "Berlin - Bonn",
-        driver: "Milos",
-        startDate: "12/12/2023",
-        endDate: "13/12/2023",
-        luStatus: "Loaded",
-    },
-    {
-        tourName: "Berlin - Bonn",
-        driver: "Milos",
-        startDate: "12/12/2023",
-        endDate: "13/12/2023",
-        luStatus: "Loaded",
-    },
-    {
-        tourName: "Berlin - Bonn",
-        driver: "Milos",
-        startDate: "12/12/2023",
-        endDate: "13/12/2023",
-        luStatus: "Loaded",
-    },
-    {
-        tourName: "Berlin - Bonn",
-        driver: "Milos",
-        startDate: "12/12/2023",
-        endDate: "13/12/2023",
-        luStatus: "Loaded",
-    },
-    {
-        tourName: "Berlin - Bonn",
-        driver: "Milos",
-        startDate: "12/12/2023",
-        endDate: "13/12/2023",
-        luStatus: "Loaded",
-    },
-    {
-        tourName: "Berlin - Bonn",
-        driver: "Milos",
-        startDate: "12/12/2023",
-        endDate: "13/12/2023",
-        luStatus: "Loaded",
-    },
-    {
-        tourName: "Berlin - Bonn",
-        driver: "Milos",
-        startDate: "12/12/2023",
-        endDate: "13/12/2023",
-        luStatus: "Loaded",
-    },
-    {
-        tourName: "Berlin - Bonn",
-        driver: "Milos",
-        startDate: "12/12/2023",
-        endDate: "13/12/2023",
-        luStatus: "Loaded",
-    },
-    {
-        tourName: "Berlin - Bonn",
-        driver: "Milos",
-        startDate: "12/12/2023",
-        endDate: "13/12/2023",
-        luStatus: "Loaded",
-    },
-    {
-        tourName: "Berlin - Bonn",
-        driver: "Milos",
-        startDate: "12/12/2023",
-        endDate: "13/12/2023",
-        luStatus: "Loaded",
-    },
-    {
-        tourName: "Berlin - Bonn",
-        driver: "Milos",
-        startDate: "12/12/2023",
-        endDate: "13/12/2023",
-        luStatus: "Loaded",
-    },
-    {
-        tourName: "Berlin - Bonn",
-        driver: "Milos",
-        startDate: "12/12/2023",
-        endDate: "13/12/2023",
-        luStatus: "Loaded",
-    },
-    {
-        tourName: "Berlin - Bonn",
-        driver: "Milos",
-        startDate: "12/12/2023",
-        endDate: "13/12/2023",
-        luStatus: "Loaded",
-    },
-    {
-        tourName: "Berlin - Bonn",
-        driver: "Milos",
-        startDate: "12/12/2023",
-        endDate: "13/12/2023",
-        luStatus: "Loaded",
-    },
-    {
-        tourName: "Berlin - Bonn",
-        driver: "Milos",
-        startDate: "12/12/2023",
-        endDate: "13/12/2023",
-        luStatus: "Loaded",
-    },
-    {
-        tourName: "Berlin - Bonn",
-        driver: "Milos",
-        startDate: "12/12/2023",
-        endDate: "13/12/2023",
-        luStatus: "Loaded",
-    },
-    {
-        tourName: "Berlin - Bonn",
-        driver: "Milos",
-        startDate: "12/12/2023",
-        endDate: "13/12/2023",
-        luStatus: "Loaded",
-    },
-    {
-        tourName: "Berlin - Bonn",
-        driver: "Milos",
-        startDate: "12/12/2023",
-        endDate: "13/12/2023",
-        luStatus: "Loaded",
-    },
-    {
-        tourName: "Berlin - Bonn",
-        driver: "Milos",
-        startDate: "12/12/2023",
-        endDate: "13/12/2023",
-        luStatus: "Loaded",
-    },
-    {
-        tourName: "Berlin - Bonn",
-        driver: "Milos",
-        startDate: "12/12/2023",
-        endDate: "13/12/2023",
-        luStatus: "Loaded",
-    },
-    {
-        tourName: "Berlin - Bonn",
-        driver: "Milos",
-        startDate: "12/12/2023",
-        endDate: "13/12/2023",
-        luStatus: "Loaded",
-    },
-    {
-        tourName: "Berlin - Bonn",
-        driver: "Milos",
-        startDate: "12/12/2023",
-        endDate: "13/12/2023",
-        luStatus: "Loaded",
-    },
-    {
-        tourName: "Berlin - Bonn",
-        driver: "Milos",
-        startDate: "12/12/2023",
-        endDate: "13/12/2023",
-        luStatus: "Loaded",
-    },
-    {
-        tourName: "Berlin - Bonn",
-        driver: "Milos",
-        startDate: "12/12/2023",
-        endDate: "13/12/2023",
-        luStatus: "Loaded",
-    },
-    {
-        tourName: "Berlin - Bonn",
-        driver: "Milos",
-        startDate: "12/12/2023",
-        endDate: "13/12/2023",
-        luStatus: "Loaded",
-    },
-    {
-        tourName: "Berlin - Bonn",
-        driver: "Milos",
-        startDate: "12/12/2023",
-        endDate: "13/12/2023",
-        luStatus: "Loaded",
-    },
+const data = Array.from({ length: 18 }, (_, index) => index + 1).map((number) => (
     {
         tourName: "Berlin - Bonn",
         driver: "Milos",
@@ -258,11 +13,11 @@ const data = [
         endDate: "13/12/2023",
         luStatus: "Loaded",
     }
-];
+));
 
 export function TourDataTable() {
 
-    const [scrolled, setScrolled] = useState(false);
+    //const [scrolled, setScrolled] = useState(false);
 
     const rows = data.map((row, i) => (
         <Table.Tr key={i}>
@@ -275,9 +30,9 @@ export function TourDataTable() {
     ));
 
     return (
-        <ScrollArea h={720} onScrollPositionChange={({ y }) => setScrolled(y !== 0)}>
-            <Table miw={700}>
-                <Table.Thead className={cx(styles.header, { [styles.scrolled]: scrolled })} >
+        <div>
+            <Table miw={700} mih={"100%"}>
+                <Table.Thead /*className={cx(styles.header, { [styles.scrolled]: scrolled })}*/ >
                     <Table.Tr>
                         <Table.Th>Tour Name</Table.Th>
                         <Table.Th>Driver</Table.Th>
@@ -288,6 +43,9 @@ export function TourDataTable() {
                 </Table.Thead>
                 <Table.Tbody>{rows}</Table.Tbody>
             </Table>
-        </ScrollArea>
+            <div className="flex flex-row justify-center">
+                <Pagination color="#282147" total={3} withEdges />
+            </div>
+        </div>
     );
 }
