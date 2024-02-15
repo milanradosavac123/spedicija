@@ -1,39 +1,12 @@
 "use client";
 
 import { SelectedToursContext } from "@/app/ContextWrapper";
-import { Location, Task } from "@/app/new_tour/page";
 import LocationDisplay from "@/components/LocationDisplay";
 import { useListState } from "@mantine/hooks";
 import { useContext } from "react";
+import { dummyTourData } from "@/dummyData/dummyData";
 
 export default function NewRoutePage() {
-
-    const dummyTasks = Array.from({ length: 3 }, (_, index) => index + 1).map((number) => (
-        {
-            text: "efwohadsopfjhdsfdos;jfhdsioufjh;",
-            isDone: false 
-        } as Task
-    ));    
-
-    const dummyLocations = Array.from({ length: 20 }, (_, index) => index + 1).map((number) => (
-        {
-            name: "fodhspojhsafjkudshfoi",
-            address: "Berlin, Germany",
-            tasks: dummyTasks
-        } as Location
-    ));
-
-    const dummyTourData = Array.from({ length: 17 }, (_, index) => index + 1).map((number) => (
-        {
-            id: number,
-            tourName: "Berlin - Bonn",
-            tourDriver: "Milos",
-            tourVehicle: "Mercedes",
-            tourDispacherName: "Philipp",
-            dateCreated: new Date(),
-            locations: dummyLocations
-        }
-    ));
 
     const { selectedTourIds, setSelectedTourIds } = useContext(SelectedToursContext);
 

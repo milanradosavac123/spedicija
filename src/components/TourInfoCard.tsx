@@ -2,6 +2,7 @@
 
 import { Card } from "react-bootstrap";
 import StandardCheckBox from "./StandardCheckBox";
+import { RefObject } from "react";
 
 interface TourInfoCardProps {
     tourName: string,
@@ -10,12 +11,13 @@ interface TourInfoCardProps {
     tourDispacherName: string,
     dateCreated: Date,
     selected: boolean,
+    reference?: RefObject<HTMLDivElement>
     onSelectedChanged: (newValue: boolean) => void;
 }
 
-export default function TourInfoCard({ tourName, tourDriver, tourVehicle, tourDispacherName, dateCreated, selected, onSelectedChanged }: TourInfoCardProps) {
+export default function TourInfoCard({ tourName, tourDriver, tourVehicle, tourDispacherName, dateCreated, selected, reference, onSelectedChanged }: TourInfoCardProps) {
     return (
-        <Card className="bg-[#F7F5FA] text-gray-500 drop-shadow-md p-2">
+        <Card ref={reference} className="bg-[#F7F5FA] text-gray-500 drop-shadow-md p-2 m-[1vh] h-[14vh]">
             <Card.Header className="flex flex-col">
                 <div className="flex flex-row justify-between" >
                     <Card.Subtitle>{dateCreated.toLocaleDateString(["en-GB"])}</Card.Subtitle>
@@ -34,7 +36,7 @@ export default function TourInfoCard({ tourName, tourDriver, tourVehicle, tourDi
                     <Card.Text className="text-black">{tourDispacherName}</Card.Text>
                 </div>
             </Card.Body>
-            <Card.Footer className="flex flex-row justify-between">
+            <Card.Footer className="flex flex-col justify-between">
                 <div className="flex flex-row gap-2 min-w-fit">
                     <Card.Text>Vehicle:</Card.Text>
                     <Card.Text className="text-black">{tourVehicle}</Card.Text>

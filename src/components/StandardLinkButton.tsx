@@ -7,10 +7,11 @@ import IconBackToTab from "#/public/material-symbols_back-to-tab.svg";
 interface StandardLinkButtonProps {
     href: string,
     text: string,
-    forwardLink?: boolean
+    forwardLink?: boolean,
+    onClick?: () => void
 }
 
-export default function StandardLinkButton({ href, text, forwardLink = true }: StandardLinkButtonProps) {
+export default function StandardLinkButton({ href, text, forwardLink = true, onClick }: StandardLinkButtonProps) {
     return (
         <Button
             component={Link}
@@ -27,6 +28,7 @@ export default function StandardLinkButton({ href, text, forwardLink = true }: S
                     alt=""
                 />
             }
+            onClick={onClick}
         >
             {text}
         </Button>

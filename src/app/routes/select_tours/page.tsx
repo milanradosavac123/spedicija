@@ -8,97 +8,103 @@ import SelectInputField from "@/components/SelectInputField";
 import StandardCheckBox from "@/components/StandardCheckBox";
 import StandardLinkButton from "@/components/StandardLinkButton";
 import TourInfoCard from "@/components/TourInfoCard";
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { Pagination } from "@mantine/core";
 import { IconCircle } from "@tabler/icons-react";
+import { dummyTourData } from "@/dummyData/dummyData";
 
 export default function SelectToursPage() {
-
-    const dummyLocations = Array.from({ length: 20 }, (_, index) => index + 1).map((number) => (
-        {
-            name: "fodhspojhsafjkudshfoi",
-            address: "Berlin, Germany",
-        } as Location
-    ));
-
-    const dummyTourData = Array.from({ length: 17 }, (_, index) => index + 1).map((number) => (
-        {
-            id: number,
-            tourName: "Berlin - Bonn",
-            tourDriver: "Milos",
-            tourVehicle: "Mercedes",
-            tourDispacherName: "Philipp",
-            dateCreated: new Date(),
-            locations: dummyLocations
-        }
-    ));
 
     const [isAllSelected, setIsAllSelected] = useState(false);
 
     const { selectedTourIds, setSelectedTourIds } = useContext(SelectedToursContext);
 
-    function addSelectedTourId(tourId: number) {
-        setSelectedTourIds([...selectedTourIds, tourId]);
+    const [intermediateSelectedTourIds, setIntermediateSelectedTourIds] = useState<number[]>([])
+
+
+
+    function addIntermediateSelectedTourId(tourId: number) {
+        setIntermediateSelectedTourIds([...intermediateSelectedTourIds, tourId]);
     }
 
-    function removeSelectedTourId(i: number) {
-        setSelectedTourIds((oldSelectedTourIds) => {
+    function removeIntermediateSelectedTourId(i: number) {
+        setIntermediateSelectedTourIds((oldSelectedTourIds) => {
             return [...oldSelectedTourIds.slice(0, i), ...oldSelectedTourIds.slice(i + 1)];
         });
     }
 
+    const [taskInfoPageNumber, setTaskInfoPageNumber] = useState(1);
+
     return (
-        <div className="p-5 flex flex-col">
-            <Header headerContent="Routes" />
-            <hr />
-            <div className="flex flex-row justify-between py-5">
-                <SelectInputField name="driver" label="Driver" placeholder="Select Driver" onChange={(e) => {
+        <div className="p-5 flex flex-col h-[100%]">
+            <div className="flex flex-col h-[100%]">
+                <div className="flex flex-row">
+                    <Header headerContent="Routes" />
+                    <hr />
+                </div>
+                <div className="flex flex-row justify-between py-5">
+                    <SelectInputField name="driver" label="Driver" placeholder="Select Driver" onChange={(e) => {
 
-                }}>
+                    }}>
 
-                    <option value={0}>Milos</option>
-                    <option value={1}>Mileta</option>
-                </SelectInputField>
-                <SelectInputField name="vehicle" label="Vehicle" placeholder="Select Vehicle" onChange={(e) => {
+                        <option value={0}>Milos</option>
+                        <option value={1}>Mileta</option>
+                    </SelectInputField>
+                    <SelectInputField name="vehicle" label="Vehicle" placeholder="Select Vehicle" onChange={(e) => {
 
-                }}>
+                    }}>
 
-                    <option value={0}>Man</option>
-                    <option value={1}>Mercedes</option>
-                </SelectInputField>
+                        <option value={0}>Man</option>
+                        <option value={1}>Mercedes</option>
+                    </SelectInputField>
 
-                <DateTourFilter onChange={(e) => {
-                    console.log("test");
-                }} />
+                    <DateTourFilter onChange={(e) => {
+                        console.log("test");
+                    }} />
 
-                <StandardCheckBox
-                    name="select-all"
-                    label={isAllSelected ? "Unselect All" : "Select All"}
-                    checked={isAllSelected}
-                    onCheckChange={(value) => {
-                        value ? setSelectedTourIds(dummyTourData.map((tourInfo) => tourInfo.id)) : setSelectedTourIds([]);
-                        setIsAllSelected(value);
-                    }}
-                />
-            </div>
-            <div className="grid grid-cols-5 grid-rows-5 gap-[10pt]">
-                {dummyTourData.map((tourInfo, i) => (
-                    <TourInfoCard
-                        key={i}
-                        {...tourInfo}
-                        selected={isAllSelected || selectedTourIds.includes(tourInfo.id)}
-                        onSelectedChanged={() => {
-                            if (selectedTourIds.includes(tourInfo.id)) {
-                                removeSelectedTourId(selectedTourIds.indexOf(tourInfo.id));
-                            } else addSelectedTourId(tourInfo.id);
+                    <StandardCheckBox
+                        name="select-all"
+                        label={isAllSelected ? "Unselect All" : "Select All"}
+                        checked={isAllSelected}
+                        onCheckChange={(value) => {
+                            value ? setIntermediateSelectedTourIds(dummyTourData.map((tourInfo) => tourInfo.id)) : setIntermediateSelectedTourIds([]);
+                            setIsAllSelected(value);
                         }}
                     />
-                ))}
+                </div>
+                <div className="flex flex-row flex-wrap">
+                    {dummyTourData.slice(((taskInfoPageNumber - 1) * 36),((taskInfoPageNumber - 1) * 36) + 36).map((tourInfo, i) => (
+                        <TourInfoCard
+                            key={i}
+                            {...tourInfo}
+                            selected={isAllSelected || intermediateSelectedTourIds.includes(tourInfo.id)}
+                            onSelectedChanged={() => {
+                                if (intermediateSelectedTourIds.includes(tourInfo.id)) {
+                                    removeIntermediateSelectedTourId(intermediateSelectedTourIds.indexOf(tourInfo.id));
+                                } else addIntermediateSelectedTourId(tourInfo.id);
+                            }}
+                        />
+                    ))}
+                </div>
             </div>
             <div className="flex flex-row w-[100%] justify-between">
                 <IconCircle color="white" />
-                <Pagination color="#282147" total={3} withEdges />
-                <StandardLinkButton href="/routes/select_tours/new_route" text="Create new route" />
+                <Pagination
+                    color="#282147"
+                    value={taskInfoPageNumber}
+                    total={dummyTourData.length % 36 === 0 ? dummyTourData.length / 36 : (dummyTourData.length / 36) + 1}
+                    withEdges
+                    onChange={(pageNumber) => {
+                        setTaskInfoPageNumber(pageNumber);
+                    }}
+                />
+                <StandardLinkButton
+                    href="/routes/select_tours/new_route"
+                    text="Create new route"
+                    onClick={() => {
+                        setSelectedTourIds(intermediateSelectedTourIds);
+                    }}
+                />
             </div>
         </div>
     );
