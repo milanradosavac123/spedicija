@@ -22,7 +22,6 @@ export default function SelectToursPage() {
     const [intermediateSelectedTourIds, setIntermediateSelectedTourIds] = useState<number[]>([])
 
 
-
     function addIntermediateSelectedTourId(tourId: number) {
         setIntermediateSelectedTourIds([...intermediateSelectedTourIds, tourId]);
     }

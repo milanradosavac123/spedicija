@@ -2,21 +2,25 @@
 
 import { Location } from "@/app/new_tour/page";
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
-import { rem } from "@mantine/core";
-import { UseListStateHandlers } from "@mantine/hooks";
+import { Button, ScrollArea, rem } from "@mantine/core";
+import { useListState } from "@mantine/hooks";
 import { IconCircle, IconMapPin } from "@tabler/icons-react";
 import styles from "./DottedLine.module.css";
 import { useState } from "react";
+import { TourInfo } from "@/dummyData/dummyData";
 
 interface LocationDisplayProps {
     className?: string
-    locations: Location[],
-    handlers: UseListStateHandlers<Location>,
+    tours: TourInfo[],
 }
 
-export default function LocationDisplay({ className, locations, handlers }: LocationDisplayProps) {
+export default function LocationDisplay({ className, tours }: LocationDisplayProps) {
 
     const [openedSideMenuIndex, setOpenedSideMenuIndex] = useState<number | undefined>()
+
+    const locationArray = tours.map((tour) => tour.locations).flat();
+
+    const [locations, handlers] = useListState<Location>(locationArray);
 
     const connectors = Array.from({ length: locations.length - 1 }, (_, index) => (
         <div key={index} className={styles.connector}>
@@ -26,7 +30,7 @@ export default function LocationDisplay({ className, locations, handlers }: Loca
         </div>
     ));
 
-    const circleItems = locations.map((location, i) => (
+    const circleItems = locations.map((_, i) => (
         <div
             className="flex flex-col"
         >
@@ -53,38 +57,34 @@ export default function LocationDisplay({ className, locations, handlers }: Loca
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                     ref={provided.innerRef}
+                    onMouseLeave={() => {
+                        if (openedSideMenuIndex !== undefined) {
+                            setOpenedSideMenuIndex(undefined);
+                        }
+                    }}
                 >
                     <div
                         className="flex flex-row rounded-[60px] bg-gray-400 p-2 pl-6 drop-shadow-lg"
+                        onMouseEnter={() => {
+                            if (openedSideMenuIndex === undefined) {
+                                setOpenedSideMenuIndex(i);
+                            }
+                        }}
                     >
                         <p className="text-white">
                             {location.name} - {location.address}
                         </p>
                         <div
                             className="relative"
-                            onMouseLeave={() => {
-                                if (openedSideMenuIndex !== undefined) {
-                                    setOpenedSideMenuIndex(undefined);
-                                }
-                            }}
                         >
-                            <IconCircle
-                                style={
-                                    {
-                                        width: "24px",
-                                        height: "24px",
-                                        color: "#9ca3af"
-                                    }
-                                }
-                                stroke={1.5}
-                                onMouseEnter={() => {
-                                    if (openedSideMenuIndex === undefined) {
-                                        setOpenedSideMenuIndex(i);
-                                    }
-                                }}
-                            />
-                            {openedSideMenuIndex !== undefined && openedSideMenuIndex === i && <div className={`flex flex-row absolute z-[999] top-0 left-[30px] bg-black w-[100px] h-[100px]`}>
-                                
+                            {openedSideMenuIndex !== undefined && openedSideMenuIndex === i && <div className={`flex flex-col absolute z-[999] top-0 left-[5px] bg-white p-2`}>
+                                <h1 className="text-nowrap whitespace-nowrap">{tours.find((tour, i) => tour.locations.includes(location))?.tourName}</h1>
+                                <h4>Driver: {tours.find((tour, i) => tour.locations.includes(location))?.tourDriver}</h4>
+                                <ScrollArea h={200}>
+                                    {location.tasks?.map((task, i) => (
+                                        <p>{i + 1}. {task.text}</p>
+                                    ))}
+                                </ScrollArea>
                             </div>}
                         </div>
                     </div>
