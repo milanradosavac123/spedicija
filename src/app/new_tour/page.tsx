@@ -157,14 +157,17 @@ export default function NewTourPage() {
                         </SelectInputFieldAlt>
                     ))}
                 </div>
-                <OutlinedTextField
+                <SelectInputFieldAlt
+                    name="select-vehicle"
                     label="Vehicle Name"
                     placeholder="Add your Vehicle here..."
-                    value={vehicleName}
-                    onChange={(s) => {
-                        setVehicleName(s);
+                    onChange={(e) => {
+
                     }}
-                />
+                >
+                    <option value="0">Man</option>
+                    <option value="1">Mercedes</option>
+                </SelectInputFieldAlt>
             </div>
             <div className="grid grid-cols-3 gap-x-5 ">
                 {locationsList.map((value, i) => (
