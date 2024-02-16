@@ -1,19 +1,19 @@
 "use client";
 
-import { ActionIcon, Button, Group, Text, rem } from "@mantine/core";
+import { ActionIcon, Button, Group, Text, TextInput, rem } from "@mantine/core";
 import IconTabNew from "#/public/fluent_tab-new-24-filled.svg";
 import Image from "next/image";
 import OutlinedTextField from "@/components/OutlinedTextField";
 import Header from "@/components/Header";
 import { useState } from "react";
-import { IconCheck, IconHome, IconPlus } from "@tabler/icons-react";
-import { FormControl } from "react-bootstrap";
-import { IconX } from "@tabler/icons-react";
+import { IconHome, IconPlus } from "@tabler/icons-react";
+import { Form, FormControl } from "react-bootstrap";
 import PencilIconButton from "@/components/PencilIconButton";
 import XIconButton from "@/components/XIconButton";
 import StandardLinkButton from "@/components/StandardLinkButton";
-import CheckIconButton from "@/components/CheckIconButton";
 import SaveDismissIconButtonGroup from "@/components/SaveDismissIconButtonGroup";
+import SelectInputField from "@/components/SelectInputField";
+import SelectInputFieldAlt from "@/components/SelectInputFieldAlt";
 
 export interface Task {
     text: string,
@@ -60,6 +60,12 @@ export default function NewTourPage() {
     const [headerText, setHeaderText] = useState("Tour name");
 
     const [taskUnderEdit, setTaskUnderEdit] = useState("");
+
+    const [driverAmountArray, setDriverAmountArray] = useState<number[]>([1]);
+
+    function addDriver() {
+        setDriverAmountArray((oldDriverAmountArray) => [...oldDriverAmountArray, 1]);
+    }
 
     function editLocationName(index: number, name: string) {
         setLocationsList((oldLocationsList) => {
@@ -133,15 +139,24 @@ export default function NewTourPage() {
                     forwardLink={false}
                 />
             </div>
-            <div className="flex flex-row flex-auto gap-5">
-                <OutlinedTextField
-                    label="Driver Name"
-                    placeholder="Add your Driver here..."
-                    value={driverName}
-                    onChange={(s) => {
-                        setDriverName(s);
-                    }}
-                />
+            <div className="flex flex-row flex-auto gap-x-5 flex-wrap">
+                <div className="flex flex-row flex-grow gap-5 flex-wrap">
+                    {driverAmountArray.map((_, i) => (
+                        <SelectInputFieldAlt
+                            key={i}
+                            name="select-driver"
+                            label="Driver Name"
+                            placeholder="Add your Driver here..."
+                            onChange={(e) => {
+
+                            }}
+                            onPlusClicked={addDriver}
+                        >
+                            <option value="0">Milos</option>
+                            <option value="1">Mileta</option>
+                        </SelectInputFieldAlt>
+                    ))}
+                </div>
                 <OutlinedTextField
                     label="Vehicle Name"
                     placeholder="Add your Vehicle here..."
@@ -164,7 +179,6 @@ export default function NewTourPage() {
                     >
                         <OutlinedTextField
                             className="min-w-[20vw] max-w-[32vw]"
-                            id="location-text-field"
                             shouldBottomBeRounded={!(openedDropDownIndex === i && openedDropDownIndex !== undefined)}
                             isLabelEditable={true}
                             label={value.name}
