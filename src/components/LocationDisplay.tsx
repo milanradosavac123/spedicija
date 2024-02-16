@@ -1,6 +1,6 @@
 "use client";
 
-import { Location } from "@/app/new_tour/page";
+import { Location } from "@/app/tours/new_tour/page";
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 import { Button, ScrollArea, rem } from "@mantine/core";
 import { useListState } from "@mantine/hooks";

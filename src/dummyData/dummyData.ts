@@ -1,4 +1,4 @@
-import { Location, Task } from "@/app/new_tour/page";
+import { Location, Task } from "@/app/tours/new_tour/page";
 
 export interface TourInfo {
     id: number,

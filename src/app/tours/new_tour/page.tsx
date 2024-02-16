@@ -134,7 +134,7 @@ export default function NewTourPage() {
             <hr />
             <div className="flex flex-row justify-end py-5">
                 <StandardLinkButton
-                    href="/"
+                    href="/tours"
                     text="Back"
                     forwardLink={false}
                 />

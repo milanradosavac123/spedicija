@@ -12,7 +12,7 @@ export default function ToursPage() {
       <div className="flex flex-row justify-between py-5">
         <StandardSegmentedControl />
 
-        <StandardLinkButton text="New Tour" href="/new_tour" />
+        <StandardLinkButton text="New Tour" href="/tours/new_tour" />
       </div>
       <TourDataTable />
     </div>

@@ -1,6 +1,7 @@
 import { ChangeEvent, ReactNode, useState } from "react";
 import { Form } from "react-bootstrap";
 import PlusIconButton from "./PlusIconButton";
+import { rem } from "@mantine/core";
 
 interface SelectInputFieldProps {
     name: string,
@@ -22,7 +23,7 @@ export default function SelectInputFieldAlt({ name, className, label, placeholde
         <Form.Group className={`flex flex-row flex-auto items-center text-gray-500 font-[16px] ${className}`} controlId={name + "-input"}>
             <div className="flex flex-col flex-grow">
                 {label && <Form.Label className="pr-2 text-[#282147]" >{label}</Form.Label>}
-                <div className="p-1 flex flex-row items-center mb-4 border-solid border-2 border-[#282147] rounded-[10px]">
+                <div className={`p-1 flex flex-row items-center mb-4 border-solid border-2 border-[#282147] rounded-[10px] ${!onPlusClicked && `h-[2.5rem]`} `}>
                     <Form.Select
                         value={selectedOption}
                         className={`pl-2 flex-grow overflow-hidden bg-white ${selectedOption === placeholder ? "text-gray-400" : "text-black"}`}
@@ -38,7 +39,7 @@ export default function SelectInputFieldAlt({ name, className, label, placeholde
                         <option disabled={isOptionSelected}>{placeholder}</option>
                         {children}
                     </Form.Select>
-                    <PlusIconButton iconSize={32} colour="#282147" onClick={onPlusClicked} />
+                    {onPlusClicked && <PlusIconButton iconSize={32} colour={"#282147"} onClick={onPlusClicked} />}
                 </div>
             </div>
         </Form.Group>

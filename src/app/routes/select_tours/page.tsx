@@ -1,7 +1,7 @@
 "use client";
 
 import { SelectedToursContext } from "@/app/ContextWrapper";
-import { Location } from "@/app/new_tour/page";
+import { Location } from "@/app/tours/new_tour/page";
 import DateTourFilter from "@/components/DateTourFilter";
 import Header from "@/components/Header";
 import SelectInputField from "@/components/SelectInputField";
