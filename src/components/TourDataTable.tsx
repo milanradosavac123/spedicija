@@ -1,9 +1,7 @@
 "use client";
 
-import cx from 'clsx';
-import { useState } from 'react';
-import { Table, ScrollArea, Pagination } from '@mantine/core';
-import styles from "./TourDataTable.module.css";
+import { Table } from '@mantine/core';
+import StandardPagination from './StandardPagination';
 
 const data = Array.from({ length: 18 }, (_, index) => index + 1).map((number) => (
     {
@@ -16,8 +14,6 @@ const data = Array.from({ length: 18 }, (_, index) => index + 1).map((number) =>
 ));
 
 export function TourDataTable() {
-
-    //const [scrolled, setScrolled] = useState(false);
 
     const rows = data.map((row, i) => (
         <Table.Tr key={i}>
@@ -32,7 +28,7 @@ export function TourDataTable() {
     return (
         <div>
             <Table miw={700} mih={"100%"}>
-                <Table.Thead /*className={cx(styles.header, { [styles.scrolled]: scrolled })}*/ >
+                <Table.Thead>
                     <Table.Tr>
                         <Table.Th>Tour Name</Table.Th>
                         <Table.Th>Driver</Table.Th>
@@ -44,7 +40,13 @@ export function TourDataTable() {
                 <Table.Tbody>{rows}</Table.Tbody>
             </Table>
             <div className="flex flex-row justify-center">
-                <Pagination color="#282147" total={3} withEdges />
+                <StandardPagination
+                    value={1}
+                    total={3}
+                    onChange={(pageNumber) => {
+
+                    }}
+                />
             </div>
         </div>
     );

@@ -12,12 +12,13 @@ import { useContext, useRef, useState } from "react";
 import { Pagination } from "@mantine/core";
 import { IconCircle } from "@tabler/icons-react";
 import { dummyTourData } from "@/dummyData/dummyData";
+import StandardPagination from "@/components/StandardPagination";
 
 export default function SelectToursPage() {
 
     const [isAllSelected, setIsAllSelected] = useState(false);
 
-    const { selectedTourIds, setSelectedTourIds } = useContext(SelectedToursContext);
+    const { setSelectedTourIds } = useContext(SelectedToursContext);
 
     const [intermediateSelectedTourIds, setIntermediateSelectedTourIds] = useState<number[]>([])
 
@@ -88,11 +89,9 @@ export default function SelectToursPage() {
             </div>
             <div className="flex flex-row w-[100%] justify-between">
                 <IconCircle color="white" />
-                <Pagination
-                    color="#282147"
+                <StandardPagination
                     value={taskInfoPageNumber}
                     total={dummyTourData.length % 36 === 0 ? dummyTourData.length / 36 : (dummyTourData.length / 36) + 1}
-                    withEdges
                     onChange={(pageNumber) => {
                         setTaskInfoPageNumber(pageNumber);
                     }}

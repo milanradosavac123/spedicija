@@ -22,7 +22,7 @@ export default function SelectInputField({ name, className, label, placeholder, 
     const [selectedOption, setSelectedOption] = useState(placeholder);
 
     return (
-        <Form.Group className={`flex flex-row flex-auto items-center text-gray-500 font-[16px] ${className}`} controlId={name + "-input"}>
+        <Form.Group className={`flex flex-row items-center text-gray-500 font-[16px] ${className}`} controlId={name + "-input"}>
             {label && <Form.Label className="pr-2" >{label}</Form.Label>}
             <Form.Select
                 value={selectedOption}

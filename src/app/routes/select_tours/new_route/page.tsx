@@ -2,25 +2,25 @@
 
 import { SelectedToursContext } from "@/app/ContextWrapper";
 import LocationDisplay from "@/components/LocationDisplay";
-import { useListState } from "@mantine/hooks";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { dummyTourData } from "@/dummyData/dummyData";
-import { Location } from "@/app/new_tour/page";
+import Header from "@/components/Header";
 
 export default function NewRoutePage() {
 
-    const { selectedTourIds, setSelectedTourIds } = useContext(SelectedToursContext);
+    const { selectedTourIds } = useContext(SelectedToursContext);
 
     const tourArray = dummyTourData.filter((value) => selectedTourIds.includes(value.id))
 
+    const [routeName, setRouteName] = useState("Route name")
+
     return (
-        <div className="flex flex-row p-5">
-            <div className="grid grid-cols-[1]">
-                <LocationDisplay
-                    className="pl-5"
-                    tours={tourArray}
-                />
-            </div>
+        <div className="flex flex-col p-5">
+            <Header editable shouldShowSearchField={false} headerContent={routeName} onHeaderContentChanged={setRouteName} />
+            <LocationDisplay
+                className="pl-5"
+                tours={tourArray}
+            />
         </div>
     );
 }

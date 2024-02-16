@@ -22,13 +22,13 @@ import { usePathname } from 'next/navigation';
 
 const data = [
   { link: '/routes', label: 'Routes', icon: IconRoute },
-  { link: '/', label: 'Tours', icon: IconFlag3 },
-  { link: '', label: 'Drivers', icon: IconId },
-  { link: '', label: 'Vehicles', icon: IconTruck },
-  { link: '', label: 'Alarms', icon: IconAlarm },
-  { link: '', label: 'Map', icon: IconMap2 },
-  { link: '', label: 'Documents', icon: IconFileText },
-  { link: '', label: 'Analytics', icon: IconGraph },
+  { link: '/tours', label: 'Tours', icon: IconFlag3 },
+  { link: '/drivers', label: 'Drivers', icon: IconId },
+  { link: '/vehicles', label: 'Vehicles', icon: IconTruck },
+  { link: '/alarms', label: 'Alarms', icon: IconAlarm },
+  { link: '/map', label: 'Map', icon: IconMap2 },
+  { link: '/documents', label: 'Documents', icon: IconFileText },
+  { link: '/analytics', label: 'Analytics', icon: IconGraph },
 ];
 
 interface StandardNavBarProps {
@@ -45,7 +45,7 @@ export function StandardNavBar({ className }: StandardNavBarProps) {
 
   const route = pathname.split("/").filter(Boolean)[0];
 
-  const [active, setActive] = useState(route === undefined || route === "new_tour" ? "Tours" : route[0].toUpperCase() + route.substring(1));
+  const [active, setActive] = useState(route === undefined ? "Tours" : route[0].toUpperCase() + route.substring(1));
 
   const [isNavbarCollapsed, setIsNavBarCollapsed] = useState(isMobile());
 
