@@ -14,6 +14,7 @@ import StandardLinkButton from "@/components/StandardLinkButton";
 import SaveDismissIconButtonGroup from "@/components/SaveDismissIconButtonGroup";
 import SelectInputField from "@/components/SelectInputField";
 import SelectInputFieldAlt from "@/components/SelectInputFieldAlt";
+import DocumentUploadButton from "@/components/DocumentUploadButton";
 
 export interface Task {
     text: string,
@@ -373,6 +374,9 @@ export default function NewTourPage() {
                         }}
                     />
                 }
+            </div>
+            <div className="flex flex-row">
+                <DocumentUploadButton />
             </div>
             <div className="flex flex-col flex-auto">
                 <Text className="text-[#282147] py-1" component="label" htmlFor="comment-text-area" size="sm" fw={500} >
