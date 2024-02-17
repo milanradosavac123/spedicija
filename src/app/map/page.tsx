@@ -1,8 +1,12 @@
+import Header from "@/components/Header";
 
 export default function MapPage() {
     return (
-        <div className="flex flex-col flex-auto justify-center items-center min-w-[100%]">
-            <h1>empty page</h1>
+        <div className="p-5">
+            <Header headerContent="Map" />
+            <div className="flex flex-row flex-auto justify-center">
+                <h1>empty page</h1>
+            </div>
         </div>
     );
 }
