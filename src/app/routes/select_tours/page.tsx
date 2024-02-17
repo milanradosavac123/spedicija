@@ -14,7 +14,7 @@ import { IconCircle } from "@tabler/icons-react";
 import { dummyTourData } from "@/dummyData/dummyData";
 import StandardPagination from "@/components/StandardPagination";
 
-export default function SelectToursPage() {
+export default function SelectTours() {
 
     const [isAllSelected, setIsAllSelected] = useState(false);
 
@@ -38,7 +38,7 @@ export default function SelectToursPage() {
     return (
         <div className="p-5 flex flex-col h-[100%]">
             <div className="flex flex-col h-[100%]">
-                <div className="flex flex-row">
+                <div className="flex flex-col">
                     <Header headerContent="Routes" />
                     <hr />
                 </div>
@@ -73,7 +73,7 @@ export default function SelectToursPage() {
                     />
                 </div>
                 <div className="flex flex-row flex-wrap">
-                    {dummyTourData.slice(((taskInfoPageNumber - 1) * 36),((taskInfoPageNumber - 1) * 36) + 36).map((tourInfo, i) => (
+                    {dummyTourData.slice(((taskInfoPageNumber - 1) * 36), ((taskInfoPageNumber - 1) * 36) + 36).map((tourInfo, i) => (
                         <TourInfoCard
                             key={i}
                             {...tourInfo}
@@ -92,9 +92,7 @@ export default function SelectToursPage() {
                 <StandardPagination
                     value={taskInfoPageNumber}
                     total={dummyTourData.length % 36 === 0 ? dummyTourData.length / 36 : (dummyTourData.length / 36) + 1}
-                    onChange={(pageNumber) => {
-                        setTaskInfoPageNumber(pageNumber);
-                    }}
+                    onChange={setTaskInfoPageNumber}
                 />
                 <StandardLinkButton
                     href="/routes/select_tours/new_route"

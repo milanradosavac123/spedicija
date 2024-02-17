@@ -27,7 +27,7 @@ export interface Location {
     tasks?: Task[]
 }
 
-export default function NewTourPage() {
+export default function NewTour() {
 
     const [driverName, setDriverName] = useState("");
     const [vehicleName, setVehicleName] = useState("");

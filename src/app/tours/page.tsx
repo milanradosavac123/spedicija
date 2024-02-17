@@ -1,20 +1,43 @@
+"use client";
+
 import { TourDataTable } from "@/components/TourDataTable";
 import Header from "@/components/Header";
 import { StandardSegmentedControl } from "@/components/StandardSegmentedControl";
 import StandardLinkButton from "@/components/StandardLinkButton";
+import StandardPagination from "@/components/StandardPagination";
+import { useState } from "react";
+import { tourTableData } from "@/dummyData/dummyData";
 
-export default function ToursPage() {
+export default function Tours() {
 
-  return (
-    <div className="p-5">
-      <Header headerContent="Active Tours" />
-      <hr />
-      <div className="flex flex-row justify-between py-5">
-        <StandardSegmentedControl />
+	const [tableDataPageNumber, setTableDataPageNumber] = useState(1);
 
-        <StandardLinkButton text="New Tour" href="/tours/new_tour" />
-      </div>
-      <TourDataTable />
-    </div>
-  );
+	return (
+		<div className="p-5 flex flex-col h-[100%]">
+			<div className="flex flex-col h-[100%]">
+				<div className="flex flex-col">
+					<Header headerContent="Active Tours" />
+					<hr />
+				</div>
+				<div className="flex flex-row justify-between py-5">
+					<StandardSegmentedControl />
+
+					<StandardLinkButton text="New Tour" href="/tours/new_tour" />
+				</div>
+				<div className="flex flex-row flex-auto">
+					<TourDataTable
+						tourTableData={tourTableData}
+						tableDataPageNumber={tableDataPageNumber}
+					/>
+				</div>
+			</div>
+			<div className="flex flex-row justify-center">
+				<StandardPagination
+					value={tableDataPageNumber}
+					total={tourTableData.length % 18 === 0 ? tourTableData.length / 18 : (tourTableData.length / 18) + 1}
+					onChange={setTableDataPageNumber}
+				/>
+			</div>
+		</div>
+	);
 }

@@ -1,9 +1,12 @@
 import Header from "@/components/Header";
 
-export default function DocumentsPage() {
+export default function Documents() {
     return (
         <div className="p-5">
-            <Header headerContent="Documents" />
+            <div className="flex flex-col">
+                <Header headerContent="Documents" />
+                <hr />
+            </div>
             <div className="flex flex-row flex-auto justify-center">
                 <h1>empty page</h1>
             </div>

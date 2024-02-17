@@ -1,21 +1,16 @@
 "use client";
 
 import { Table } from '@mantine/core';
-import StandardPagination from './StandardPagination';
+import { TourTableData } from '@/dummyData/dummyData';
 
-const data = Array.from({ length: 18 }, (_, index) => index + 1).map((number) => (
-    {
-        tourName: "Berlin - Bonn",
-        driver: "Milos",
-        startDate: "12/12/2023",
-        endDate: "13/12/2023",
-        luStatus: "Loaded",
-    }
-));
+interface TourDataTableProps {
+    tourTableData: TourTableData[],
+    tableDataPageNumber: number
+}
 
-export function TourDataTable() {
+export function TourDataTable({ tourTableData, tableDataPageNumber }: TourDataTableProps) {
 
-    const rows = data.map((row, i) => (
+    const rows = tourTableData.slice(((tableDataPageNumber - 1) * 18), ((tableDataPageNumber - 1) * 18) + 18).map((row, i) => (
         <Table.Tr key={i}>
             <Table.Td>{row.tourName}</Table.Td>
             <Table.Td>{row.driver}</Table.Td>
@@ -26,28 +21,17 @@ export function TourDataTable() {
     ));
 
     return (
-        <div>
-            <Table miw={700} mih={"100%"}>
-                <Table.Thead>
-                    <Table.Tr>
-                        <Table.Th>Tour Name</Table.Th>
-                        <Table.Th>Driver</Table.Th>
-                        <Table.Th>Start Date</Table.Th>
-                        <Table.Th>End Date</Table.Th>
-                        <Table.Th>Loading/Unloading Status</Table.Th>
-                    </Table.Tr>
-                </Table.Thead>
-                <Table.Tbody>{rows}</Table.Tbody>
-            </Table>
-            <div className="flex flex-row justify-center">
-                <StandardPagination
-                    value={1}
-                    total={3}
-                    onChange={(pageNumber) => {
-
-                    }}
-                />
-            </div>
-        </div>
+        <Table miw={700} mah={1}>
+            <Table.Thead>
+                <Table.Tr>
+                    <Table.Th>Tour Name</Table.Th>
+                    <Table.Th>Driver</Table.Th>
+                    <Table.Th>Start Date</Table.Th>
+                    <Table.Th>End Date</Table.Th>
+                    <Table.Th>Loading/Unloading Status</Table.Th>
+                </Table.Tr>
+            </Table.Thead>
+            <Table.Tbody>{rows}</Table.Tbody>
+        </Table>
     );
 }

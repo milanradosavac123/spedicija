@@ -6,7 +6,7 @@ import { useContext, useState } from "react";
 import { dummyTourData } from "@/dummyData/dummyData";
 import Header from "@/components/Header";
 
-export default function NewRoutePage() {
+export default function NewRoute() {
 
     const { selectedTourIds } = useContext(SelectedToursContext);
 

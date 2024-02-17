@@ -1,21 +1,16 @@
 "use client";
 
 import { Table, } from '@mantine/core';
-import StandardPagination from './StandardPagination';
+import { RouteTableData } from '@/dummyData/dummyData';
 
-const data = Array.from({ length: 18 }, (_, index) => index + 1).map((number) => (
-    {
-        routeName: "Berlin - Bonn",
-        driver: "Milos",
-        startDate: "12/12/2023",
-        endDate: "13/12/2023",
-        luStatus: "Loaded",
-    }
-));
+interface RouteDataTableProps {
+    routeTableData: RouteTableData[],
+    tableDataPageNumber: number
+}
 
-export function RouteDataTable() {
+export function RouteDataTable({ routeTableData, tableDataPageNumber }: RouteDataTableProps) {
 
-    const rows = data.map((row, i) => (
+    const rows = routeTableData.slice(((tableDataPageNumber - 1) * 18), ((tableDataPageNumber - 1) * 18) + 18).map((row, i) => (
         <Table.Tr key={i}>
             <Table.Td><center>{row.routeName}</center></Table.Td>
             <Table.Td><center>{row.driver}</center></Table.Td>
@@ -26,28 +21,17 @@ export function RouteDataTable() {
     ));
 
     return (
-        <div>
-            <Table miw={700} mih={"100%"}>
-                <Table.Thead /*className={cx(styles.header, { [styles.scrolled]: scrolled })}*/ >
-                    <Table.Tr>
-                        <Table.Th><center>Route Name</center></Table.Th>
-                        <Table.Th><center>Driver</center></Table.Th>
-                        <Table.Th><center>Start Date</center></Table.Th>
-                        <Table.Th><center>End Date</center></Table.Th>
-                        <Table.Th><center>Loading/Unloading Status</center></Table.Th>
-                    </Table.Tr>
-                </Table.Thead>
-                <Table.Tbody>{rows}</Table.Tbody>
-            </Table>
-            <div className="flex flex-row justify-center">
-                <StandardPagination
-                    value={1}
-                    total={3}
-                    onChange={(pageNumber) => {
-
-                    }}
-                />
-            </div>
-        </div>
+        <Table miw={700} mah={1}>
+            <Table.Thead>
+                <Table.Tr>
+                    <Table.Th><center>Route Name</center></Table.Th>
+                    <Table.Th><center>Driver</center></Table.Th>
+                    <Table.Th><center>Start Date</center></Table.Th>
+                    <Table.Th><center>End Date</center></Table.Th>
+                    <Table.Th><center>Loading/Unloading Status</center></Table.Th>
+                </Table.Tr>
+            </Table.Thead>
+            <Table.Tbody>{rows}</Table.Tbody>
+        </Table>
     );
 }
