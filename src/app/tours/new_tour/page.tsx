@@ -56,12 +56,13 @@ export default function NewTour() {
 
     const [openedDropDownIndex, setOpenedDropDownIndex] = useState<number | undefined>(undefined);
 
-
     const [headerText, setHeaderText] = useState("Tour name");
 
     const [taskUnderEdit, setTaskUnderEdit] = useState("");
 
     const [driverAmountArray, setDriverAmountArray] = useState<number[]>([1]);
+
+    const [files, setFiles] = useState<File[]>([]);
 
     function addDriver() {
         setDriverAmountArray((oldDriverAmountArray) => [...oldDriverAmountArray, 1]);
@@ -375,7 +376,15 @@ export default function NewTour() {
                 }
             </div>
             <div className="flex flex-row">
-                <DocumentUploadButton />
+                <DocumentUploadButton
+                    files={files}
+                    onFilesChanged={(newFiles) => {
+                        setFiles((oldFiles) => [...oldFiles, ...newFiles]);
+                    }}
+                    onSelectorReset={() => {
+                        setFiles([]);
+                    }}
+                />
             </div>
             <div className="flex flex-col flex-auto">
                 <Text className="text-[#282147] py-1" component="label" htmlFor="comment-text-area" size="sm" fw={500} >
