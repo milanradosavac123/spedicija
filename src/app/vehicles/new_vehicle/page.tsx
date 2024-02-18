@@ -2,6 +2,7 @@
 
 import Header from "@/components/Header";
 import OutlinedTextField from "@/components/OutlinedTextField";
+import OutlinedNumberField from "@/components/OutlinedNumberField";
 import StandardLinkButton from "@/components/StandardLinkButton";
 import { Group, Button } from "@mantine/core";
 import Image from "next/image";
@@ -40,31 +41,28 @@ export default function Vehicles() {
                         value={vehicleType}
                         onChange={setVehicleType}
                     />
-                    <OutlinedTextField
+                    <OutlinedNumberField
                         label="Vehicle Weight (T)"
                         placeholder="Add your Vehicle Weight here..."
-                        value={vehicleWeight === 0 ? "" : vehicleWeight.toString()}
-                        type="number"
-                        onChange={(s) => {
-                            !Number.isNaN(s) && setVehicleWeight(Number(s))   
+                        value={vehicleWeight === 0 ? "" : vehicleWeight}
+                        onChange={(n) => {
+                            setVehicleWeight(Number(n));
                         }}
                     />
-                    <OutlinedTextField
+                    <OutlinedNumberField
                         label="Vehicle Height (m)"
                         placeholder="Add your Vehicle Height here..."
-                        value={vehicleHeight === 0 ? "" : vehicleHeight.toString()}
-                        type="number"
-                        onChange={(s) => {
-                            !Number.isNaN(s) && setVehicleHeight(Number(s))
+                        value={vehicleHeight === 0 ? "" : vehicleHeight}
+                        onChange={(n) => {
+                            setVehicleHeight(Number(n));
                         }}
                     />
-                    <OutlinedTextField
+                    <OutlinedNumberField
                         label="Vehicle Width (m)"
                         placeholder="Add your Vehicle Width here..."
-                        value={vehicleWidth === 0 ? "" : vehicleWidth.toString()}
-                        type="number"
-                        onChange={(s) => {
-                            !Number.isNaN(s) && setVehicleWidth(Number(s))
+                        value={vehicleWidth === 0 ? "" : vehicleWidth}
+                        onChange={(n) => {
+                            setVehicleWidth(Number(n));
                         }}
                     />
                     <div className="flex flex-col flex-auto">

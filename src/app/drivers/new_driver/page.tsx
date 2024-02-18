@@ -8,11 +8,12 @@ import Image from "next/image";
 import { useState } from "react";
 import { FormControl } from "react-bootstrap";
 import IconTabNew from "#/public/fluent_tab-new-24-filled.svg";
-import PencilIconButton from "@/components/PencilIconButton";
 
 export default function Vehicles() {
 
-
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [uniqueDeviceID, setUniqueDeviceID] = useState("");
 
     return (
         <div className="p-5 flex flex-col h-[100%]">
@@ -28,26 +29,20 @@ export default function Vehicles() {
                     <OutlinedTextField
                         label="First Name"
                         placeholder="Add your Driver's First Name here..."
-                        value=""
-                        onChange={(s) => {
-                            
-                        }}
+                        value={firstName}
+                        onChange={setFirstName}
                     />
                     <OutlinedTextField
                         label="Last Name"
                         placeholder="Add your Driver's Last Name here..."
-                        value=""
-                        onChange={(s) => {
-                            
-                        }}
+                        value={lastName}
+                        onChange={setLastName}
                     />
                     <OutlinedTextField
                         label="Unique Device ID"
                         placeholder="Add your Driver's Unique Device ID here..."
-                        value=""
-                        onChange={(s) => {
-                            
-                        }}
+                        value={uniqueDeviceID}
+                        onChange={setUniqueDeviceID}
                     />
                     <div className="flex flex-col flex-auto">
                         <Group justify="space-between" mb={5}>

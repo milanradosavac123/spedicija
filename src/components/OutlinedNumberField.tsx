@@ -1,9 +1,9 @@
 import React, { RefObject, useEffect, useRef, useState } from 'react';
-import { Group, TextInput } from '@mantine/core';
+import { Group, NumberInput, TextInput } from '@mantine/core';
 import { FormControl } from 'react-bootstrap';
 import EditControl from './EditControl';
 
-interface OutlinedTextFieldProps {
+interface OutlinedNumberFieldProps {
 	ref?: RefObject<HTMLInputElement>
 	className?: string;
 	id?: string;
@@ -11,18 +11,18 @@ interface OutlinedTextFieldProps {
 	shouldBottomBeRounded?: boolean
 	label: string;
 	placeholder: string;
-	value: string;
+	value: (string | number);
 	leftSection?: React.ReactNode;
 	rightSectionWidth?: number;
 	rightSection?: React.ReactNode;
-	onChange: (value: string) => void;
+	onChange: (value: string | number) => void;
 	onLabelChange?: (value: string) => void;
 	onLabelEditDismissed?: () => void;
 	onMouseEnter?: () => void;
 	onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
-export default function OutlinedTextField({ ref, className, id, isLabelEditable = false, shouldBottomBeRounded = true, label, placeholder, value, leftSection, rightSectionWidth, rightSection, onChange, onLabelChange, onLabelEditDismissed, onMouseEnter, onKeyDown }: OutlinedTextFieldProps) {
+export default function OutlinedNumberField({ ref, className, id, isLabelEditable = false, shouldBottomBeRounded = true, label, placeholder, value, leftSection, rightSectionWidth, rightSection, onChange, onLabelChange, onLabelEditDismissed, onMouseEnter, onKeyDown }: OutlinedNumberFieldProps) {
 
 	const [isEditing, setIsEditing] = useState(false);
 
@@ -81,7 +81,7 @@ export default function OutlinedTextField({ ref, className, id, isLabelEditable 
 					}}
 				/>
 			</Group>
-			<TextInput
+			<NumberInput
 				autoFocus={true}
 				ref={ref}
 				onMouseEnter={onMouseEnter}
@@ -89,7 +89,7 @@ export default function OutlinedTextField({ ref, className, id, isLabelEditable 
 				placeholder={placeholder}
 				id={id !== undefined ? id : "outlined-text-field"}
 				value={value}
-				onChange={(event) =>  onChange(event.currentTarget.value)}
+				onChange={onChange}
 				variant="outline"
 				leftSection={leftSection}
 				rightSectionWidth={rightSectionWidth}
