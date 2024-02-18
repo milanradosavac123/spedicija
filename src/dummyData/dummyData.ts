@@ -34,6 +34,12 @@ export interface VehicleTableData {
     vehicleWidth: number
 }
 
+export interface DriverTableData {
+    firstName: string,
+    lastName: string,
+    uniqueDeviceID: string
+}
+
 const dummyTasks = Array.from({ length: 20 }, (_, index) => index + 1).map((number) => (
     {
         text: "jfiodajdos;ifdsfio",
@@ -89,4 +95,12 @@ export const vehicleTableData = Array.from({ length: 37 }, (_, index) => index +
         vehicleHeight: number % 2 === 0 ? 3.8 : 3,
         vehicleWidth: number % 2 === 0 ? 2.5 : 2.3
     } as VehicleTableData
+));
+
+export const driverTableData = Array.from({ length: 37 }, (_, index) => index + 1).map((number) => (
+    {
+        firstName: number % 2 === 0 ? "Mileta" : "Milos",
+        lastName: "Milincic",
+        uniqueDeviceID: "fuahDIFADPS"
+    } as DriverTableData
 ));
