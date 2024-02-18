@@ -8,12 +8,15 @@ import Image from "next/image";
 import { useState } from "react";
 import { FormControl } from "react-bootstrap";
 import IconTabNew from "#/public/fluent_tab-new-24-filled.svg";
-import PencilIconButton from "@/components/PencilIconButton";
 
 export default function Vehicles() {
 
-
-
+    const [vehicleName, setVehicleName] = useState("");
+    const [vehicleType, setVehicleType] = useState("");
+    const [vehicleWeight, setVehicleWeight] = useState(0);
+    const [vehicleHeight, setVehicleHeight] = useState(0);
+    const [vehicleWidth, setVehicleWidth] = useState(0);
+ 
     return (
         <div className="p-5 flex flex-col h-[100%]">
             <div className="flex flex-col">
@@ -28,44 +31,40 @@ export default function Vehicles() {
                     <OutlinedTextField
                         label="Vehicle Name"
                         placeholder="Add your Vehicle Name here..."
-                        value=""
-                        onChange={(s) => {
-                            
-                        }}
+                        value={vehicleName}
+                        onChange={setVehicleName}
                     />
                     <OutlinedTextField
                         label="Vehicle Type"
                         placeholder="Add your Vehicle Type here..."
-                        value=""
-                        onChange={(s) => {
-                            
-                        }}
+                        value={vehicleType}
+                        onChange={setVehicleType}
                     />
                     <OutlinedTextField
-                        label="Vehicle Weight"
+                        label="Vehicle Weight (T)"
                         placeholder="Add your Vehicle Weight here..."
-                        value=""
+                        value={vehicleWeight === 0 ? "" : vehicleWeight.toString()}
                         type="number"
                         onChange={(s) => {
-                            
+                            !Number.isNaN(s) && setVehicleWeight(Number(s))   
                         }}
                     />
                     <OutlinedTextField
-                        label="Vehicle Height"
+                        label="Vehicle Height (m)"
                         placeholder="Add your Vehicle Height here..."
-                        value=""
+                        value={vehicleHeight === 0 ? "" : vehicleHeight.toString()}
                         type="number"
                         onChange={(s) => {
-                            
+                            !Number.isNaN(s) && setVehicleHeight(Number(s))
                         }}
                     />
                     <OutlinedTextField
-                        label="Vehicle Width"
+                        label="Vehicle Width (m)"
                         placeholder="Add your Vehicle Width here..."
-                        value=""
+                        value={vehicleWidth === 0 ? "" : vehicleWidth.toString()}
                         type="number"
                         onChange={(s) => {
-                            
+                            !Number.isNaN(s) && setVehicleWidth(Number(s))
                         }}
                     />
                     <div className="flex flex-col flex-auto">

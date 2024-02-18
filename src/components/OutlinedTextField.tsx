@@ -91,7 +91,7 @@ export default function OutlinedTextField({ ref, className, id, isLabelEditable 
 				placeholder={placeholder}
 				id={id !== undefined ? id : "outlined-text-field"}
 				value={value}
-				onChange={(event) => onChange(event.currentTarget.value)}
+				onChange={(event) =>  onChange(event.currentTarget.value)}
 				variant="outline"
 				leftSection={leftSection}
 				rightSectionWidth={rightSectionWidth}

@@ -28,9 +28,6 @@ export interface Location {
 
 export default function NewTour() {
 
-    const [driverName, setDriverName] = useState("");
-    const [vehicleName, setVehicleName] = useState("");
-
     const [shouldShowAddNewLocationButton, setShouldShowAddNewLocationButton] = useState(true);
 
     const [shouldShowAddNewTaskTextField, setShouldShowAddNewTaskTextField] = useState(false);
