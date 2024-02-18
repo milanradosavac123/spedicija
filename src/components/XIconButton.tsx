@@ -12,7 +12,7 @@ export default function XIconButton({ iconSize = 18, colour, onClick }: XIconBut
     return (
         <ActionIcon
             className={
-                `${colour && colour === "white" && "cursor-default"}`
+                `${colour && colour === "white" ? "cursor-default" : ""}`
             }
             onClick={onClick}
         >

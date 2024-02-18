@@ -12,6 +12,7 @@ interface OutlinedTextFieldProps {
 	label: string;
 	placeholder: string;
 	value: string;
+	type?: string;
 	leftSection?: React.ReactNode;
 	rightSectionWidth?: number;
 	rightSection?: React.ReactNode;
@@ -22,7 +23,7 @@ interface OutlinedTextFieldProps {
 	onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
-export default function OutlinedTextField({ ref, className, id, isLabelEditable = false, shouldBottomBeRounded = true, label, placeholder, value, leftSection, rightSectionWidth, rightSection, onChange, onLabelChange, onLabelEditDismissed, onMouseEnter, onKeyDown }: OutlinedTextFieldProps) {
+export default function OutlinedTextField({ ref, className, id, isLabelEditable = false, shouldBottomBeRounded = true, label, placeholder, value, type, leftSection, rightSectionWidth, rightSection, onChange, onLabelChange, onLabelEditDismissed, onMouseEnter, onKeyDown }: OutlinedTextFieldProps) {
 
 	const [isEditing, setIsEditing] = useState(false);
 
@@ -54,7 +55,7 @@ export default function OutlinedTextField({ ref, className, id, isLabelEditable 
 					ref={editLabelInputRef}
 					type="text"
 					size="lg"
-					disabled={!isEditing}
+					disabled={!isLabelEditable && !isEditing}
 					value={labelText}
 					className={`text-[#282147] ${isEditing ? "border-solid border-2 border-b-[#282147] pl-1" : ""} flex-1`}
 					onChange={(e) => {
@@ -71,18 +72,20 @@ export default function OutlinedTextField({ ref, className, id, isLabelEditable 
 					}}
 				/>
 
-				{isLabelEditable && <EditControl
-					isEditing={isEditing}
+				<EditControl
+					isEditing={isLabelEditable && isEditing}
+					colour={isLabelEditable ? "white" : undefined}
 					onSave={saveLabel}
 					onDismiss={dismissLabel}
 					onEditingChange={(newValue) => {
-						setIsEditing(newValue);
+						isLabelEditable && setIsEditing(newValue);
 					}}
-				/>}
+				/>
 			</Group>
 			<TextInput
 				autoFocus={true}
 				ref={ref}
+				type={type}
 				onMouseEnter={onMouseEnter}
 				className={`mb-4 border-solid text-[#282147] border-2 border-[#282147] rounded-t-[10px] ${shouldBottomBeRounded ? "rounded-b-[10px]" : ""} overflow-hidden`}
 				placeholder={placeholder}

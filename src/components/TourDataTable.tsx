@@ -13,7 +13,7 @@ export function TourDataTable({ tourTableData, tableDataPageNumber }: TourDataTa
     const rows = tourTableData.slice(((tableDataPageNumber - 1) * 18), ((tableDataPageNumber - 1) * 18) + 18).map((row, i) => (
         <Table.Tr key={i}>
             <Table.Td>{row.tourName}</Table.Td>
-            <Table.Td>{row.driver}</Table.Td>
+            <Table.Td>{row.tourDriver}</Table.Td>
             <Table.Td>{row.startDate}</Table.Td>
             <Table.Td>{row.endDate}</Table.Td>
             <Table.Td>{row.luStatus}</Table.Td>
@@ -25,7 +25,7 @@ export function TourDataTable({ tourTableData, tableDataPageNumber }: TourDataTa
             <Table.Thead>
                 <Table.Tr>
                     <Table.Th>Tour Name</Table.Th>
-                    <Table.Th>Driver</Table.Th>
+                    <Table.Th>Tour Driver</Table.Th>
                     <Table.Th>Start Date</Table.Th>
                     <Table.Th>End Date</Table.Th>
                     <Table.Th>Loading/Unloading Status</Table.Th>

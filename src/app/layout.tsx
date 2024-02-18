@@ -28,7 +28,7 @@ export default function RootLayout({
       <head>
         <ColorSchemeScript defaultColorScheme="light" />
       </head>
-      <body className={`${inter.className}`}>
+      <body className={`${inter.className} m-0`}>
         <MantineProvider>
           <div className="flex flex-col h-screen overflow-hidden">
             <div className="flex overflow-hidden">
