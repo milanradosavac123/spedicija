@@ -9,7 +9,10 @@ export function StandardSegmentedControl() {
             radius="xl"
             size="md"
             data={["Active Tours", "Upcoming Tours", "Completed tours"]}
-            classNames={styles}
+            classNames={{
+                "indicator": "bg-[#282147]",
+                "label": "text-white"
+            }}
         />
     );
 }

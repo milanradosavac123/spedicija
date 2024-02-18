@@ -17,11 +17,3 @@ h1 {
   -moz-user-select: none;
   -ms-user-select: none;
 }
-
-* {
-  box-sizing: border-box;
-}
-
-.mantine-Pagination-control[data-active] {
-  background-color: #282147;
-}

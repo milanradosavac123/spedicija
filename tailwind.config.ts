@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import type plugin from "tailwindcss";
 
 const config: Config = {
   content: [
@@ -15,6 +16,10 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    // plugin(({ addVariant }) => {
+    //   addVariant('active', '[data-active]')
+    // }),
+  ],
 };
 export default config;

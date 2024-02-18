@@ -2,10 +2,9 @@
 
 import { Location } from "@/app/tours/new_tour/page";
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
-import { Button, ScrollArea, rem } from "@mantine/core";
+import { ScrollArea, rem } from "@mantine/core";
 import { useListState } from "@mantine/hooks";
 import { IconCircle, IconMapPin } from "@tabler/icons-react";
-import styles from "./DottedLine.module.css";
 import { useState } from "react";
 import { TourInfo } from "@/dummyData/dummyData";
 
@@ -23,10 +22,10 @@ export default function LocationDisplay({ className, tours }: LocationDisplayPro
     const [locations, handlers] = useListState<Location>(locationArray);
 
     const connectors = Array.from({ length: locations.length - 1 }, (_, index) => (
-        <div key={index} className={styles.connector}>
-            <div className={styles.dot}></div>
-            <div className={styles.dot}></div>
-            <div className={styles.dot}></div>
+        <div key={index} className="flex flex-col items-center">
+            <div className="w-[6px] h-[6px] bg-black rounded-[50%] m-[2px]"></div>
+            <div className="w-[6px] h-[6px] bg-black rounded-[50%] m-[2px]"></div>
+            <div className="w-[6px] h-[6px] bg-black rounded-[50%] m-[2px]"></div>
         </div>
     ));
 
