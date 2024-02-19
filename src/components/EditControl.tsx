@@ -22,7 +22,7 @@ export default function EditControl({ isEditing, colour, enabled = true, iconSiz
             {!isEditing && enabled &&
                 <PencilIconButton
                     iconSize={iconSize}
-                    colour={"white"}
+                    colour={colour}
                     onClick={() => {
                         enabled && onEditingChange && onEditingChange(true);
                         enabled && onEdit && onEdit();

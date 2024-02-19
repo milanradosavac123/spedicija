@@ -73,7 +73,7 @@ export default function OutlinedTextField({ ref, className, id, isLabelEditable 
 
 				<EditControl
 					isEditing={isLabelEditable && isEditing}
-					colour={isLabelEditable ? "white" : undefined}
+					colour={!isLabelEditable ? "white" : undefined}
 					onSave={saveLabel}
 					onDismiss={dismissLabel}
 					onEditingChange={(newValue) => {
