@@ -372,7 +372,7 @@ export default function NewTour() {
                     />
                 }
             </div>
-            <div className="flex flex-row">
+            <div className="flex flex-row py-5">
                 <DocumentUploadButton
                     files={files}
                     onFilesChanged={(newFiles) => {
