@@ -9,35 +9,35 @@ import { useState } from "react";
 import StandardPagination from "@/components/StandardPagination";
 
 export default function Routes() {
-    
-    const [tableDataPageNumber, setTableDataPageNumber] = useState(1);
-    
-    return (
-        <div className="p-5 flex flex-col h-[100%]">
-        <div className="flex flex-col h-[100%]">
-            <div className="flex flex-col">
-                <Header headerContent="Routes" />
-                <hr />
-            </div>
-            <div className="flex flex-row justify-between py-5">
-                <StandardSegmentedControl />
 
-                <StandardLinkButton text="New Route" href="/routes/select_tours" />
+    const [tableDataPageNumber, setTableDataPageNumber] = useState(1);
+
+    return (
+        <div className="p-5 flex flex-col h-[100%] overflow-hidden">
+            <div className="flex flex-col h-[100%]">
+                <div className="flex flex-col">
+                    <Header headerContent="Routes" />
+                    <hr />
+                </div>
+                <div className="flex flex-row justify-between py-5">
+                    <StandardSegmentedControl />
+
+                    <StandardLinkButton text="New Route" href="/routes/select_tours" />
+                </div>
+                <div className="flex flex-row flex-auto overflow-hidden">
+                    <RouteDataTable
+                        routeTableData={routeTableData}
+                        tableDataPageNumber={tableDataPageNumber}
+                    />
+                </div>
             </div>
-            <div className="flex flex-row flex-auto">
-                <RouteDataTable
-                    routeTableData={routeTableData}
-                    tableDataPageNumber={tableDataPageNumber}
+            <div className="flex flex-row justify-center">
+                <StandardPagination
+                    value={tableDataPageNumber}
+                    total={routeTableData.length % 18 === 0 ? routeTableData.length / 18 : (routeTableData.length / 18) + 1}
+                    onChange={setTableDataPageNumber}
                 />
             </div>
         </div>
-        <div className="flex flex-row justify-center">
-            <StandardPagination
-                value={tableDataPageNumber}
-                total={routeTableData.length % 18 === 0 ? routeTableData.length / 18 : (routeTableData.length / 18) + 1}
-                onChange={setTableDataPageNumber}
-            />
-        </div>
-    </div>
     );
 }

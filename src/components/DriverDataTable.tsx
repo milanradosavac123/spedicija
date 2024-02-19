@@ -1,6 +1,6 @@
 "use client";
 
-import { Table } from '@mantine/core';
+import { ScrollArea, Table } from '@mantine/core';
 import { DriverTableData, VehicleTableData } from '@/dummyData/dummyData';
 
 interface VehicleDataTableProps {
@@ -19,15 +19,17 @@ export function DriverDataTable({ driverTableData, tableDataPageNumber }: Vehicl
     ));
 
     return (
-        <Table miw={700} mah={1}>
-            <Table.Thead>
-                <Table.Tr>
-                    <Table.Th>First Name</Table.Th>
-                    <Table.Th>Last Name</Table.Th>
-                    <Table.Th>Unique Device ID</Table.Th>
-                </Table.Tr>
-            </Table.Thead>
-            <Table.Tbody>{rows}</Table.Tbody>
-        </Table>
+        <ScrollArea style={{ width: '100%' }}>
+            <Table>
+                <Table.Thead>
+                    <Table.Tr>
+                        <Table.Th>First Name</Table.Th>
+                        <Table.Th>Last Name</Table.Th>
+                        <Table.Th>Unique Device ID</Table.Th>
+                    </Table.Tr>
+                </Table.Thead>
+                <Table.Tbody>{rows}</Table.Tbody>
+            </Table>
+        </ScrollArea>
     );
 }

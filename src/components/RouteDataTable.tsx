@@ -1,6 +1,6 @@
 "use client";
 
-import { Table, } from '@mantine/core';
+import { ScrollArea, Table, } from '@mantine/core';
 import { RouteTableData } from '@/dummyData/dummyData';
 
 interface RouteDataTableProps {
@@ -21,17 +21,19 @@ export function RouteDataTable({ routeTableData, tableDataPageNumber }: RouteDat
     ));
 
     return (
-        <Table miw={700} mah={1}>
-            <Table.Thead>
-                <Table.Tr>
-                    <Table.Th><center>Route Name</center></Table.Th>
-                    <Table.Th><center>Driver</center></Table.Th>
-                    <Table.Th><center>Start Date</center></Table.Th>
-                    <Table.Th><center>End Date</center></Table.Th>
-                    <Table.Th><center>Loading/Unloading Status</center></Table.Th>
-                </Table.Tr>
-            </Table.Thead>
-            <Table.Tbody>{rows}</Table.Tbody>
-        </Table>
+        <ScrollArea style={{ width: '100%' }}>
+            <Table>
+                <Table.Thead>
+                    <Table.Tr>
+                        <Table.Th><center>Route Name</center></Table.Th>
+                        <Table.Th><center>Driver</center></Table.Th>
+                        <Table.Th><center>Start Date</center></Table.Th>
+                        <Table.Th><center>End Date</center></Table.Th>
+                        <Table.Th><center>Loading/Unloading Status</center></Table.Th>
+                    </Table.Tr>
+                </Table.Thead>
+                <Table.Tbody>{rows}</Table.Tbody>
+            </Table>
+        </ScrollArea>
     );
 }

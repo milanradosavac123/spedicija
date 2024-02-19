@@ -36,7 +36,7 @@ export default function SelectTours() {
     const [taskInfoPageNumber, setTaskInfoPageNumber] = useState(1);
 
     return (
-        <div className="p-5 flex flex-col h-[100%]">
+        <div className="p-5 flex flex-col h-[100%] overflow-hidden">
             <div className="flex flex-col h-[100%]">
                 <div className="flex flex-col">
                     <Header headerContent="Routes" />

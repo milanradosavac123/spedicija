@@ -12,16 +12,16 @@ export default function Vehicles() {
     const [tableDataPageNumber, setTableDataPageNumber] = useState(1);
 
     return (
-        <div className="p-5 flex flex-col h-[100%]">
+        <div className="p-5 flex flex-col h-[100%] overflow-hidden">
             <div className="flex flex-col h-[100%]">
                 <div className="flex flex-col">
                     <Header headerContent="Vehicles" />
                     <hr />
                 </div>
-                <div className="flex flex-row flex-auto justify-end py-5">
+                <div className="flex flex-row justify-end py-5">
                     <StandardLinkButton href="/vehicles/new_vehicle" text="New Vehicle" />
                 </div>
-                <div className="flex flex-row flex-auto justify-center">
+                <div className="flex flex-row flex-auto overflow-hidden">
                     <VehicleDataTable
                         vehicleTableData={vehicleTableData}
                         tableDataPageNumber={tableDataPageNumber}
