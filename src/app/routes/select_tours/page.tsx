@@ -72,7 +72,7 @@ export default function SelectTours() {
                         }}
                     />
                 </div>
-                <div className="flex flex-row flex-wrap">
+                <div className="flex flex-row flex-wrap overflow-y-auto">
                     {dummyTourData.slice(((taskInfoPageNumber - 1) * 36), ((taskInfoPageNumber - 1) * 36) + 36).map((tourInfo, i) => (
                         <TourInfoCard
                             key={i}

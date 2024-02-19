@@ -17,7 +17,7 @@ interface TourInfoCardProps {
 
 export default function TourInfoCard({ tourName, tourDriver, tourVehicle, tourDispacherName, dateCreated, selected, reference, onSelectedChanged }: TourInfoCardProps) {
     return (
-        <Card ref={reference} className="bg-[#F7F5FA] text-gray-500 drop-shadow-md p-2 m-[1vh] h-[14vh]">
+        <Card ref={reference} className="bg-[#F7F5FA] text-gray-500 drop-shadow-md p-2 m-[1vh] w-fit">
             <Card.Header className="flex flex-col">
                 <div className="flex flex-row justify-between" >
                     <Card.Subtitle>{dateCreated.toLocaleDateString(["en-GB"])}</Card.Subtitle>
