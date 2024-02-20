@@ -25,7 +25,7 @@ export default function Vehicles() {
                 <div className="flex flex-row flex-auto justify-end py-5">
                     <StandardLinkButton href="/drivers" text="Back" forwardLink={false} />
                 </div>
-                <div className="grid grid-cols-2 gap-x-5">
+                <div className="grid grid-cols-3 gap-x-5">
                     <OutlinedTextField
                         label="First Name"
                         placeholder="Add your Driver's First Name here..."
@@ -44,24 +44,15 @@ export default function Vehicles() {
                         value={uniqueDeviceID}
                         onChange={setUniqueDeviceID}
                     />
-                    <div className="flex flex-col flex-auto">
-                        <Group justify="space-between" mb={5}>
-                            <FormControl disabled={true} value="fidj[aofdjsodisfdosiopsf" className="text-white no-select" size="sm" />
-                        </Group>
-                        <Button
-                            className="bg-[#282147] min-w-[20vw]"
-                            rightSection={
-                                <Image
-                                    src={IconTabNew}
-                                    alt=""
-                                />
-                            }
-                            onClick={() => {
-                            }}
-                        >
-                            Add New Driver
-                        </Button>
-                    </div>
+                </div>
+                <div className="flex flex-row flex-auto justify-center">
+                    <Button
+                        className="bg-[#282147] w-[20vw]"
+                        onClick={() => {
+                        }}
+                    >
+                        Add New Driver
+                    </Button>
                 </div>
             </div>
         </div>
