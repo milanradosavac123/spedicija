@@ -11,17 +11,14 @@ interface SelectInputFieldProps {
     children: ReactNode[],
     shouldShowPlus?: boolean,
     shouldShowX?: boolean,
-    onChange?: (e: ChangeEvent<HTMLSelectElement>) => void,
+    value?: string
+    onChange?: (s: string) => void,
     onPlusClicked?: () => void,
     onXClicked?: () => void,
     [x: string]: any,
 }
 
-export default function SelectInputFieldAlt({ name, className, label, placeholder, children, shouldShowCancelSelectionButton = true, shouldShowPlus = false, shouldShowX = false, onChange, onPlusClicked, onXClicked, ...props }: SelectInputFieldProps) {
-
-    const [isOptionSelected, setIsOptionSelected] = useState(false);
-
-    const [selectedOption, setSelectedOption] = useState(placeholder);
+export default function SelectInputFieldAlt({ name, className, label, placeholder, children, shouldShowCancelSelectionButton = true, shouldShowPlus = false, shouldShowX = false, value, onChange, onPlusClicked, onXClicked, ...props }: SelectInputFieldProps) {
 
     return (
         <Form.Group className={`flex flex-row flex-auto items-center text-gray-500 font-[16px] ${className}`} controlId={name + "-input"}>
@@ -30,24 +27,18 @@ export default function SelectInputFieldAlt({ name, className, label, placeholde
                 <div className={`flex flex-row items-center mb-4 border-solid border-2 border-[#282147] rounded-[10px] ${!onPlusClicked && `h-[2.5rem]`}`}>
                     <div className={`p-1 flex flex-row flex-auto`}>
                         <Form.Select
-                            value={selectedOption}
-                            className={`pl-2 flex-grow overflow-hidden bg-white ${selectedOption === placeholder ? "text-gray-400" : "text-black"}`}
+                            value={value}
+                            className={`pl-2 flex-grow overflow-hidden bg-white ${value === undefined ? "text-gray-400" : "text-black"}`}
                             {...props}
                             onChange={(e) => {
-                                onChange && setSelectedOption(e.currentTarget.value);
-                                onChange && onChange(e);
-                            }}
-                            onClick={() => {
-                                setIsOptionSelected(true);
+                                onChange && onChange(e.currentTarget.value);
                             }}
                         >
-                            <option disabled={isOptionSelected}>{placeholder}</option>
+                            <option disabled={value !== undefined}>{placeholder}</option>
                             {children}
                         </Form.Select>
                         {shouldShowX && onXClicked && <XIconButton iconSize={32} colour={"#282147"} onClick={() => {
-                            onXClicked()
-                            setSelectedOption(placeholder)
-                            setIsOptionSelected(false);
+                            onXClicked();
                         }} />}
                     </div>
                     {shouldShowPlus && <div className="p-1 flex flex-row justify-center border-l-2 border-solid border-[#282147]">

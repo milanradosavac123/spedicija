@@ -62,11 +62,24 @@ export default function NewTour() {
 
     const [files, setFiles] = useState<File[]>([]);
 
-    function addDriver() {
+    const [selectedDriverNames, setSelectedDriverNames] = useState<string[]>([]);
+
+    const [selectedVehicleName, setSelectedVehicleName] = useState("");
+    
+    function addSelectedDriverName(driverName: string) {
+        setSelectedDriverNames((oldSelectedDriverNames) => [...oldSelectedDriverNames, driverName])
+    }
+
+    function removeSelectedDriverName(index: number) {
+        setSelectedDriverNames((oldSelectedDriverNames) => [...oldSelectedDriverNames.slice(undefined, index), ...oldSelectedDriverNames.slice(index + 1)]);
+    }
+
+    function addDriverField() {
         setDriverAmountArray((oldDriverAmountArray) => [...oldDriverAmountArray, 1]);
     }
 
-    function removeDriver(index: number) {
+    function removeDriverField(index: number) {
+        selectedDriverNames.findIndex((_, i) => i === index) !== -1 && removeSelectedDriverName(index);
         setDriverAmountArray((oldDriverAmountArray) => [...oldDriverAmountArray.slice(undefined, index), ...oldDriverAmountArray.slice(index + 1)]);
     }
 
@@ -152,16 +165,18 @@ export default function NewTour() {
                             placeholder="Add your Driver here..."
                             shouldShowPlus={i === driverAmountArray.length - 1}
                             shouldShowX={driverAmountArray.length !== 1}
-                            onChange={(e) => {
-
+                            value={selectedDriverNames[i]}
+                            onChange={(s) => {
+                                addSelectedDriverName(s);
                             }}
-                            onPlusClicked={addDriver}
+                            onPlusClicked={addDriverField}
                             onXClicked={() => {
-                                removeDriver(i);
+                                removeDriverField(i);
+                                console.log(i);
                             }}
                         >
-                            <option value="0">Milos</option>
-                            <option value="1">Mileta</option>
+                            <option value="Milos">Milos</option>
+                            <option value="Mileta">Mileta</option>
                         </SelectInputFieldAlt>
                     ))}
                 </div>
@@ -169,8 +184,8 @@ export default function NewTour() {
                     name="select-vehicle"
                     label="Vehicle Name"
                     placeholder="Add your Vehicle here..."
-                    onChange={(e) => {
-
+                    onChange={(s) => {
+                        setSelectedVehicleName(s);
                     }}
                 >
                     <option value="0">Man</option>
