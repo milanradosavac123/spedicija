@@ -416,6 +416,16 @@ export default function NewTour() {
                     }}
                 />
             </div>
+            <div className="flex flex-row justify-center">
+                <Button
+                    className="bg-[#282147] w-[20vw]"
+                    onClick={() => {
+                        
+                    }}
+                >
+                    Create Tour
+                </Button>
+            </div>
         </div>
     );
 }
