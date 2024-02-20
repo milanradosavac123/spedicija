@@ -150,7 +150,8 @@ export default function NewTour() {
                             name="select-driver"
                             label="Driver Name"
                             placeholder="Add your Driver here..."
-                            shouldShowX={i !== driverAmountArray.length - 1}
+                            shouldShowPlus={i === driverAmountArray.length - 1}
+                            shouldShowX={driverAmountArray.length !== 1}
                             onChange={(e) => {
 
                             }}
