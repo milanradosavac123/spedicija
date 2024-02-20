@@ -73,7 +73,7 @@ export default function Vehicles() {
                         onClick={() => {
                         }}
                     >
-                        Add New Vehicle
+                        Create Vehicle
                     </Button>
                 </div>
             </div>

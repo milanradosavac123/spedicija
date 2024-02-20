@@ -51,7 +51,7 @@ export default function Vehicles() {
                         onClick={() => {
                         }}
                     >
-                        Add New Driver
+                        Create Driver
                     </Button>
                 </div>
             </div>
