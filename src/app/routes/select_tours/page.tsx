@@ -37,7 +37,7 @@ export default function SelectTours() {
 
     return (
         <div className="p-5 flex flex-col h-[100%] overflow-hidden">
-            <div className="flex flex-col h-[97%]">
+            <div className="flex flex-col h-[90%]">
                 <div className="flex flex-col">
                     <Header headerContent="Routes" />
                     <hr />
@@ -87,7 +87,7 @@ export default function SelectTours() {
                     ))}
                 </div>
             </div>
-            <div className="flex flex-row w-[100%] justify-between flex-1">
+            <div className="flex flex-row w-[100%] justify-between flex-1 py-9">
                 <IconCircle color="white" />
                 <StandardPagination
                     value={taskInfoPageNumber}
