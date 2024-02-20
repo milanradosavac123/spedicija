@@ -21,7 +21,7 @@ export function RouteDataTable({ routeTableData, tableDataPageNumber }: RouteDat
     ));
 
     return (
-        <ScrollArea style={{ width: '100%' }}>
+        <ScrollArea style={{ width: "100%" }}>
             <Table>
                 <Table.Thead>
                     <Table.Tr>

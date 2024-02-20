@@ -14,6 +14,7 @@ import StandardLinkButton from "@/components/StandardLinkButton";
 import SaveDismissIconButtonGroup from "@/components/SaveDismissIconButtonGroup";
 import SelectInputFieldAlt from "@/components/SelectInputFieldAlt";
 import DocumentUploadButton from "@/components/DocumentUploadButton";
+import CompactFileCard from "@/components/CompactFileCard";
 
 export interface Task {
     text: string,
@@ -63,6 +64,10 @@ export default function NewTour() {
 
     function addDriver() {
         setDriverAmountArray((oldDriverAmountArray) => [...oldDriverAmountArray, 1]);
+    }
+
+    function removeDriver(index: number) {
+        setDriverAmountArray((oldDriverAmountArray) => [...oldDriverAmountArray.slice(undefined, index), ...oldDriverAmountArray.slice(index + 1)]);
     }
 
     function editLocationName(index: number, name: string) {
@@ -145,10 +150,14 @@ export default function NewTour() {
                             name="select-driver"
                             label="Driver Name"
                             placeholder="Add your Driver here..."
+                            shouldShowX={i !== driverAmountArray.length - 1}
                             onChange={(e) => {
 
                             }}
                             onPlusClicked={addDriver}
+                            onXClicked={() => {
+                                removeDriver(i);
+                            }}
                         >
                             <option value="0">Milos</option>
                             <option value="1">Mileta</option>
@@ -372,7 +381,16 @@ export default function NewTour() {
                     />
                 }
             </div>
-            <div className="flex flex-row py-5">
+            <div className="flex flex-row py-5 flex-wrap gap-5">
+                {files.map((file, i) => (
+                    <CompactFileCard
+                        key={i}
+                        fileName={file.name}
+                        onDelete={() => {
+                            setFiles((oldFiles) => [...oldFiles.slice(undefined, i), ...oldFiles.slice(i + 1)]);
+                        }}
+                    />
+                ))}
                 <DocumentUploadButton
                     files={files}
                     onFilesChanged={(newFiles) => {

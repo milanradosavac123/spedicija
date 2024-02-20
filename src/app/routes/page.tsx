@@ -14,7 +14,7 @@ export default function Routes() {
 
     return (
         <div className="p-5 flex flex-col h-[100%] overflow-hidden">
-            <div className="flex flex-col h-[100%]">
+            <div className="flex flex-col h-[97%]">
                 <div className="flex flex-col">
                     <Header headerContent="Routes" />
                     <hr />
@@ -31,7 +31,7 @@ export default function Routes() {
                     />
                 </div>
             </div>
-            <div className="flex flex-row justify-center">
+            <div className="flex flex-row justify-center flex-1">
                 <StandardPagination
                     value={tableDataPageNumber}
                     total={routeTableData.length % 18 === 0 ? routeTableData.length / 18 : (routeTableData.length / 18) + 1}

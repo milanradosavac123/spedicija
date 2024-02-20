@@ -13,7 +13,7 @@ export default function Vehicles() {
 
     return (
         <div className="p-5 flex flex-col h-[100%] overflow-hidden">
-            <div className="flex flex-col h-[100%]">
+            <div className="flex flex-col h-[97%]">
                 <div className="flex flex-col">
                     <Header headerContent="Vehicles" />
                     <hr />
@@ -28,7 +28,7 @@ export default function Vehicles() {
                     />
                 </div>
             </div>
-            <div className="flex flex-row justify-center">
+            <div className="flex flex-row justify-center flex-1">
                 <StandardPagination
                     value={tableDataPageNumber}
                     total={vehicleTableData.length % 18 === 0 ? vehicleTableData.length / 18 : (vehicleTableData.length / 18) + 1}

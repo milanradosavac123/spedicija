@@ -2,18 +2,21 @@ import { ChangeEvent, ReactNode, useState } from "react";
 import { Form } from "react-bootstrap";
 import PlusIconButton from "./PlusIconButton";
 import { rem } from "@mantine/core";
+import XIconButton from "./XIconButton";
 
 interface SelectInputFieldProps {
     name: string,
     label?: string,
     placeholder: string,
     children: ReactNode[],
+    shouldShowX?: boolean,
     onChange?: (e: ChangeEvent<HTMLSelectElement>) => void,
     onPlusClicked?: () => void,
+    onXClicked?: () => void,
     [x: string]: any,
 }
 
-export default function SelectInputFieldAlt({ name, className, label, placeholder, children, shouldShowCancelSelectionButton = true, onChange, onPlusClicked, ...props }: SelectInputFieldProps) {
+export default function SelectInputFieldAlt({ name, className, label, placeholder, children, shouldShowCancelSelectionButton = true, shouldShowX = false, onChange, onPlusClicked, onXClicked, ...props }: SelectInputFieldProps) {
 
     const [isOptionSelected, setIsOptionSelected] = useState(false);
 
@@ -39,7 +42,8 @@ export default function SelectInputFieldAlt({ name, className, label, placeholde
                         <option disabled={isOptionSelected}>{placeholder}</option>
                         {children}
                     </Form.Select>
-                    {onPlusClicked && <PlusIconButton iconSize={32} colour={"#282147"} onClick={onPlusClicked} />}
+                    {!shouldShowX && onPlusClicked && <PlusIconButton iconSize={32} colour={"#282147"} onClick={onPlusClicked} />}
+                    {shouldShowX && onXClicked && <XIconButton iconSize={32} colour={"#282147"} onClick={onXClicked} />}
                 </div>
             </div>
         </Form.Group>
