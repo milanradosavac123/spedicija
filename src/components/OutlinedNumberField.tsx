@@ -73,7 +73,7 @@ export default function OutlinedNumberField({ ref, className, id, isLabelEditabl
 
 				<EditControl
 					isEditing={isLabelEditable && isEditing}
-					colour={isLabelEditable ? "white" : undefined}
+					colour={!isLabelEditable ? "white" : undefined}
 					onSave={saveLabel}
 					onDismiss={dismissLabel}
 					onEditingChange={(newValue) => {

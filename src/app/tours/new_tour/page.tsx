@@ -58,6 +58,8 @@ export default function NewTour() {
 
     const [taskUnderEdit, setTaskUnderEdit] = useState("");
 
+    const [taskUnderEditIndex, setTaskUnderEditIndex] = useState(0);
+
     const [driverAmountArray, setDriverAmountArray] = useState<number[]>([1]);
 
     const [files, setFiles] = useState<File[]>([]);
@@ -65,7 +67,7 @@ export default function NewTour() {
     const [selectedDriverNames, setSelectedDriverNames] = useState<string[]>([]);
 
     const [selectedVehicleName, setSelectedVehicleName] = useState("");
-    
+
     function addSelectedDriverName(driverName: string) {
         setSelectedDriverNames((oldSelectedDriverNames) => [...oldSelectedDriverNames, driverName])
     }
@@ -118,6 +120,24 @@ export default function NewTour() {
         });
     }
 
+    function addTaskToIndex(locationIndex: number, taskIndex: number, task: Task) {
+        setLocationsList((oldLocationsList) => {
+            const newLocationsList = [...oldLocationsList];
+            const tasks = newLocationsList[locationIndex]?.tasks ?? [];
+            tasks.splice(taskIndex, 1, task)
+            newLocationsList[locationIndex] = {
+                ...newLocationsList[locationIndex],
+                tasks: tasks
+            };
+
+            setCurrentTaskText("");
+            setTaskUnderEdit("");
+            setShouldShowAddNewTaskTextField(false);
+
+            return newLocationsList;
+        });
+    }
+
     function saveTask(i: number) {
         addTask(i, {
             text: currentTaskText,
@@ -127,12 +147,12 @@ export default function NewTour() {
         setShouldShowAddNewTaskTextField(false);
     }
 
-    function dismissTask(i: number) {
+    function dismissTask(i: number, j: number) {
         if (taskUnderEdit !== "") {
-            addTask(i, {
+            addTaskToIndex(i, j, {
                 text: taskUnderEdit,
                 isDone: false
-            } as Task)
+            } as Task);
             setCurrentTaskText("");
             setShouldShowAddNewTaskTextField(false);
             setTaskUnderEdit("");
@@ -250,35 +270,24 @@ export default function NewTour() {
                         />
                         {openedDropDownIndex !== undefined && openedDropDownIndex === i && <div className={`min-w-[100%] max-w-[100%] bg-white p-2 border-solid border-2 border-[#282147] rounded-b-[10px]`} style={{ position: "absolute", zIndex: "999", top: "65px" }}>
                             <ul>
-                                {value.tasks && value.tasks.map((task, index) => (
+                                {value.tasks && value.tasks.map((task, j) => (
                                     <li className="flex flex-auto justify-between items-center px-3">
-                                        <p className="break-all max-w-[20vw]" >{index + 1}. {task.text[0].toUpperCase()}{task.text.substring(1)}</p>
+                                        <p className="break-all max-w-[20vw]" >{j + 1}. {task.text[0].toUpperCase()}{task.text.substring(1)}</p>
                                         <div>
                                             <PencilIconButton
                                                 onClick={() => {
                                                     setTaskUnderEdit(task.text);
+                                                    setTaskUnderEditIndex(j);
                                                     setShouldShowAddNewTaskTextField(true);
                                                     setCurrentTaskText(task.text);
-                                                    setLocationsList((oldLocationsList) => {
-                                                        const newLocationsList = oldLocationsList.map((location, j) => {
-                                                            if (i === j && location.tasks) {
-                                                                return {
-                                                                    ...location,
-                                                                    tasks: [...location.tasks.slice(0, index), ...location.tasks.slice(index + 1)],
-                                                                };
-                                                            }
-                                                            return location;
-                                                        });
-
-                                                        return newLocationsList;
-                                                    });
                                                 }}
                                             />
                                             <XIconButton
                                                 onClick={() => {
                                                     setLocationsList((oldLocationsList) => {
-                                                        const newLocationsList = oldLocationsList.map((location, j) => {
-                                                            if (i === j && location.tasks) {
+                                                        const newLocationsList = oldLocationsList.map((location, k) => {
+                                                            console.log(k)
+                                                            if (i === k && location.tasks) {
                                                                 if (location.tasks.length == 1) {
                                                                     return {
                                                                         ...location,
@@ -286,7 +295,7 @@ export default function NewTour() {
                                                                     }
                                                                 } else return {
                                                                     ...location,
-                                                                    tasks: [...location.tasks.slice(0, index), ...location.tasks.slice(index + 1)],
+                                                                    tasks: [...location.tasks.slice(0, j), ...location.tasks.slice(j + 1)],
                                                                 };
                                                             }
                                                             return location;
@@ -310,18 +319,24 @@ export default function NewTour() {
                                     }}
                                     onKeyDown={(e) => {
                                         if (e.key === "Enter") {
-                                            saveTask(i);
+                                            taskUnderEdit !== "" ? addTaskToIndex(i, taskUnderEditIndex, {
+                                                text: currentTaskText,
+                                                isDone: false
+                                            } as Task) : saveTask(i);
                                         } else if (e.key === "Escape") {
-                                            dismissTask(i);
+                                            dismissTask(i, taskUnderEditIndex);
                                         }
                                     }}
                                 />
                                 <SaveDismissIconButtonGroup
                                     onSaveClick={() => {
-                                        saveTask(i);
+                                        taskUnderEdit !== "" ? addTaskToIndex(i, taskUnderEditIndex, {
+                                            text: currentTaskText,
+                                            isDone: false
+                                        } as Task) : saveTask(i);
                                     }}
                                     onDismissClick={() => {
-                                        dismissTask(i);
+                                        dismissTask(i, taskUnderEditIndex);
                                     }}
                                 />
                             </div>}
@@ -436,7 +451,7 @@ export default function NewTour() {
                 <Button
                     className="bg-[#282147] w-[20vw]"
                     onClick={() => {
-                        
+
                     }}
                 >
                     Create Tour
