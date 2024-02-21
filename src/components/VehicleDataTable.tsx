@@ -23,7 +23,9 @@ export function VehicleDataTable({ vehicleTableData, tableDataPageNumber }: Vehi
     return (
         <ScrollArea style={{ width: '100%' }}>
             <Table>
-                <Table.Thead>
+                <Table.Thead classNames={{
+                    "thead": "sticky bg-white"
+                }}>
                     <Table.Tr>
                         <Table.Th>Vehicle Name</Table.Th>
                         <Table.Th>Vehicle Type</Table.Th>

@@ -23,7 +23,9 @@ export function TourDataTable({ tourTableData, tableDataPageNumber }: TourDataTa
     return (
         <ScrollArea style={{ width: '100%' }}>
             <Table>
-                <Table.Thead>
+                <Table.Thead classNames={{
+                    "thead": "sticky bg-white"
+                }}>
                     <Table.Tr>
                         <Table.Th>Tour Name</Table.Th>
                         <Table.Th>Tour Driver</Table.Th>

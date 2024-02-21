@@ -101,6 +101,5 @@ export const driverTableData = Array.from({ length: 37 }, (_, index) => index + 
     {
         firstName: number % 2 === 0 ? "Mileta" : "Milos",
         lastName: "Milincic",
-        uniqueDeviceID: "fuahDIFADPS"
     } as DriverTableData
 ));

@@ -14,18 +14,18 @@ export function DriverDataTable({ driverTableData, tableDataPageNumber }: Vehicl
         <Table.Tr key={i}>
             <Table.Td>{row.firstName}</Table.Td>
             <Table.Td>{row.lastName}</Table.Td>
-            <Table.Td>{row.uniqueDeviceID}</Table.Td>
         </Table.Tr>
     ));
 
     return (
         <ScrollArea style={{ width: '100%' }}>
             <Table>
-                <Table.Thead>
+                <Table.Thead classNames={{
+                    "thead": "sticky bg-white"
+                }}>
                     <Table.Tr>
                         <Table.Th>First Name</Table.Th>
                         <Table.Th>Last Name</Table.Th>
-                        <Table.Th>Unique Device ID</Table.Th>
                     </Table.Tr>
                 </Table.Thead>
                 <Table.Tbody>{rows}</Table.Tbody>
