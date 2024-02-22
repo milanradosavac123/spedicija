@@ -20,7 +20,7 @@ export default function Routes() {
                     <hr />
                 </div>
                 <div className="flex flex-row justify-between py-5">
-                    <StandardSegmentedControl />
+                    <StandardSegmentedControl data={["Active Routes", "Upcoming Routes", "Completed Routes"]} />
 
                     <StandardLinkButton text="New Route" href="/routes/select_tours" />
                 </div>

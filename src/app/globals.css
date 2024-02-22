@@ -13,9 +13,3 @@ h1 {
   -moz-user-select: none;
   -ms-user-select: none;
 }
-
-/* Hide default arrow */
-.no-arrow::-ms-expand,
-.no-arrow::-webkit-select-arrow {
-  display: none;
-}

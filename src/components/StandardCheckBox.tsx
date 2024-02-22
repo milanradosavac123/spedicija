@@ -2,7 +2,7 @@ import { FormCheck } from "react-bootstrap";
 
 interface StandardCheckBoxProps {
     name: string,
-    label: string,
+    label?: string,
     checked: boolean,
     onCheckChange: (newValue: boolean) => void
 }
@@ -15,7 +15,6 @@ export default function StandardCheckBox({ name, label, checked, onCheckChange }
             name={name}
             label={label}
             type="checkbox"
-            reverse={true}
             onClick={() => {
                 onCheckChange(!checked);
             }}

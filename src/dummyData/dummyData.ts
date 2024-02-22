@@ -40,6 +40,13 @@ export interface DriverTableData {
     uniqueDeviceID: string
 }
 
+export interface Document {
+    fileName: string,
+    fileType: DocumentType
+    fileUrl: string,
+    dateCreated: Date
+}
+
 const dummyTasks = Array.from({ length: 20 }, (_, index) => index + 1).map((number) => (
     {
         text: "jfiodajdos;ifdsfio",
@@ -103,3 +110,11 @@ export const driverTableData = Array.from({ length: 37 }, (_, index) => index + 
         lastName: "Milincic",
     } as DriverTableData
 ));
+
+export const documents = Array.from({ length: 37 }, (_, index) => index + 1).map((number) => (
+    {
+        fileName: "Sample",
+        fileUrl: "https://www.learningcontainer.com/wp-content/uploads/2019/09/sample-pdf-file.pdf",
+        dateCreated: new Date()
+    } as Document
+))

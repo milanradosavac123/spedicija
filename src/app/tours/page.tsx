@@ -20,7 +20,7 @@ export default function Tours() {
 					<hr />
 				</div>
 				<div className="flex flex-row justify-between py-5">
-					<StandardSegmentedControl />
+					<StandardSegmentedControl data={["Active Tours", "Upcoming Tours", "Completed Tours"]} />
 
 					<StandardLinkButton text="New Tour" href="/tours/new_tour" />
 				</div>

@@ -1,18 +1,23 @@
 
 import { SegmentedControl } from '@mantine/core';
-import styles from './StandardSegmentedControl.module.css';
 
-export function StandardSegmentedControl() {
+interface StandardSegmentedControlProps {
+    data: string[],
+    onChange?: (s: string) => void,
+}
+
+export function StandardSegmentedControl({ data, onChange }: StandardSegmentedControlProps) {
     return (
         <SegmentedControl
             className="bg-gray-400 max-w-fit"
             radius="xl"
             size="md"
-            data={["Active Tours", "Upcoming Tours", "Completed tours"]}
+            data={data}
             classNames={{
                 "indicator": "bg-[#282147]",
                 "label": "text-white"
             }}
+            onChange={onChange}
         />
     );
 }
