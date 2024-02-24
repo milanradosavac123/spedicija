@@ -60,29 +60,18 @@ export default function NewTour() {
 
     const [taskUnderEditIndex, setTaskUnderEditIndex] = useState(0);
 
-    const [driverAmountArray, setDriverAmountArray] = useState<number[]>([1]);
+    const [selectedDriverArray, setSelectedDriverArray] = useState<string[]>([""]);
 
     const [files, setFiles] = useState<File[]>([]);
 
-    const [selectedDriverNames, setSelectedDriverNames] = useState<string[]>([]);
-
     const [selectedVehicleName, setSelectedVehicleName] = useState("");
 
-    function addSelectedDriverName(driverName: string) {
-        setSelectedDriverNames((oldSelectedDriverNames) => [...oldSelectedDriverNames, driverName])
-    }
-
-    function removeSelectedDriverName(index: number) {
-        setSelectedDriverNames((oldSelectedDriverNames) => [...oldSelectedDriverNames.slice(undefined, index), ...oldSelectedDriverNames.slice(index + 1)]);
-    }
-
     function addDriverField() {
-        setDriverAmountArray((oldDriverAmountArray) => [...oldDriverAmountArray, 1]);
+        setSelectedDriverArray((oldSelectedDriverArray) => [...oldSelectedDriverArray, ""]);
     }
 
     function removeDriverField(index: number) {
-        selectedDriverNames.findIndex((_, i) => i === index) !== -1 && removeSelectedDriverName(index);
-        setDriverAmountArray((oldDriverAmountArray) => [...oldDriverAmountArray.slice(undefined, index), ...oldDriverAmountArray.slice(index + 1)]);
+        setSelectedDriverArray((oldSelectedDriverArray) => [...oldSelectedDriverArray.slice(undefined, index), ...oldSelectedDriverArray.slice(index + 1)]);
     }
 
     function editLocationName(index: number, name: string) {
@@ -177,17 +166,21 @@ export default function NewTour() {
             </div>
             <div className="flex flex-row flex-auto gap-x-5 flex-wrap">
                 <div className="flex flex-row flex-grow gap-5 flex-wrap">
-                    {driverAmountArray.map((_, i) => (
-                        <SelectInputFieldAlt
+                    {selectedDriverArray.map((selectedDriver, i) => {
+                        return <SelectInputFieldAlt
                             key={i}
-                            name="select-driver"
+                            name={`selected-driver-${i}`}
                             label="Driver Name"
                             placeholder="Add your Driver here..."
-                            shouldShowPlus={i === driverAmountArray.length - 1}
-                            shouldShowX={driverAmountArray.length !== 1}
-                            value={selectedDriverNames[i]}
+                            shouldShowPlus={i === selectedDriverArray.length - 1}
+                            shouldShowX={selectedDriverArray.length !== 1}
+                            value={selectedDriver}
                             onChange={(s) => {
-                                addSelectedDriverName(s);
+                                setSelectedDriverArray((oldSelectedDriverArray) => {
+                                    const newSelectedDriverArray = [...oldSelectedDriverArray]
+                                    newSelectedDriverArray[i] = s;
+                                    return newSelectedDriverArray;
+                                })
                             }}
                             onPlusClicked={addDriverField}
                             onXClicked={() => {
@@ -198,15 +191,14 @@ export default function NewTour() {
                             <option value="Milos">Milos</option>
                             <option value="Mileta">Mileta</option>
                         </SelectInputFieldAlt>
-                    ))}
+                    })}
                 </div>
                 <SelectInputFieldAlt
+                    value={selectedVehicleName}
                     name="select-vehicle"
                     label="Vehicle Name"
                     placeholder="Add your Vehicle here..."
-                    onChange={(s) => {
-                        setSelectedVehicleName(s);
-                    }}
+                    onChange={setSelectedVehicleName}
                 >
                     <option value="0">Man</option>
                     <option value="1">Mercedes</option>
@@ -412,7 +404,7 @@ export default function NewTour() {
                     />
                 }
             </div>
-            <div className="flex flex-row py-5 flex-wrap gap-5">
+            <div className="flex flex-row py-5 flex-wrap gap-5 items-center">
                 {files.map((file, i) => (
                     <CompactFileCard
                         key={i}
@@ -426,9 +418,6 @@ export default function NewTour() {
                     files={files}
                     onFilesChanged={(newFiles) => {
                         setFiles((oldFiles) => [...oldFiles, ...newFiles]);
-                    }}
-                    onSelectorReset={() => {
-                        setFiles([]);
                     }}
                 />
             </div>

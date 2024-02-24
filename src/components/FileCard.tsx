@@ -1,6 +1,5 @@
 import { Button, rem } from "@mantine/core";
 import { IconDownload, IconShare } from "@tabler/icons-react";
-import { useRouter } from "next/navigation";
 import { Card } from "react-bootstrap";
 
 interface FileCardProps {
@@ -9,9 +8,7 @@ interface FileCardProps {
     dateCreated: Date
 }
 
-export default function FileCard({ fileName, fileUrl, dateCreated }: FileCardProps) {
-
-    const router = useRouter();
+export default async function FileCard({ fileName, fileUrl, dateCreated }: FileCardProps) {
 
     return (
         <Card className="bg-[#F7F5FA] text-gray-500 drop-shadow-md p-2 m-[1vh] w-fit h-fit">
@@ -22,7 +19,7 @@ export default function FileCard({ fileName, fileUrl, dateCreated }: FileCardPro
             <Card.Body
                 className="h-[7vh] border-2 border-t-gray-400 border-b-gray-400 border-r-transparent border-l-transparent cursor-pointer"
                 onClick={() => {
-                    router.push(fileUrl);
+                    window.open(fileUrl, fileUrl);
                 }}
             >
             </Card.Body>

@@ -28,13 +28,14 @@ export default function SelectInputFieldAlt({ name, className, label, placeholde
                     <div className={`p-1 flex flex-row flex-auto`}>
                         <Form.Select
                             value={value}
-                            className={`pl-2 flex-grow overflow-hidden bg-white ${value === undefined ? "text-gray-400" : "text-black"}`}
+                            name={name}
+                            className={`pl-2 flex-grow overflow-hidden bg-white ${value === "" || value === undefined ? "text-gray-400" : "text-black"}`}
                             {...props}
                             onChange={(e) => {
                                 onChange && onChange(e.currentTarget.value);
                             }}
                         >
-                            <option disabled={value !== undefined}>{placeholder}</option>
+                            <option disabled={value !== undefined && value !== ""}>{placeholder}</option>
                             {children}
                         </Form.Select>
                         {shouldShowX && onXClicked && <XIconButton iconSize={32} colour={"#282147"} onClick={() => {
