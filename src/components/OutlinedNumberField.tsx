@@ -1,5 +1,5 @@
 import React, { RefObject, useEffect, useRef, useState } from 'react';
-import { Group, NumberInput, TextInput } from '@mantine/core';
+import { Group, NumberInput } from '@mantine/core';
 import { FormControl } from 'react-bootstrap';
 import EditControl from './EditControl';
 

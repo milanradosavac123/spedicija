@@ -35,7 +35,7 @@ export default function SelectInputFieldAlt({ name, className, label, placeholde
                                 onChange && onChange(e.currentTarget.value);
                             }}
                         >
-                            <option disabled={value !== undefined && value !== ""}>{placeholder}</option>
+                            <option>{placeholder}</option>
                             {children}
                         </Form.Select>
                         {shouldShowX && onXClicked && <XIconButton iconSize={32} colour={"#282147"} onClick={() => {

@@ -8,7 +8,7 @@ interface FileCardProps {
     dateCreated: Date
 }
 
-export default async function FileCard({ fileName, fileUrl, dateCreated }: FileCardProps) {
+export default function FileCard({ fileName, fileUrl, dateCreated }: FileCardProps) {
 
     return (
         <Card className="bg-[#F7F5FA] text-gray-500 drop-shadow-md p-2 m-[1vh] w-fit h-fit">

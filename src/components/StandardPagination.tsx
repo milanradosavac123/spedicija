@@ -15,7 +15,7 @@ export default function StandardPagination({ value, total, onChange }: StandardP
             color="#282147"
             value={value}
             total={Math.round(total)}
-            withEdges={total > 2}
+            withEdges={Math.round(total) > 2}
             onChange={onChange}
         />
     );

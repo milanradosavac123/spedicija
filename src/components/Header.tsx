@@ -13,9 +13,10 @@ interface HeaderProps {
     editable?: boolean,
     shouldShowSearchField?: boolean,
     onHeaderContentChanged?: (value: string) => void,
+    onSearch?: (query: string) => void
 }
 
-export default function Header({ headerContent, editable = false, shouldShowSearchField = true, onHeaderContentChanged }: HeaderProps) {
+export default function Header({ headerContent, editable = false, shouldShowSearchField = true, onHeaderContentChanged, onSearch }: HeaderProps) {
 
     const [isEditing, setIsEditing] = useState(false);
 
@@ -68,9 +69,15 @@ export default function Header({ headerContent, editable = false, shouldShowSear
                     />
                 }
             </EditControl>
-            {shouldShowSearchField && <HeaderSearchField />}
+            {shouldShowSearchField && <HeaderSearchField
+                onSearch={(q) => {
+                    onSearch && onSearch(q);
+                }}
+            />}
             <div className="flex flex-row">
-                <AccountDropdown userName="Milos" />
+                <AccountDropdown
+                    userName="Milos"
+                />
                 <Image
                     className="ml-[20px]"
                     src={chat}

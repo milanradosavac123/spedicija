@@ -1,7 +1,7 @@
 "use client";
 
 import { ScrollArea, Table } from '@mantine/core';
-import { DriverTableData, VehicleTableData } from '@/dummyData/dummyData';
+import { DriverTableData } from '@/dummyData/dummyData';
 
 interface VehicleDataTableProps {
     driverTableData: DriverTableData[],

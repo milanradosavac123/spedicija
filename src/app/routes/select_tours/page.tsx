@@ -1,17 +1,15 @@
 "use client";
 
 import { SelectedToursContext } from "@/app/ContextWrapper";
-import { Location } from "@/app/tours/new_tour/page";
 import DateTourFilter from "@/components/DateTourFilter";
 import Header from "@/components/Header";
 import SelectInputField from "@/components/SelectInputField";
 import StandardCheckBox from "@/components/StandardCheckBox";
 import StandardLinkButton from "@/components/StandardLinkButton";
 import TourInfoCard from "@/components/TourInfoCard";
-import { useContext, useRef, useState } from "react";
-import { Pagination } from "@mantine/core";
+import { useContext, useState } from "react";
 import { IconCircle } from "@tabler/icons-react";
-import { dummyTourData } from "@/dummyData/dummyData";
+import { TourInfo, dummyTourData } from "@/dummyData/dummyData";
 import StandardPagination from "@/components/StandardPagination";
 
 export default function SelectTours() {
@@ -22,6 +20,7 @@ export default function SelectTours() {
 
     const [intermediateSelectedTourIds, setIntermediateSelectedTourIds] = useState<number[]>([])
 
+    const [tourDataList, setTourDataList] = useState<TourInfo[]>(dummyTourData);
 
     function addIntermediateSelectedTourId(tourId: number) {
         setIntermediateSelectedTourIds([...intermediateSelectedTourIds, tourId]);
@@ -33,13 +32,24 @@ export default function SelectTours() {
         });
     }
 
-    const [taskInfoPageNumber, setTaskInfoPageNumber] = useState(1);
+    const [tableDataPageNumber, setTableDataPageNumber] = useState(1);
 
     return (
         <div className="p-5 flex flex-col h-[100%] overflow-hidden">
             <div className="flex flex-col h-[90%]">
                 <div className="flex flex-col">
-                    <Header headerContent="Routes" />
+                    <Header 
+                        headerContent="Select Tours"
+                        onSearch={(q) => {
+
+                            if (q === "") {
+                                setTourDataList(dummyTourData);
+                                return
+                            }
+
+                            setTourDataList(dummyTourData.filter((tourData) => q.toLowerCase() === tourData.tourName.toLowerCase() || tourData.tourName.toLowerCase().includes(q.toLowerCase())));
+                        }}
+                    />
                     <hr />
                 </div>
                 <div className="flex flex-row justify-between py-5">
@@ -58,22 +68,38 @@ export default function SelectTours() {
                         <option value={1}>Mercedes</option>
                     </SelectInputField>
 
-                    <DateTourFilter onChange={(e) => {
-                        console.log("test");
-                    }} />
+                    <SelectInputField
+                        name="sort-by"
+                        label="Sort By"
+                        placeholder="None Selected"
+                        onChange={(e) => {
+
+                        }}
+                    >
+                        <option value="0">By name ascending</option>
+                        <option value="1">By name descending</option>
+                        <option value="2">By date newest to oldest</option>
+                        <option value="3">By date oldest to newest</option>
+                    </SelectInputField>
+
+                    <DateTourFilter
+                        onChange={(e) => {
+
+                        }}
+                    />
 
                     <StandardCheckBox
                         name="select-all"
                         label={isAllSelected ? "Unselect All" : "Select All"}
                         checked={isAllSelected}
                         onCheckChange={(value) => {
-                            value ? setIntermediateSelectedTourIds(dummyTourData.map((tourInfo) => tourInfo.id)) : setIntermediateSelectedTourIds([]);
+                            value ? setIntermediateSelectedTourIds(tourDataList.map((tourInfo) => tourInfo.id)) : setIntermediateSelectedTourIds([]);
                             setIsAllSelected(value);
                         }}
                     />
                 </div>
-                <div className="flex flex-row flex-wrap overflow-y-auto">
-                    {dummyTourData.slice(((taskInfoPageNumber - 1) * 36), ((taskInfoPageNumber - 1) * 36) + 36).map((tourInfo, i) => (
+                <div className="grid grid-cols-9 overflow-y-auto overflow-x-hidden">
+                    {tourDataList.slice(((tableDataPageNumber - 1) * 36), ((tableDataPageNumber - 1) * 36) + 36).map((tourInfo, i) => (
                         <TourInfoCard
                             key={i}
                             {...tourInfo}
@@ -90,9 +116,9 @@ export default function SelectTours() {
             <div className="flex flex-row w-[100%] justify-between flex-1 py-9">
                 <IconCircle color="white" />
                 <StandardPagination
-                    value={taskInfoPageNumber}
-                    total={dummyTourData.length % 36 === 0 ? dummyTourData.length / 36 : (dummyTourData.length / 36) + 1}
-                    onChange={setTaskInfoPageNumber}
+                    value={tableDataPageNumber}
+                    total={tourDataList.length % 36 === 0 ? tourDataList.length / 36 : (tourDataList.length / 36) + 1}
+                    onChange={setTableDataPageNumber}
                 />
                 <StandardLinkButton
                     href="/routes/select_tours/new_route"

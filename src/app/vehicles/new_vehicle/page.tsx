@@ -4,11 +4,8 @@ import Header from "@/components/Header";
 import OutlinedTextField from "@/components/OutlinedTextField";
 import OutlinedNumberField from "@/components/OutlinedNumberField";
 import StandardLinkButton from "@/components/StandardLinkButton";
-import { Group, Button } from "@mantine/core";
-import Image from "next/image";
+import { Button } from "@mantine/core";
 import { useState } from "react";
-import { FormControl } from "react-bootstrap";
-import IconTabNew from "#/public/fluent_tab-new-24-filled.svg";
 
 export default function Vehicles() {
 

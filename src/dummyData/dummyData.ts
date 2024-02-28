@@ -36,13 +36,11 @@ export interface VehicleTableData {
 
 export interface DriverTableData {
     firstName: string,
-    lastName: string,
-    uniqueDeviceID: string
+    lastName: string
 }
 
 export interface Document {
     fileName: string,
-    fileType: DocumentType
     fileUrl: string,
     dateCreated: Date
 }

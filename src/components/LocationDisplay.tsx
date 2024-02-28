@@ -3,9 +3,9 @@
 import { Location } from "@/app/tours/new_tour/page";
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 import { ScrollArea, rem } from "@mantine/core";
-import { useListState } from "@mantine/hooks";
+import { useListState, } from "@mantine/hooks";
 import { IconCircle, IconMapPin } from "@tabler/icons-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TourInfo } from "@/dummyData/dummyData";
 
 interface LocationDisplayProps {
@@ -48,6 +48,17 @@ export default function LocationDisplay({ className, tours }: LocationDisplayPro
         </div>
     ));
 
+    const [offset, setOffset] = useState(0);
+
+    const sideMenuRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        console.log(sideMenuRef.current?.checkVisibility());
+        if(!sideMenuRef.current?.checkVisibility()) {
+            setOffset(offset + 5);
+        } 
+    }, [openedSideMenuIndex, sideMenuRef.current?.checkVisibility(), offset])
+
     const locationItems = locations.map((location, i) => (
         <Draggable key={location.name + i} index={i} draggableId={i.toString()}>
             {(provided) => (
@@ -76,7 +87,7 @@ export default function LocationDisplay({ className, tours }: LocationDisplayPro
                         <div
                             className="relative"
                         >
-                            {openedSideMenuIndex !== undefined && openedSideMenuIndex === i && <div className={`flex flex-col absolute z-[999] top-0 left-[5px] bg-white p-2`}>
+                            {openedSideMenuIndex !== undefined && openedSideMenuIndex === i && <div className={`flex flex-col absolute z-[999] -top-[${offset}vh] left-[5px] bg-white p-2`}>
                                 <h1 className="text-nowrap whitespace-nowrap">{tours.find((tour, i) => tour.locations.includes(location))?.tourName}</h1>
                                 <h4>Driver: {tours.find((tour, i) => tour.locations.includes(location))?.tourDriver}</h4>
                                 <ScrollArea h={200}>
@@ -84,6 +95,7 @@ export default function LocationDisplay({ className, tours }: LocationDisplayPro
                                         <p>{i + 1}. {task.text}</p>
                                     ))}
                                 </ScrollArea>
+                                <div ref={sideMenuRef} className="w-[2vw] h-[2vh]"></div>
                             </div>}
                         </div>
                     </div>

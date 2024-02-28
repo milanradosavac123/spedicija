@@ -1,5 +1,4 @@
-import { useState, useRef } from 'react';
-import { FileButton, Button, Group } from '@mantine/core';
+import { FileButton, Button } from '@mantine/core';
 
 interface DocumentUploadButtonProps {
   files: File[],
