@@ -20,17 +20,17 @@ export default function Tours() {
 		<div className="p-5 flex flex-col h-[100%] overflow-hidden">
 			<div className="flex flex-col h-[90%]">
 				<div className="flex flex-col">
-					<Header 
+					<Header
 						headerContent="Active Tours"
 						onSearch={(q) => {
 
-                            if (q === "") {
-                                setTourDataList(tourTableData);
-                                return
-                            }
+							if (q === "") {
+								setTourDataList(tourTableData);
+								return
+							}
 
-                            setTourDataList(tourTableData.filter((tourData) => q.toLowerCase() === tourData.tourName.toLowerCase() || tourData.tourName.toLowerCase().includes(q.toLowerCase())));
-                        }}
+							setTourDataList(tourTableData.filter((tourData) => q.toLowerCase() === tourData.tourName.toLowerCase() || tourData.tourName.toLowerCase().includes(q.toLowerCase())));
+						}}
 					/>
 					<hr />
 				</div>
@@ -38,22 +38,22 @@ export default function Tours() {
 					<StandardSegmentedControl data={["Active Tours", "Upcoming Tours", "Completed Tours"]} />
 
 					<SelectInputField
-                        name="sort-by"
-                        label="Sort By"
-                        placeholder="None Selected"
-                        onChange={(e) => {
+						name="sort-by"
+						label="Sort By"
+						placeholder="None Selected"
+						onChange={(e) => {
 
-                        }}
-                    >
-                        <option value="0">By name ascending</option>
-                        <option value="1">By name descending</option>
-                    </SelectInputField>
+						}}
+					>
+						<option value="0">By name ascending</option>
+						<option value="1">By name descending</option>
+					</SelectInputField>
 
-                    <DateTourFilter
-                        onChange={(e) => {
+					<DateTourFilter
+						onChange={(e) => {
 
-                        }}
-                    />
+						}}
+					/>
 
 					<StandardLinkButton text="New Tour" href="/tours/new_tour" />
 				</div>
@@ -65,13 +65,11 @@ export default function Tours() {
 					/>
 				</div>
 			</div>
-			<div className="flex flex-row justify-center flex-1 py-9">
-				<StandardPagination
-					value={tableDataPageNumber}
-					total={tourDataList.length % 18 === 0 ? tourDataList.length / 18 : (tourDataList.length / 18) + 1}
-					onChange={setTableDataPageNumber}
-				/>
-			</div>
+			<StandardPagination
+				value={tableDataPageNumber}
+				total={tourDataList.length % 18 === 0 ? tourDataList.length / 18 : (tourDataList.length / 18) + 1}
+				onChange={setTableDataPageNumber}
+			/>
 		</div>
 	);
 }

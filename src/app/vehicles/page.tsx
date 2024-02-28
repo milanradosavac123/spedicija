@@ -17,8 +17,8 @@ export default function Vehicles() {
         <div className="p-5 flex flex-col h-[100%] overflow-hidden">
             <div className="flex flex-col h-[90%]">
                 <div className="flex flex-col">
-                    <Header 
-                        headerContent="Vehicles" 
+                    <Header
+                        headerContent="Vehicles"
                         onSearch={(q) => {
 
                             if (q === "") {
@@ -42,13 +42,11 @@ export default function Vehicles() {
                     />
                 </div>
             </div>
-            <div className="flex flex-row justify-center flex-1 py-9">
-                <StandardPagination
-                    value={tableDataPageNumber}
-                    total={vehicleDataList.length % 18 === 0 ? vehicleDataList.length / 18 : (vehicleDataList.length / 18) + 1}
-                    onChange={setTableDataPageNumber}
-                />
-            </div>
+            <StandardPagination
+                value={tableDataPageNumber}
+                total={vehicleDataList.length % 18 === 0 ? vehicleDataList.length / 18 : (vehicleDataList.length / 18) + 1}
+                onChange={setTableDataPageNumber}
+            />
         </div>
     );
 }

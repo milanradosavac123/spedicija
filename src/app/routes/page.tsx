@@ -20,8 +20,8 @@ export default function Routes() {
         <div className="p-5 flex flex-col h-[100%] overflow-hidden">
             <div className="flex flex-col h-[90%]">
                 <div className="flex flex-col">
-                    <Header 
-                        headerContent="Routes" 
+                    <Header
+                        headerContent="Routes"
                         onSearch={(q) => {
 
                             if (q === "") {
@@ -30,7 +30,7 @@ export default function Routes() {
                             }
 
                             setRouteDataList(routeTableData.filter((routeData) => q.toLowerCase() === routeData.routeName.toLowerCase() || routeData.routeName.toLowerCase().includes(q.toLowerCase())));
-                        }}    
+                        }}
                     />
                     <hr />
                 </div>
@@ -66,13 +66,11 @@ export default function Routes() {
                     />
                 </div>
             </div>
-            <div className="flex flex-row justify-center flex-1 py-9">
-                <StandardPagination
-                    value={tableDataPageNumber}
-                    total={routeDataList.length % 18 === 0 ? routeDataList.length / 18 : (routeDataList.length / 18) + 1}
-                    onChange={setTableDataPageNumber}
-                />
-            </div>
+            <StandardPagination
+                value={tableDataPageNumber}
+                total={routeDataList.length % 18 === 0 ? routeDataList.length / 18 : (routeDataList.length / 18) + 1}
+                onChange={setTableDataPageNumber}
+            />
         </div>
     );
 }

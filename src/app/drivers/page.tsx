@@ -34,7 +34,7 @@ export default function Drivers() {
 
                                     return q.toLowerCase() === name || name.includes(q.toLowerCase());
                                 }
-                            ));
+                                ));
                         }}
                     />
                     <hr />
@@ -50,13 +50,11 @@ export default function Drivers() {
                     />
                 </div>
             </div>
-            <div className="flex flex-row justify-center flex-1 py-9">
-                <StandardPagination
-                    value={tableDataPageNumber}
-                    total={driverDataList.length % 18 === 0 ? driverDataList.length / 18 : (driverDataList.length / 18) + 1}
-                    onChange={setTableDataPageNumber}
-                />
-            </div>
+            <StandardPagination
+                value={tableDataPageNumber}
+                total={driverDataList.length % 18 === 0 ? driverDataList.length / 18 : (driverDataList.length / 18) + 1}
+                onChange={setTableDataPageNumber}
+            />
         </div>
     );
 }

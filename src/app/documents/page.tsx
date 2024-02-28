@@ -22,7 +22,7 @@ export default function Documents() {
                         headerContent="Documents"
                         onSearch={(q) => {
 
-                            if(q === "") {
+                            if (q === "") {
                                 setDocumentList(documents);
                                 return
                             }
@@ -86,13 +86,11 @@ export default function Documents() {
                     ))}
                 </div>
             </div>
-            <div className="flex flex-row justify-center flex-1 py-9">
-                <StandardPagination
-                    value={gridDataPageNumber}
-                    total={documentList.length % 18 === 0 ? documentList.length / 18 : (documentList.length / 18) + 1}
-                    onChange={setGridDataPageNumber}
-                />
-            </div>
+            <StandardPagination
+                value={gridDataPageNumber}
+                total={documentList.length % 18 === 0 ? documentList.length / 18 : (documentList.length / 18) + 1}
+                onChange={setGridDataPageNumber}
+            />
         </div>
     );
 }

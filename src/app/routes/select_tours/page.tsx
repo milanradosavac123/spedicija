@@ -113,11 +113,12 @@ export default function SelectTours() {
                     ))}
                 </div>
             </div>
-            <div className="flex flex-row w-[100%] justify-between flex-1 py-9">
+            <div className="flex flex-row justify-between flex-1 py-9">
                 <IconCircle color="white" />
                 <StandardPagination
                     value={tableDataPageNumber}
                     total={tourDataList.length % 36 === 0 ? tourDataList.length / 36 : (tourDataList.length / 36) + 1}
+                    shouldShowStandardWrapper={false}
                     onChange={setTableDataPageNumber}
                 />
                 <StandardLinkButton
