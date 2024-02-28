@@ -1,6 +1,5 @@
 "use client";
 
-import { TourDataTable } from "@/components/TourDataTable";
 import Header from "@/components/Header";
 import { StandardSegmentedControl } from "@/components/StandardSegmentedControl";
 import StandardLinkButton from "@/components/StandardLinkButton";
@@ -9,6 +8,7 @@ import { useState } from "react";
 import { TourTableData, tourTableData } from "@/dummyData/dummyData";
 import DateTourFilter from "@/components/DateTourFilter";
 import SelectInputField from "@/components/SelectInputField";
+import { DataTable } from "@/components/DataTable";
 
 export default function Tours() {
 
@@ -50,7 +50,6 @@ export default function Tours() {
                     </SelectInputField>
 
                     <DateTourFilter
-                        filterType="Routes"
                         onChange={(e) => {
 
                         }}
@@ -59,8 +58,9 @@ export default function Tours() {
 					<StandardLinkButton text="New Tour" href="/tours/new_tour" />
 				</div>
 				<div className="flex flex-row flex-auto overflow-hidden">
-					<TourDataTable
-						tourTableData={tourDataList}
+					<DataTable<TourTableData>
+						tableData={tourDataList}
+						tableHeaders={["Tour Name", "Tour Driver", "Start Date", "End Date", "Loading/Unloading Status"]}
 						tableDataPageNumber={tableDataPageNumber}
 					/>
 				</div>

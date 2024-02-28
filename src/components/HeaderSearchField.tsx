@@ -37,9 +37,11 @@ export function HeaderSearchField({ onSearch }: HeaderSearchFieldProps) {
                         >
                             <IconSearch style={{ width: rem(18), height: rem(18), color: "gray" }} stroke={1.5} />
                         </ActionIcon>
-                        <ActionIcon size={32} radius="xl" variant="filled">
-                            <IconMenu2 style={{ width: rem(18), height: rem(18), color: "gray" }} stroke={1.5} />
-                        </ActionIcon>
+                        <XIconButton
+                            iconSize={32}
+                            colour="gray"
+                            onClick={clearField}
+                        />
                     </>
                 }
                 onChange={(e) => {
@@ -52,15 +54,10 @@ export function HeaderSearchField({ onSearch }: HeaderSearchFieldProps) {
                     setSearchQuery(e.currentTarget.value);
                 }}
                 onKeyDown={(e) => {
-                    if(e.key === "Enter") {
+                    if (e.key === "Enter") {
                         onSearch(searchQuery);
                     }
                 }}
-            />
-            <XIconButton
-                iconSize={32}
-                colour="gray"
-                onClick={clearField}
             />
         </div>
     );

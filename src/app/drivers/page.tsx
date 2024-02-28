@@ -1,6 +1,6 @@
 "use client";
 
-import { DriverDataTable } from "@/components/DriverDataTable";
+import { DataTable } from "@/components/DataTable";
 import Header from "@/components/Header";
 import StandardLinkButton from "@/components/StandardLinkButton";
 import StandardPagination from "@/components/StandardPagination";
@@ -43,8 +43,9 @@ export default function Drivers() {
                     <StandardLinkButton href="/drivers/new_driver" text="New Driver" />
                 </div>
                 <div className="flex flex-row flex-auto overflow-hidden">
-                    <DriverDataTable
-                        driverTableData={driverDataList}
+                    <DataTable<DriverTableData>
+                        tableData={driverDataList}
+                        tableHeaders={["First Name", "Last Name"]}
                         tableDataPageNumber={tableDataPageNumber}
                     />
                 </div>

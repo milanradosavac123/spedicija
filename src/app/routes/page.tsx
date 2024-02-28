@@ -1,6 +1,6 @@
 "use client";
 
-import { RouteDataTable } from "@/components/RouteDataTable";
+import { DataTable } from "@/components/DataTable";
 import Header from "@/components/Header";
 import { StandardSegmentedControl } from "@/components/StandardSegmentedControl";
 import StandardLinkButton from "@/components/StandardLinkButton";
@@ -59,8 +59,9 @@ export default function Routes() {
                     <StandardLinkButton text="New Route" href="/routes/select_tours" />
                 </div>
                 <div className="flex flex-row flex-auto overflow-hidden">
-                    <RouteDataTable
-                        routeTableData={routeDataList}
+                    <DataTable<RouteTableData>
+                        tableData={routeDataList}
+                        tableHeaders={["Route Name", "Driver", "Start Date", "End Date", "Loading/Unloading Status"]}
                         tableDataPageNumber={tableDataPageNumber}
                     />
                 </div>

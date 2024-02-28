@@ -92,7 +92,7 @@ export default function LocationDisplay({ className, tours }: LocationDisplayPro
                                 <h4>Driver: {tours.find((tour, i) => tour.locations.includes(location))?.tourDriver}</h4>
                                 <ScrollArea h={200}>
                                     {location.tasks?.map((task, i) => (
-                                        <p>{i + 1}. {task.text}</p>
+                                        <p key={i}>{i + 1}. {task.text}</p>
                                     ))}
                                 </ScrollArea>
                                 <div ref={sideMenuRef} className="w-[2vw] h-[2vh]"></div>

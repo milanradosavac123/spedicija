@@ -1,9 +1,9 @@
 "use client";
 
+import { DataTable } from "@/components/DataTable";
 import Header from "@/components/Header";
 import StandardLinkButton from "@/components/StandardLinkButton";
 import StandardPagination from "@/components/StandardPagination";
-import { VehicleDataTable } from "@/components/VehicleDataTable";
 import { VehicleTableData, vehicleTableData } from "@/dummyData/dummyData";
 import { useState } from "react";
 
@@ -35,8 +35,9 @@ export default function Vehicles() {
                     <StandardLinkButton href="/vehicles/new_vehicle" text="New Vehicle" />
                 </div>
                 <div className="flex flex-row flex-auto overflow-hidden">
-                    <VehicleDataTable
-                        vehicleTableData={vehicleDataList}
+                    <DataTable<VehicleTableData>
+                        tableData={vehicleDataList}
+                        tableHeaders={["Vehicle Name", "Vehicle Type", "Vehicle Weight (T)", "Vehicle Height (m)", "Vehicle Width (m)"]}
                         tableDataPageNumber={tableDataPageNumber}
                     />
                 </div>
