@@ -9,7 +9,7 @@ export default function Home() {
     router.push("/tours");
 
     return (
-        <div className="flex flex-col flex-auto justify-center items-center min-w-[100%]">
+        <div className="flex flex-col flex-auto justify-center items-center min-w-full">
             <h1>empty page</h1>
         </div>
     );

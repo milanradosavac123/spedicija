@@ -15,7 +15,7 @@ export default function Drivers() {
     const [driverDataList, setDriverDataList] = useState<DriverTableData[]>(driverTableData);
 
     return (
-        <div className="p-5 flex flex-col h-[100%] overflow-hidden">
+        <div className="p-5 flex flex-col h-full overflow-hidden">
             <div className="flex flex-col h-[90%]">
                 <div className="flex flex-col">
                     <Header

@@ -33,17 +33,16 @@ export default function NewTour() {
 
     const [shouldShowAddNewTaskTextField, setShouldShowAddNewTaskTextField] = useState(false);
 
-
     const [locationsList, setLocationsList] = useState<Location[]>(
         [
             {
                 name: "Load Location",
                 address: "",
-            },
+            } as Location,
             {
                 name: "Unload Location",
                 address: "",
-            },
+            } as Location,
         ]
     );
     const [newLocationName, setNewLocationName] = useState("");
@@ -94,6 +93,10 @@ export default function NewTour() {
         setLocationsList([...locationsList, location]);
         setNewLocationName("");
         setShouldShowAddNewLocationButton(true);
+    }
+
+    function deleteLocation(i: number) {
+        i > 1 && setLocationsList((oldLocationList) => [...oldLocationList.slice(undefined, i), ...oldLocationList.slice(i + 1)]);
     }
 
     function addTask(locationIndex: number, task: Task) {
@@ -222,6 +225,7 @@ export default function NewTour() {
                             label={value.name}
                             placeholder={`Add your ${value.name} here...`}
                             value={value.address}
+                            tabIndex={1}
                             onMouseEnter={value.tasks !== undefined ? (() => {
                                 if (openedDropDownIndex === undefined) {
                                     setOpenedDropDownIndex(i);
@@ -234,7 +238,7 @@ export default function NewTour() {
                                 editLocationName(i, s);
                             }}
                             onLabelEditDismissed={() => {
-                                i > 1 && setLocationsList((oldLocationList) => [...oldLocationList.slice(0, i), ...oldLocationList.slice(i + 1)]);
+                                deleteLocation(i);
                             }}
                             rightSection={
                                 <ActionIcon
@@ -260,7 +264,7 @@ export default function NewTour() {
                                 </ActionIcon>
                             }
                         />
-                        {openedDropDownIndex !== undefined && openedDropDownIndex === i && <div className={`min-w-[100%] max-w-[100%] bg-white p-2 border-solid border-2 border-[#282147] rounded-b-[10px]`} style={{ position: "absolute", zIndex: "999", top: "65px" }}>
+                        {openedDropDownIndex !== undefined && openedDropDownIndex === i && <div className={`min-w-full max-w-full bg-white p-2 border-solid border-2 border-[#282147] rounded-b-[10px]`} style={{ position: "absolute", zIndex: "999", top: "65px" }}>
                             <ul>
                                 {value.tasks && value.tasks.map((task, j) => (
                                     <li className="flex flex-auto justify-between items-center px-3">
@@ -350,10 +354,11 @@ export default function NewTour() {
                 {shouldShowAddNewLocationButton &&
                     <div className="flex flex-col flex-auto" >
                         <Group justify="space-between" mb={5}>
-                            <FormControl disabled={true} value="fidj[aofdjsodisfdosiopsf" className="text-white no-select" size="sm" />
+                            <FormControl disabled={true} value="fidj[aofdjsodisfdosiopsf" className="text-white select-none" size="sm" />
                         </Group>
                         <Button
                             className="bg-[#282147] min-w-[20vw]"
+                            tabIndex={2}
                             rightSection={
                                 <Image
                                     src={IconTabNew}
@@ -426,7 +431,7 @@ export default function NewTour() {
                     Comment
                 </Text>
                 <FormControl
-                    className="max-w-[100%] min-h-fit mb-4 border-solid border-2 border-[#282147] rounded-[10px] p-2 resize"
+                    className="max-w-full min-h-fit mb-4 border-solid border-2 border-[#282147] rounded-[10px] p-2 resize"
                     value={comment}
                     placeholder="Add your Comment here..."
                     id="comment-text-area"

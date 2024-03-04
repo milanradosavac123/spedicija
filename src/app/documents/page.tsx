@@ -1,5 +1,6 @@
 "use client";
 
+import CardGrid from "@/components/CardGrid";
 import FileCard from "@/components/FileCard";
 import Header from "@/components/Header";
 import SearchableSelectInputField from "@/components/SearchableSelectInputField";
@@ -15,7 +16,7 @@ export default function Documents() {
     const [documentList, setDocumentList] = useState<Document[]>(documents);
 
     return (
-        <div className="p-5 flex flex-col h-[100%] overflow-hidden">
+        <div className="p-5 flex flex-col h-full overflow-hidden">
             <div className="flex flex-col h-[90%]">
                 <div className="flex flex-col">
                     <Header
@@ -77,14 +78,14 @@ export default function Documents() {
                         }}
                     />
                 </div>
-                <div className="grid grid-cols-6 overflow-y-auto overflow-x-hidden">
+                <CardGrid>
                     {documentList.slice(((gridDataPageNumber - 1) * 18), ((gridDataPageNumber - 1) * 18) + 18).map((document, i) => (
                         <FileCard
                             key={i}
                             {...document}
                         />
                     ))}
-                </div>
+                </CardGrid>
             </div>
             <StandardPagination
                 value={gridDataPageNumber}

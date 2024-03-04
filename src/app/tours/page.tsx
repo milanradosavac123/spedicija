@@ -17,7 +17,7 @@ export default function Tours() {
 	const [tourDataList, setTourDataList] = useState<TourTableData[]>(tourTableData);
 
 	return (
-		<div className="p-5 flex flex-col h-[100%] overflow-hidden">
+		<div className="p-5 flex flex-col h-full overflow-hidden">
 			<div className="flex flex-col h-[90%]">
 				<div className="flex flex-col">
 					<Header

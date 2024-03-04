@@ -17,9 +17,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
-
-
   return (
     <html lang="en">
       <head>
@@ -28,7 +25,7 @@ export default function RootLayout({
       <body className={"m-0"}>
         <MantineProvider>
           <div className="flex flex-col h-screen overflow-hidden">
-            <div className="flex overflow-hidden">
+            <div className="flex flex-row overflow-hidden h-full">
               <StandardNavBar />
               <main className="max-h-full flex-1 overflow-y-auto">
                 <ContextWrapper>

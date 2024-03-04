@@ -16,7 +16,7 @@ export default function Vehicles() {
     const [vehicleWidth, setVehicleWidth] = useState(0);
 
     return (
-        <div className="p-5 flex flex-col h-[100%]">
+        <div className="p-5 flex flex-col h-full">
             <div className="flex flex-col">
                 <div className="flex flex-col">
                     <Header headerContent="Vehicles" />

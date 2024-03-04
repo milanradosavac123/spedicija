@@ -11,6 +11,7 @@ import { useContext, useState } from "react";
 import { IconCircle } from "@tabler/icons-react";
 import { TourInfo, dummyTourData } from "@/dummyData/dummyData";
 import StandardPagination from "@/components/StandardPagination";
+import CardGrid from "@/components/CardGrid";
 
 export default function SelectTours() {
 
@@ -35,7 +36,7 @@ export default function SelectTours() {
     const [tableDataPageNumber, setTableDataPageNumber] = useState(1);
 
     return (
-        <div className="p-5 flex flex-col h-[100%] overflow-hidden">
+        <div className="p-5 flex flex-col h-full overflow-hidden">
             <div className="flex flex-col h-[90%]">
                 <div className="flex flex-col">
                     <Header 
@@ -98,7 +99,7 @@ export default function SelectTours() {
                         }}
                     />
                 </div>
-                <div className="grid grid-cols-9 overflow-y-auto overflow-x-hidden">
+                <CardGrid>
                     {tourDataList.slice(((tableDataPageNumber - 1) * 36), ((tableDataPageNumber - 1) * 36) + 36).map((tourInfo, i) => (
                         <TourInfoCard
                             key={i}
@@ -111,7 +112,7 @@ export default function SelectTours() {
                             }}
                         />
                     ))}
-                </div>
+                </CardGrid>
             </div>
             <div className="flex flex-row justify-between flex-1 py-9">
                 <IconCircle color="white" />

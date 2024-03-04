@@ -12,7 +12,7 @@ export default function Vehicles() {
     const [lastName, setLastName] = useState("");
 
     return (
-        <div className="p-5 flex flex-col h-[100%]">
+        <div className="p-5 flex flex-col h-full">
             <div className="flex flex-col">
                 <div className="flex flex-col">
                     <Header headerContent="Drivers" />

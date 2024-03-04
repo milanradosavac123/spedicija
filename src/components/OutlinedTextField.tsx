@@ -15,6 +15,7 @@ interface OutlinedTextFieldProps {
 	leftSection?: React.ReactNode;
 	rightSectionWidth?: number;
 	rightSection?: React.ReactNode;
+	tabIndex?: number,
 	onChange: (value: string) => void;
 	onLabelChange?: (value: string) => void;
 	onLabelEditDismissed?: () => void;
@@ -22,7 +23,7 @@ interface OutlinedTextFieldProps {
 	onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
-export default function OutlinedTextField({ ref, className, id, isLabelEditable = false, shouldBottomBeRounded = true, label, placeholder, value, leftSection, rightSectionWidth, rightSection, onChange, onLabelChange, onLabelEditDismissed, onMouseEnter, onKeyDown }: OutlinedTextFieldProps) {
+export default function OutlinedTextField({ ref, className, id, isLabelEditable = false, shouldBottomBeRounded = true, label, placeholder, value, leftSection, rightSectionWidth, rightSection, tabIndex, onChange, onLabelChange, onLabelEditDismissed, onMouseEnter, onKeyDown }: OutlinedTextFieldProps) {
 
 	const [isEditing, setIsEditing] = useState(false);
 
@@ -54,9 +55,9 @@ export default function OutlinedTextField({ ref, className, id, isLabelEditable 
 					ref={editLabelInputRef}
 					type="text"
 					size="lg"
-					disabled={!isLabelEditable && !isEditing}
+					disabled={!isEditing}
 					value={labelText}
-					className={`text-[#282147] ${isEditing ? "border-solid border-2 border-b-[#282147] pl-1" : ""} flex-1`}
+					className={`focus:outline-none text-[#282147] ${isEditing ? "border-solid border-2 border-b-[#282147] pl-1" : ""} flex-1`}
 					onChange={(e) => {
 						setLabelText(e.currentTarget.value);
 					}}
@@ -95,6 +96,7 @@ export default function OutlinedTextField({ ref, className, id, isLabelEditable 
 				rightSectionWidth={rightSectionWidth}
 				rightSection={rightSection}
 				autoComplete="off"
+				tabIndex={tabIndex}
 				onKeyDown={onKeyDown}
 			/>
 		</div>

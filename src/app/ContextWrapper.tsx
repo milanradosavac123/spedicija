@@ -2,10 +2,6 @@
 
 import { Dispatch, SetStateAction, createContext, useState } from "react";
 
-interface ContextWrapperProps {
-    children: React.ReactNode
-}
-
 interface SelectedTourIdsContext {
     selectedTourIds: number[],
     setSelectedTourIds: Dispatch<SetStateAction<number[]>>
@@ -16,7 +12,7 @@ export const SelectedToursContext = createContext<SelectedTourIdsContext>({
     setSelectedTourIds: () => {}
 });
 
-export default function ContextWrapper({ children }: ContextWrapperProps) {
+export default function ContextWrapper({ children }: { children: React.ReactNode }) {
 
     const [selectedTourIds, setSelectedTourIds] = useState<number[]>([])
 
