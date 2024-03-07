@@ -1,9 +1,10 @@
 import User from "@/model/User";
 import DesktopSideBar from "./DesktopSideBar";
 import MobileFooter from "./MobileFooter";
+import { StandardNavBar } from "@/components/StandardNavBar";
 
 export default async function SideBar({ children }: { children: React.ReactNode }) {
-    
+
     const currentUser = {
         id: "fdsafhjfkldfadsf",
         name: "Milos Milincic",
@@ -18,15 +19,15 @@ export default async function SideBar({ children }: { children: React.ReactNode 
         accounts: [],
         messages: []
     } as User
-    
+
     return (
         <div
-            className="h-full"
+            className="h-full flex flex-row"
         >
             <DesktopSideBar currentUser={currentUser} />
             <MobileFooter />
             <main
-                className="lg:pl-20 h-full"
+                className="lg:pl-20 h-full flex-1"
             >
                 {children}
             </main>

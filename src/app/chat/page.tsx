@@ -1,11 +1,16 @@
 "use client";
 
 import EmptyState from "@/components/chat/EmptyState";
+import clsx from "clsx";
+import { useContext } from "react";
+import { IsNavbarCollapsedContext } from "../ContextWrapper";
 
 export default function Chat() {
 
+    const { isNavbarCollapsed } = useContext(IsNavbarCollapsedContext);
+
     return (
-        <div className="hidden lg:block lg:pl-80 h-full">
+        <div className={clsx("hidden lg:block h-full", isNavbarCollapsed ? "lg:pl-[415px]" : "lg:pl-[555px]")}>
             <EmptyState />
         </div>
     );

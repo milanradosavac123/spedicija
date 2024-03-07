@@ -3,12 +3,13 @@
 import { useConversation } from "@/util/hooks/useConversation";
 import Conversation from "@/model/Conversation";
 import clsx from "clsx";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { MdOutlineGroupAdd } from "react-icons/md";
 import ConversationBox from "./ConversationBox";
 import GroupChatModal from "./GroupChatModal";
 import User from "@/model/User";
 import { StandardSegmentedControl } from "@/components/StandardSegmentedControl";
+import { IsNavbarCollapsedContext } from "@/app/ContextWrapper";
 
 interface ConversationListProps {
     users: User[]
@@ -20,6 +21,8 @@ export default function ConversationList({ users, initialItems }: ConversationLi
     const [items, setItems] = useState(initialItems);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    const { isNavbarCollapsed } = useContext(IsNavbarCollapsedContext);
+
     const { conversationId, isOpen } = useConversation();
 
     return (
@@ -30,7 +33,7 @@ export default function ConversationList({ users, initialItems }: ConversationLi
                 onClose={() => setIsModalOpen(false)}
             />
             <aside
-                className={clsx("fixed inset-y-0 pb-20 lg:pb-0 lg:left-20 lg:w-80 lg:block overflow-y-auto border-r border-gray-200", isOpen ? "hidden" : "block w-full left-0")}
+                className={clsx("fixed inset-y-0 pb-20 lg:pb-0 lg:w-80 lg:block overflow-y-auto border-r border-gray-200", isOpen ? "hidden" : "block w-full left-0", isNavbarCollapsed ? "lg:left-44" : "lg:left-[315px]")}
             >
                 <div
                     className="px-5"

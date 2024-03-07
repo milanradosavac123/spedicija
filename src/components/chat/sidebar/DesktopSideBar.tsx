@@ -26,36 +26,38 @@ export default function DesktopSideBar({ currentUser }: DesktopSideBarProps) {
                 onClose={() => setIsOpen(false)}
             />
             <div
-                className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-40 lg:w-20 xl:px-6 lg:overflow-y-auto lg:bg-white lg:border-r-[1px] lg:pb-4 lg:flex lg:flex-col justify-between"
+                className="hidden lg:fixed lg:inset-y-0 lg:z-40 lg:w-30 lg:overflow-y-auto lg:bg-white h-screen lg:border-r-[1px] lg:flex lg:flex-row justify-between"
             >
-                <nav
-                    className="mt-4 flex flex-col justify-between"
+                <StandardNavBar />
+                <div
+                    className="lg:px-6 flex flex-col justify-between"
                 >
-                    <ul
-                        className="flex flex-col items-center space-y-1"
-                        role="list"
+                    <nav
+                        className="mt-4"
                     >
-                        {routes.map((route, i) => (
-                            <DesktopItem
-                                key={i}
-                                {...route}
-                                onClick={() => {
-                                    route.href === "/tours" && window.location.reload();
-                                }}
-                            />
-                        ))}
-                    </ul>
-                </nav>
-                <nav
-                    className="mt-4 flex flex-col justify-between items-center"
-                >
-                    <div
-                        className="cursor-pointer hover:opacity-75 transition"
-                        onClick={() => setIsOpen(true)}
+                        <ul
+                            className="flex flex-col items-center space-y-1"
+                            role="list"
+                        >
+                            {routes.slice(undefined, routes.length - 1).map((route, i) => (
+                                <DesktopItem
+                                    key={i}
+                                    {...route}
+                                />
+                            ))}
+                        </ul>
+                    </nav>
+                    <nav
+                        className="flex flex-col justify-between items-center"
                     >
-                        <Avatar user={currentUser} />
-                    </div>
-                </nav>
+                        <div
+                            className="cursor-pointer hover:opacity-75 transition"
+                            onClick={() => setIsOpen(true)}
+                        >
+                            <Avatar user={currentUser} />
+                        </div>
+                    </nav>
+                </div>
             </div>
         </>
     );

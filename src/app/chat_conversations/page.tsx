@@ -3,14 +3,17 @@
 import { useConversation } from "@/util/hooks/useConversation";
 import EmptyState from "@/components/chat/EmptyState";
 import clsx from "clsx";
+import { useContext } from "react";
+import { IsNavbarCollapsedContext } from "../ContextWrapper";
 
 export default function Conversation() {
     
     const { isOpen } = useConversation();
+    const { isNavbarCollapsed } = useContext(IsNavbarCollapsedContext);
     
     return (
         <div
-            className={clsx("lg:pl-80 h-full lg:block", isOpen ? "block" : "hidden")}
+            className={clsx("h-full lg:block", isOpen ? "block" : "hidden", isNavbarCollapsed ? "lg:pl-[415px]" : "lg:pl-[555px]")}
         >
             <EmptyState />
         </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from 'react';
+import { useContext, useMemo, useState } from 'react';
 import { ActionIcon, rem } from '@mantine/core';
 import {
 	IconAlarm,
@@ -20,6 +20,7 @@ import Link from 'next/link';
 import IconTruckFilled from "#/public/ri_truck-fill.svg";
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import { IsNavbarCollapsedContext } from '@/app/ContextWrapper';
 
 const data = [
 	{ link: '/routes', label: 'Routes', icon: IconRoute },
@@ -39,22 +40,18 @@ interface StandardNavBarProps {
 
 export function StandardNavBar({ className }: StandardNavBarProps) {
 
-	function isMobile(): boolean {
-		return navigator.maxTouchPoints > 0 && (navigator.userAgent.includes("Android") || navigator.userAgent.includes("iPhone") || navigator.userAgent.includes("iPad"));
-	}
-
 	const pathname = usePathname();
 
 	const route = useMemo(() => {
 
 		const splitPathname = pathname.split("/").filter(Boolean)[0];
 
-		return splitPathname === undefined ? "Tours" : splitPathname[0].toUpperCase() + splitPathname.substring(1);
+		return splitPathname === undefined ? "Tours" : splitPathname === "chat_conversations" ? "Chat" : splitPathname[0].toUpperCase() + splitPathname.substring(1);
 	}, [pathname]);
 
 	const [active, setActive] = useState(route);
 
-	const [isNavbarCollapsed, setIsNavBarCollapsed] = useState(isMobile());
+	const { isNavbarCollapsed, setIsNavbarCollapsed } = useContext(IsNavbarCollapsedContext);
 
 	const links = data.map((item) => (
 		<Link
@@ -70,12 +67,9 @@ export function StandardNavBar({ className }: StandardNavBarProps) {
 		</Link>
 	));
 
-	if(pathname.includes("/chat")) {
-		return null;
-	}
 
 	return (
-		<nav className={`bg-[#2A2830] min-h-[100vh] max-h-[100vh] p-[1rem] min-w-max flex flex-col justify-between sticky ${className ? className : ""}`}>
+		<nav className={`bg-[#2A2830] h-screen p-[1rem] min-w-max flex flex-col justify-between sticky ${className ? className : ""}`}>
 
 			<div>
 				<div className={`flex ${isNavbarCollapsed ? "flex-col" : "flex-row"} items-center justify-between no-underline text-[#CCCCCC]`}>
@@ -85,7 +79,7 @@ export function StandardNavBar({ className }: StandardNavBarProps) {
 						alt="truck"
 					/>
 					<ActionIcon onClick={() => {
-						setIsNavBarCollapsed(!isNavbarCollapsed);
+						setIsNavbarCollapsed(!isNavbarCollapsed);
 					}} >
 						{isNavbarCollapsed
 							?
