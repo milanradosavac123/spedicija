@@ -28,7 +28,7 @@ export default function UserBox({ data }: UserBoxProps) {
         <>
             {isLoading && <LoadingModal />}
             <div
-                className="w-full relative flex flex-row items-center space-x-3 bg-white p-3 hover:bg-[#282147] hover:text-white text-gray-900 rounded-lg transition cursor-pointer"
+                className="my-2 w-full relative flex flex-row items-center space-x-3 bg-white p-3 hover:bg-[#282147] hover:text-white text-gray-900 rounded-lg transition cursor-pointer"
                 onClick={handleClick}
             >
                 <Avatar user={data} />

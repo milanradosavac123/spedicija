@@ -6,6 +6,7 @@ import DesktopItem from "./DesktopItem";
 import User from "@/model/User";
 import Avatar from "../Avatar";
 import SettingsModal from "./SettingsModal";
+import { StandardNavBar } from "@/components/StandardNavBar";
 
 interface DesktopSideBarProps {
     currentUser: User

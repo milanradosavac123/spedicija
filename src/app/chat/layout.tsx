@@ -5,7 +5,7 @@ import SideBar from "@/components/chat/sidebar/SideBar";
 import { users } from "@/dummyData/dummyData";
 
 export default async function UsersLayout({ children }: { children: React.ReactNode }) {
-    
+
     return (
         <SideBar>
             <div

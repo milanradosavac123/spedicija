@@ -62,7 +62,7 @@ export default function ConversationBox({ data, selected }: ConversationBoxProps
 
     return (
         <div
-            className={clsx("w-full relative flex flex-row items-center space-x-3 hover:bg-[#282147] hover:text-white rounded-lg transition cursor-pointer p-3", selected ? "bg-[#282147] text-white" : "bg-white text-gray-900")}
+            className={clsx("my-2 w-full relative flex flex-row items-center space-x-3 hover:bg-[#282147] hover:text-white rounded-lg transition cursor-pointer p-3", selected ? "bg-[#282147] text-white" : "bg-white text-gray-900")}
             onClick={handleClick}
         >
             {data.isGroup ? (
@@ -80,7 +80,7 @@ export default function ConversationBox({ data, selected }: ConversationBoxProps
                         className="flex flex-row justify-between items-center mb-1"
                     >
                         <p
-                            className={clsx("text-md font-medium text-inherit")}
+                            className="text-md font-medium text-inherit"
                         >
                             {data.name || otherUser.name}
                         </p>

@@ -1,6 +1,8 @@
 import { Button, rem } from "@mantine/core";
 import { IconDownload, IconShare } from "@tabler/icons-react";
+import Image from "next/image";
 import { Card } from "react-bootstrap";
+import PreviewImage from "#/public/sample-pdf-screenshot.png";
 
 interface FileCardProps {
     fileName: string,
@@ -21,9 +23,8 @@ export default function FileCard({ fileName, fileUrl, dateCreated }: FileCardPro
                 onClick={() => {
                     window.open(fileUrl, fileUrl);
                 }}
-            >
-            </Card.Body>
-            <Card.Footer className="flex flex-row">
+            />
+            <Card.Footer className="flex flex-row z-999 bg-[#F7F5FA]">
                 <div className="flex-1">
                     <Button
                         className="text-gray-500"
@@ -40,7 +41,7 @@ export default function FileCard({ fileName, fileUrl, dateCreated }: FileCardPro
                             />
                         }
                     >
-                            <a href={fileName} target="_blank" rel="noopener noreferrer" download>Download</a>
+                        <a href={fileName} target="_blank" rel="noopener noreferrer" download>Download</a>
 
                     </Button>
                 </div>

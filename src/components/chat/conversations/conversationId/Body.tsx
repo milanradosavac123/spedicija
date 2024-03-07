@@ -4,6 +4,8 @@ import { useConversation } from "@/util/hooks/useConversation";
 import Message from "@/model/Message";
 import { useEffect, useRef, useState } from "react";
 import MessageBox from "./MessageBox";
+import { isLinkPresent } from "@/util/utils";
+import LinkMessageBox from "./LinkMessageBox";
 
 interface BodyProps {
     initialMessages: Message[]
@@ -25,8 +27,14 @@ export default function Body({ initialMessages }: BodyProps) {
         <div
             className="flex-1 overflow-y-auto"
         >
-            {messages.map((message, i) => (
+            {messages.map((message, i) => !isLinkPresent(message.body!!) ? (
                 <MessageBox
+                    key={i}
+                    isLast={i === messages.length - 1}
+                    data={message}
+                />
+            ) : (
+                <LinkMessageBox
                     key={i}
                     isLast={i === messages.length - 1}
                     data={message}

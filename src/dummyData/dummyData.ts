@@ -157,8 +157,8 @@ export const userIds = users.map((user) => user.id);
 export const messages = Array.from({ length: 10 }, (_, index) => index + 1).map((number) => (
     {
         id: "fdaksfjdsjfdklsfjdsl;fds",
-        body: number % 3 !== 0 && 'Hello, how are you?',
-        image: number % 3 === 0 && next,
+        body: number % 3 === 0 ? "Hello, how are you?" : number % 2 === 0 && "https://gitlab.com/MaskedRedstonerProZ",
+        image: number % 3 !== 0 && number % 2 !== 0 && next,
         createdAt: new Date(),
 
         seenIds: userIds,
