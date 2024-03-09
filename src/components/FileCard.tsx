@@ -13,18 +13,17 @@ interface FileCardProps {
 export default function FileCard({ fileName, fileUrl, dateCreated }: FileCardProps) {
 
     return (
-        <Card className="bg-[#F7F5FA] text-gray-500 drop-shadow-md p-2 m-[1vh] w-fit h-fit">
+        <Card
+            className="bg-[#F7F5FA] text-gray-500 drop-shadow-md p-2 m-[1vh] w-fit h-fit rounded-xl cursor-pointer"
+            onClick={() => {
+                window.open(fileUrl, fileUrl);
+            }}
+        >
             <Card.Header className="flex flex-col">
                 <Card.Subtitle>{dateCreated.toLocaleDateString(["en-GB"])}</Card.Subtitle>
                 <Card.Title className="text-[20px] font-black">{fileName}</Card.Title>
             </Card.Header>
-            <Card.Body
-                className="h-[7vh] border-2 border-t-gray-400 border-b-gray-400 border-r-transparent border-l-transparent cursor-pointer"
-                onClick={() => {
-                    window.open(fileUrl, fileUrl);
-                }}
-            />
-            <Card.Footer className="flex flex-row z-999 bg-[#F7F5FA]">
+            <Card.Footer className="flex flex-row z-999 bg-[#F7F5FA] border-2 border-t-gray-400 border-l-transparent border-r-transparent border-b-transparent">
                 <div className="flex-1">
                     <Button
                         className="text-gray-500"

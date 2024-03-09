@@ -24,7 +24,7 @@ export default function SelectInputFieldAlt({ name, className, label, placeholde
         <Form.Group className={`flex flex-row flex-auto items-center text-gray-500 font-[16px] ${className}`} controlId={name + "-input"}>
             <div className="flex flex-col flex-grow">
                 {label && <Form.Label className="pr-2 text-[#282147]" >{label}</Form.Label>}
-                <div className={`flex flex-row items-center mb-4 border-solid border-2 border-[#282147] rounded-[10px] ${!onPlusClicked && `h-[2.5rem]`}`}>
+                <div className={`flex flex-row items-center mb-4 border-solid border-2 border-[#282147] rounded-xl ${!onPlusClicked && `h-[2.5rem]`}`}>
                     <div className={`p-1 flex flex-row flex-auto`}>
                         <Form.Select
                             value={value}

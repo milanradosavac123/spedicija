@@ -7,10 +7,11 @@ import Avatar from "../Avatar";
 import LoadingModal from "../LoadingModal";
 
 interface UserBoxProps {
-    data: User
+    data: User,
+    onClick?: (conversationId: string) => void, 
 }
 
-export default function UserBox({ data }: UserBoxProps) {
+export default function UserBox({ data, onClick }: UserBoxProps) {
 
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
@@ -18,8 +19,7 @@ export default function UserBox({ data }: UserBoxProps) {
     const handleClick = useCallback(() => {
         setIsLoading(true);
 
-        router.push(`/chat_conversations/${data.conversations[0].id}`)
-        console.log("loaded data")
+        onClick ? onClick(data.conversations[0].id) : router.push(`/chat_conversations/${data.conversations[0].id}`);
 
         setIsLoading(false);
     }, [data, router]);

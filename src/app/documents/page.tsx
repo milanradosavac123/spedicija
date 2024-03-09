@@ -7,13 +7,17 @@ import SearchableSelectInputField from "@/components/SearchableSelectInputField"
 import SelectInputField from "@/components/SelectInputField";
 import StandardPagination from "@/components/StandardPagination";
 import { Document, documents } from "@/dummyData/dummyData";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 export default function Documents() {
 
     const [gridDataPageNumber, setGridDataPageNumber] = useState(1);
 
     const [documentList, setDocumentList] = useState<Document[]>(documents);
+
+    const pagedDocumentList = useMemo(() => {
+        return documentList.slice(((gridDataPageNumber - 1) * 30), ((gridDataPageNumber - 1) * 30) + 30);
+    }, [documentList, gridDataPageNumber]);
 
     return (
         <div className="p-5 flex flex-col h-full overflow-hidden">
@@ -78,8 +82,10 @@ export default function Documents() {
                         }}
                     />
                 </div>
-                <CardGrid>
-                    {documentList.slice(((gridDataPageNumber - 1) * 18), ((gridDataPageNumber - 1) * 18) + 18).map((document, i) => (
+                <CardGrid
+                    shouldDistributeChildrenEvenly={pagedDocumentList.length > 6}
+                >
+                    {pagedDocumentList.map((document, i) => (
                         <FileCard
                             key={i}
                             {...document}
@@ -89,7 +95,7 @@ export default function Documents() {
             </div>
             <StandardPagination
                 value={gridDataPageNumber}
-                total={documentList.length % 18 === 0 ? documentList.length / 18 : (documentList.length / 18) + 1}
+                total={documentList.length % 30 === 0 ? documentList.length / 30 : (documentList.length / 30) + 1}
                 onChange={setGridDataPageNumber}
             />
         </div>

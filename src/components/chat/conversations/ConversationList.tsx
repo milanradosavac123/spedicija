@@ -10,6 +10,7 @@ import GroupChatModal from "./GroupChatModal";
 import User from "@/model/User";
 import { StandardSegmentedControl } from "@/components/StandardSegmentedControl";
 import { IsNavbarCollapsedContext } from "@/app/ContextWrapper";
+import ChatBanner from "../ChatBanner";
 
 interface ConversationListProps {
     users: User[]
@@ -39,13 +40,9 @@ export default function ConversationList({ users, initialItems }: ConversationLi
                     className="px-5"
                 >
                     <div
-                        className="flex flex-row justify-between mb-4 pt-4"
+                        className="flex flex-row justify-between mb-4 pt-4 items-center"
                     >
-                        <div
-                            className="text-2xl font-bold text-neutral-800 bg-white"
-                        >
-                            Messages
-                        </div>
+                        <ChatBanner text="Messages" />
                         <div
                             className="rounded-full p-2 bg-gray-100 text-gray-600 cursor-pointer hover:opacity-75 transition"
                             onClick={() => setIsModalOpen(true)}

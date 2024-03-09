@@ -12,6 +12,11 @@ interface IsNavbarCollapsedContext {
     setIsNavbarCollapsed: Dispatch<SetStateAction<boolean>>
 }
 
+interface SelectedConversationContext {
+    selectedConversationId: string | undefined,
+    setSelectedConversationId: Dispatch<SetStateAction<string | undefined>>
+}
+
 export const SelectedToursContext = createContext<SelectedTourIdsContext>({
     selectedTourIds: [],
     setSelectedTourIds: () => { }
@@ -21,6 +26,11 @@ export const IsNavbarCollapsedContext = createContext<IsNavbarCollapsedContext>(
     isNavbarCollapsed: false,
     setIsNavbarCollapsed: () => { }
 });
+
+export const SelectedConversationContext = createContext<SelectedConversationContext>({
+    selectedConversationId: undefined,
+    setSelectedConversationId: () => { }
+})
 
 export default function ContextWrapper({ children }: { children: React.ReactNode }) {
 
@@ -32,25 +42,36 @@ export default function ContextWrapper({ children }: { children: React.ReactNode
 
     const [isNavBarCollapsed, setIsNavBarCollapsed] = useState(isMobile());
 
+    const [selectedConversationId, setSelectedConversationId] = useState<string>()
+
     return (
-        <IsNavbarCollapsedContext.Provider
+        <SelectedConversationContext.Provider
             value={
                 {
-                    isNavbarCollapsed: isNavBarCollapsed,
-                    setIsNavbarCollapsed: setIsNavBarCollapsed
+                    selectedConversationId: selectedConversationId,
+                    setSelectedConversationId: setSelectedConversationId
                 }
             }
         >
-            <SelectedToursContext.Provider
+            <IsNavbarCollapsedContext.Provider
                 value={
                     {
-                        selectedTourIds: selectedTourIds,
-                        setSelectedTourIds: setSelectedTourIds
-                    } as SelectedTourIdsContext
+                        isNavbarCollapsed: isNavBarCollapsed,
+                        setIsNavbarCollapsed: setIsNavBarCollapsed
+                    }
                 }
             >
-                {children}
-            </SelectedToursContext.Provider>
-        </IsNavbarCollapsedContext.Provider>
+                <SelectedToursContext.Provider
+                    value={
+                        {
+                            selectedTourIds: selectedTourIds,
+                            setSelectedTourIds: setSelectedTourIds
+                        } as SelectedTourIdsContext
+                    }
+                >
+                    {children}
+                </SelectedToursContext.Provider>
+            </IsNavbarCollapsedContext.Provider>
+        </SelectedConversationContext.Provider>
     );
 }

@@ -264,10 +264,10 @@ export default function NewTour() {
                                 </ActionIcon>
                             }
                         />
-                        {openedDropDownIndex !== undefined && openedDropDownIndex === i && <div className={`min-w-full max-w-full bg-white p-2 border-solid border-2 border-[#282147] rounded-b-[10px]`} style={{ position: "absolute", zIndex: "999", top: "65px" }}>
+                        {openedDropDownIndex !== undefined && openedDropDownIndex === i && <div className="min-w-full max-w-full bg-white p-2 border-solid border-2 border-[#282147] rounded-b-xl absolute top-[65px]" style={{ zIndex: "999" }}>
                             <ul>
                                 {value.tasks && value.tasks.map((task, j) => (
-                                    <li className="flex flex-auto justify-between items-center px-3">
+                                    <li className="flex flex-row flex-auto justify-between items-center px-3">
                                         <p className="break-all max-w-[20vw]" >{j + 1}. {task.text[0].toUpperCase()}{task.text.substring(1)}</p>
                                         <div>
                                             <PencilIconButton
@@ -336,7 +336,7 @@ export default function NewTour() {
                                     }}
                                 />
                             </div>}
-                            {!shouldShowAddNewTaskTextField && <div className="flex flex-auto justify-center">
+                            {!shouldShowAddNewTaskTextField && <div className="flex flex-row flex-auto justify-center">
                                 <Button
                                     className="bg-[#282147] max-w-fit"
                                     pr={12}
@@ -427,14 +427,13 @@ export default function NewTour() {
                 />
             </div>
             <div className="flex flex-col flex-auto">
-                <Text className="text-[#282147] py-1" component="label" htmlFor="comment-text-area" size="sm" fw={500} >
+                <Text className="text-[#282147] py-1" component="label" size="sm" fw={500} >
                     Comment
                 </Text>
                 <FormControl
-                    className="max-w-full min-h-fit mb-4 border-solid border-2 border-[#282147] rounded-[10px] p-2 resize"
+                    className="max-w-full min-h-fit mb-4 border-solid border-2 border-[#282147] rounded-xl p-2 resize"
                     value={comment}
                     placeholder="Add your Comment here..."
-                    id="comment-text-area"
                     as="textarea"
                     onChange={(e) => {
                         setComment(e.target.value);

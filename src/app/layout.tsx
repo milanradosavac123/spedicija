@@ -5,6 +5,7 @@ import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import React from "react";
 import ContextWrapper from "./ContextWrapper";
 import NavBar from "./NavBar";
+import ChatPopup from "@/components/ChatPopup";
 
 
 export const metadata: Metadata = {
@@ -31,6 +32,7 @@ export default function RootLayout({
 								<main className="max-h-full flex-1 overflow-y-auto">
 									{children}
 								</main>
+								<ChatPopup />
 							</div>
 						</div>
 					</MantineProvider>

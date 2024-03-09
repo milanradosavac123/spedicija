@@ -114,7 +114,7 @@ export const driverTableData = Array.from({ length: 37 }, (_, index) => index + 
     } as DriverTableData
 ));
 
-export const documents = Array.from({ length: 37 }, (_, index) => index + 1).map((number) => (
+export const documents = Array.from({ length: 73 }, (_, index) => index + 1).map((number) => (
     {
         fileName: "Sample",
         fileUrl: "https://www.learningcontainer.com/wp-content/uploads/2019/09/sample-pdf-file.pdf",

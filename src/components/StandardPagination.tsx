@@ -7,7 +7,7 @@ interface StandardPaginationProps {
     onChange: (pageNumber: number) => void,
 }
 
-export default function StandardPagination({ value, total, shouldShowStandardWrapper = true, onChange }: StandardPaginationProps) {
+export default function StandardPagination({ value, total, shouldShowStandardWrapper = true, onChange }: StandardPaginationProps) {    
     return (
         <>
             {shouldShowStandardWrapper
@@ -20,9 +20,9 @@ export default function StandardPagination({ value, total, shouldShowStandardWra
                         }}
                         color="#282147"
                         value={value}
-                        total={Math.round(total)}
-                        withEdges={Math.round(total) > 2}
-                        withControls={Math.round(total) !== 1}
+                        total={Math.floor(total)}
+                        withEdges={Math.floor(total) > 2}
+                        withControls={Math.floor(total) !== 1}
                         onChange={onChange}
                     />
                 </div>
@@ -33,9 +33,9 @@ export default function StandardPagination({ value, total, shouldShowStandardWra
                         }}
                         color="#282147"
                         value={value}
-                        total={Math.round(total)}
-                        withEdges={Math.round(total) > 2}
-                        withControls={Math.round(total) !== 1}
+                        total={Math.floor(total)}
+                        withEdges={Math.floor(total) > 2}
+                        withControls={Math.floor(total) !== 1}
                         onChange={onChange}
                     />
             }

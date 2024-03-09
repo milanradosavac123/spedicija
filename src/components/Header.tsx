@@ -7,6 +7,11 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { FormControl } from "react-bootstrap";
 import EditControl from "./EditControl";
+import UserList from "./chat/users/UserList";
+import { conversations, users } from "@/dummyData/dummyData";
+import ChatBanner from "./chat/ChatBanner";
+import { StandardSegmentedControl } from "./StandardSegmentedControl";
+import UserBox from "./chat/users/UserBox";
 
 interface HeaderProps {
     headerContent: string,
@@ -21,6 +26,8 @@ export default function Header({ headerContent, editable = false, shouldShowSear
     const [isEditing, setIsEditing] = useState(false);
 
     const [headerText, setHeaderText] = useState(headerContent);
+
+    const [isChatOpened, setIsChatOpened] = useState(false);
 
     const editHeaderContentInputRef = useRef<HTMLInputElement>(null);
 
@@ -78,11 +85,47 @@ export default function Header({ headerContent, editable = false, shouldShowSear
                 <AccountDropdown
                     userName="Milos"
                 />
-                <Image
-                    className="ml-[20px]"
-                    src={chat}
-                    alt="chat"
-                />
+                <div
+                    className="relative cursor-pointer"
+                >
+                    <Image
+                        className="ml-[20px]"
+                        src={chat}
+                        alt="chat"
+                        onClick={() => setIsChatOpened(!isChatOpened)}
+                    />
+                    {isChatOpened && <div
+                        className="absolute z-[999] bg-white right-0"
+                    >
+                        <div
+                            className="px-5"
+                        >
+                            <div
+                                className="flex-col"
+                            >
+                                <ChatBanner text="Contacts" />
+                            </div>
+                            <div
+                                className="py-5 flex flex-row justify-center"
+                            >
+                                <StandardSegmentedControl data={["Drivers", "Vehicles", "Dispachers"]} />
+                            </div>
+                            <div
+                                className="h-[35vh] overflow-y-auto"
+                            >
+                                {users.map((user, i) => (
+                                    <UserBox
+                                        key={i}
+                                        data={user}
+                                        onClick={(conversationId) => {
+                                            
+                                        }}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                    </div>}
+                </div>
             </div>
         </div>
     );

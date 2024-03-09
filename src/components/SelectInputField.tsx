@@ -25,7 +25,7 @@ export default function SelectInputField({ name, className, label, placeholder, 
             {label && <Form.Label className="pr-2" >{label}</Form.Label>}
             <Form.Select
                 value={selectedOption}
-                className="p-2 min-w-[10vw] bg-white border border-solid border-1 border-gray-400 rounded-[10px]"
+                className="p-2 min-w-[10vw] bg-white border border-solid border-1 border-gray-400 rounded-xl"
                 {...props}
                 onChange={(e) => {
                     onChange && setSelectedOption(e.currentTarget.value);

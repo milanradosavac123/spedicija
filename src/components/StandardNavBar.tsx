@@ -55,7 +55,7 @@ export function StandardNavBar({ className }: StandardNavBarProps) {
 
 	const links = data.map((item) => (
 		<Link
-			className={`flex flex-row items-center no-underline text-sm text-[#CCCCCC] my-5 p-[0.625rem] ${!isNavbarCollapsed ? "pr-[5rem]" : "justify-center"} border-1 rounded-[10px] font-medium ${(item.label === active || undefined) ? "bg-[#D6A917]" : ""}`}
+			className={`flex flex-row items-center no-underline text-sm text-[#CCCCCC] my-5 p-[0.625rem] ${!isNavbarCollapsed ? "pr-[5rem]" : "justify-center"} border-1 rounded-xl font-medium ${(item.label === active || undefined) ? "bg-[#D6A917]" : ""}`}
 			href={item.link}
 			key={item.label}
 			onClick={() => {
@@ -96,7 +96,7 @@ export function StandardNavBar({ className }: StandardNavBarProps) {
 			</div>
 
 			<div className="pt-[1rem] mt-[1rem]">
-				<Link href="#" className="flex flex-row items-center no-underline text-sm text-[#CCCCCC] p-[0.625rem] border-1 rounded-[10px] font-medium" onClick={(event) => event.preventDefault()}>
+				<Link href="#" className="flex flex-row items-center no-underline text-sm text-[#CCCCCC] p-[0.625rem] border-1 rounded-xl font-medium" onClick={(event) => event.preventDefault()}>
 					<IconLogout className={`text-[#CCCCCC] mr-[10px] w-[${rem(25)}] h-[${rem(25)}]`} stroke={1.5} />
 					{!isNavbarCollapsed && <span>Logout</span>}
 				</Link>

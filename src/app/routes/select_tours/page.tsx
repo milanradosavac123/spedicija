@@ -7,7 +7,7 @@ import SelectInputField from "@/components/SelectInputField";
 import StandardCheckBox from "@/components/StandardCheckBox";
 import StandardLinkButton from "@/components/StandardLinkButton";
 import TourInfoCard from "@/components/TourInfoCard";
-import { useContext, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import { IconCircle } from "@tabler/icons-react";
 import { TourInfo, dummyTourData } from "@/dummyData/dummyData";
 import StandardPagination from "@/components/StandardPagination";
@@ -23,6 +23,12 @@ export default function SelectTours() {
 
     const [tourDataList, setTourDataList] = useState<TourInfo[]>(dummyTourData);
 
+    const [gridDataPageNumber, setTableDataPageNumber] = useState(1);
+
+    const pagedTourDataList = useMemo(() => {
+        return tourDataList.slice(((gridDataPageNumber - 1) * 36), ((gridDataPageNumber - 1) * 36) + 36);
+    }, [tourDataList, gridDataPageNumber]);
+
     function addIntermediateSelectedTourId(tourId: number) {
         setIntermediateSelectedTourIds([...intermediateSelectedTourIds, tourId]);
     }
@@ -33,13 +39,12 @@ export default function SelectTours() {
         });
     }
 
-    const [tableDataPageNumber, setTableDataPageNumber] = useState(1);
 
     return (
         <div className="p-5 flex flex-col h-full overflow-hidden">
             <div className="flex flex-col h-[90%]">
                 <div className="flex flex-col">
-                    <Header 
+                    <Header
                         headerContent="Select Tours"
                         onSearch={(q) => {
 
@@ -99,8 +104,10 @@ export default function SelectTours() {
                         }}
                     />
                 </div>
-                <CardGrid>
-                    {tourDataList.slice(((tableDataPageNumber - 1) * 36), ((tableDataPageNumber - 1) * 36) + 36).map((tourInfo, i) => (
+                <CardGrid
+                    shouldDistributeChildrenEvenly={pagedTourDataList.length > 9}
+                >
+                    {pagedTourDataList.map((tourInfo, i) => (
                         <TourInfoCard
                             key={i}
                             {...tourInfo}
@@ -117,7 +124,7 @@ export default function SelectTours() {
             <div className="flex flex-row justify-between flex-1 py-9">
                 <IconCircle color="white" />
                 <StandardPagination
-                    value={tableDataPageNumber}
+                    value={gridDataPageNumber}
                     total={tourDataList.length % 36 === 0 ? tourDataList.length / 36 : (tourDataList.length / 36) + 1}
                     shouldShowStandardWrapper={false}
                     onChange={setTableDataPageNumber}

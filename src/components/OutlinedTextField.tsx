@@ -86,7 +86,7 @@ export default function OutlinedTextField({ ref, className, id, isLabelEditable 
 				autoFocus={true}
 				ref={ref}
 				onMouseEnter={onMouseEnter}
-				className={`mb-4 border-solid text-[#282147] border-2 border-[#282147] rounded-t-[10px] ${shouldBottomBeRounded ? "rounded-b-[10px]" : ""} overflow-hidden`}
+				className={`mb-4 border-solid text-[#282147] border-2 border-[#282147] rounded-t-xl ${shouldBottomBeRounded ? "rounded-b-xl" : ""} overflow-hidden`}
 				placeholder={placeholder}
 				id={id !== undefined ? id : "outlined-text-field"}
 				value={value}
