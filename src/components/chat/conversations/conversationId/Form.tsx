@@ -2,9 +2,9 @@
 
 import { useConversation } from "@/util/hooks/useConversation";
 import { FieldValues, useForm } from "react-hook-form";
-import { HiPaperAirplane, HiPhoto } from "react-icons/hi2";
 import MessageInput from "./MessageInput";
 import { FileButton } from "@mantine/core";
+import { IconPhotoFilled, IconSend } from "@tabler/icons-react";
 
 export default function Form() {
 
@@ -30,7 +30,7 @@ export default function Form() {
             className="p-4 bg-white border-t flex flex-row items-center gap-2 lg:gap-4 w-full"
         >
             <FileButton onChange={handleUpload} accept="image/png, image/jpeg">
-                {(props) => <HiPhoto
+                {(props) => <IconPhotoFilled
                 className="text-[#282147] cursor-pointer"
                 size={30}
                 {...props}
@@ -51,7 +51,7 @@ export default function Form() {
                     className="rounded-full p-2 bg-[#282147] hover:bg-[#1F1A37] cursor-pointer transition"
                     type="submit"
                 >
-                    <HiPaperAirplane
+                    <IconSend
                         className="text-white"
                         size={18}
                     />

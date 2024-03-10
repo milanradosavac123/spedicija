@@ -4,9 +4,9 @@ import Button from "@/components/chat/Button";
 import Modal from "@/components/chat/Modal";
 import { useConversation } from "@/util/hooks/useConversation";
 import { Dialog } from "@headlessui/react";
+import { IconAlertTriangle } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
-import { FiAlertTriangle } from "react-icons/fi";
 
 interface ConfirmModalProps {
     isOpen?: boolean,
@@ -40,7 +40,7 @@ export default function ConfirmModal({ isOpen, onClose }: ConfirmModalProps) {
                 <div
                     className="mx-auto flex flex-row h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10"
                 >
-                    <FiAlertTriangle
+                    <IconAlertTriangle
                         className="h-6 w-6 text-red-600"
                     />
                 </div>

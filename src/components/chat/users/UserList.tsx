@@ -4,9 +4,10 @@ import User from "@/model/User";
 import UserBox from "./UserBox";
 import { StandardSegmentedControl } from "@/components/StandardSegmentedControl";
 import clsx from "clsx";
-import { IsNavbarCollapsedContext, SelectedConversationContext } from "@/app/ContextWrapper";
+import { IsNavbarCollapsedContext, SelectedConversationsContext } from "@/app/ContextWrapper";
 import { useContext } from "react";
 import ChatBanner from "../ChatBanner";
+import CentredRowWithVerticalGap from "@/components/CentredRowWithVerticalGap";
 
 interface UserListProps {
     items: User[]
@@ -16,7 +17,7 @@ export default function UserList({ items }: UserListProps) {
     
     const { isNavbarCollapsed } = useContext(IsNavbarCollapsedContext);
     
-    const { setSelectedConversationId } = useContext(SelectedConversationContext);
+    const { setSelectedConversationIds: setSelectedConversationId } = useContext(SelectedConversationsContext);
 
     return (
         <aside
@@ -30,16 +31,13 @@ export default function UserList({ items }: UserListProps) {
                 >
                     <ChatBanner text="Contacts" />
                 </div>
-                <div
-                    className="py-5 flex flex-row justify-center"
-                >
+                <CentredRowWithVerticalGap>
                     <StandardSegmentedControl data={["Drivers", "Vehicles", "Dispachers"]} />
-                </div>
+                </CentredRowWithVerticalGap>
                 {items.map((item, i) => (
                     <UserBox
                         key={i}
                         data={item}
-                        onClick={(conversationId) => setSelectedConversationId(conversationId)}
                     />
                 ))}
             </div>

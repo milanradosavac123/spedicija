@@ -4,13 +4,14 @@ import { useConversation } from "@/util/hooks/useConversation";
 import Conversation from "@/model/Conversation";
 import clsx from "clsx";
 import { useContext, useState } from "react";
-import { MdOutlineGroupAdd } from "react-icons/md";
 import ConversationBox from "./ConversationBox";
 import GroupChatModal from "./GroupChatModal";
 import User from "@/model/User";
 import { StandardSegmentedControl } from "@/components/StandardSegmentedControl";
 import { IsNavbarCollapsedContext } from "@/app/ContextWrapper";
 import ChatBanner from "../ChatBanner";
+import CentredRowWithVerticalGap from "@/components/CentredRowWithVerticalGap";
+import { IconUsersPlus } from "@tabler/icons-react";
 
 interface ConversationListProps {
     users: User[]
@@ -40,21 +41,19 @@ export default function ConversationList({ users, initialItems }: ConversationLi
                     className="px-5"
                 >
                     <div
-                        className="flex flex-row justify-between mb-4 pt-4 items-center"
+                        className="flex flex-row justify-between pt-4 items-center"
                     >
                         <ChatBanner text="Messages" />
                         <div
                             className="rounded-full p-2 bg-gray-100 text-gray-600 cursor-pointer hover:opacity-75 transition"
                             onClick={() => setIsModalOpen(true)}
                         >
-                            <MdOutlineGroupAdd size={20} />
+                            <IconUsersPlus size={20} />
                         </div>
                     </div>
-                    <div
-                        className="py-5 flex flex-row justify-center"
-                    >
+                    <CentredRowWithVerticalGap>
                         <StandardSegmentedControl data={["Drivers", "Vehicles", "Dispachers"]} />
-                    </div>
+                    </CentredRowWithVerticalGap>
                     <div>
                     {items.map((item, i) => (
                         <ConversationBox

@@ -2,7 +2,7 @@
 
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import { IoClose } from "react-icons/io5";
+import XIconButton from "../XIconButton";
 
 interface ModalProps {
     isOpen?: boolean,
@@ -57,7 +57,7 @@ export default function Modal({ isOpen, children, onClose }: ModalProps) {
                                     className="absolute right-0 top-0 hidden pr-4 pt-4 sm:block z-10"
                                 >
                                     <button
-                                        className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:oiutline-none focus:ring-2 ring-[#282147] focus:ring-offcest-2"
+                                        className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:oiutline-none focus:ring-2 ring-[#282147] focus:ring-offset-2 flex flex-row justify-center, items-center"
                                         type="button"
                                         onClick={onClose}
                                     >
@@ -66,8 +66,9 @@ export default function Modal({ isOpen, children, onClose }: ModalProps) {
                                         >
                                             Close
                                         </span>
-                                        <IoClose
-                                            className="h-6 w-6"
+                                        <XIconButton
+                                            colour="gray"
+                                            iconSize={25}                                        
                                         />
                                     </button>
                                 </div>

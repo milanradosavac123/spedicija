@@ -4,14 +4,15 @@ import { AccountDropdown } from "./AccountDropdown";
 import { HeaderSearchField } from "./HeaderSearchField";
 import chat from "#/public/chat.svg";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { FormControl } from "react-bootstrap";
 import EditControl from "./EditControl";
-import UserList from "./chat/users/UserList";
 import { conversations, users } from "@/dummyData/dummyData";
 import ChatBanner from "./chat/ChatBanner";
 import { StandardSegmentedControl } from "./StandardSegmentedControl";
-import UserBox from "./chat/users/UserBox";
+import ConversationBox from "./chat/conversations/ConversationBox";
+import CentredRowWithVerticalGap from "./CentredRowWithVerticalGap";
+import { SelectedConversationsContext } from "@/app/ContextWrapper";
 
 interface HeaderProps {
     headerContent: string,
@@ -30,6 +31,8 @@ export default function Header({ headerContent, editable = false, shouldShowSear
     const [isChatOpened, setIsChatOpened] = useState(false);
 
     const editHeaderContentInputRef = useRef<HTMLInputElement>(null);
+
+    const { selectedConversationIds, setSelectedConversationIds } = useContext(SelectedConversationsContext);
 
     useEffect(() => {
         if (isEditing && editHeaderContentInputRef.current) {
@@ -95,30 +98,28 @@ export default function Header({ headerContent, editable = false, shouldShowSear
                         onClick={() => setIsChatOpened(!isChatOpened)}
                     />
                     {isChatOpened && <div
-                        className="absolute z-[999] bg-white right-0"
+                        className="absolute z-[999] bg-white right-0 rounded-2xl border-2 border-solid border-[#282147]"
                     >
                         <div
-                            className="px-5"
+                            className="px-2 pt-1"
                         >
                             <div
                                 className="flex-col"
                             >
-                                <ChatBanner text="Contacts" />
+                                <ChatBanner text="Conversations" />
                             </div>
-                            <div
-                                className="py-5 flex flex-row justify-center"
-                            >
+                            <CentredRowWithVerticalGap>
                                 <StandardSegmentedControl data={["Drivers", "Vehicles", "Dispachers"]} />
-                            </div>
+                            </CentredRowWithVerticalGap>
                             <div
-                                className="h-[35vh] overflow-y-auto"
+                                className="h-[35vh] overflow-y-scroll scrollbar-hide"
                             >
-                                {users.map((user, i) => (
-                                    <UserBox
+                                {conversations.map((conversation, i) => (
+                                    <ConversationBox
                                         key={i}
-                                        data={user}
-                                        onClick={(conversationId) => {
-                                            
+                                        data={conversation}
+                                        onClick={() => {
+                                            setSelectedConversationIds((oldConversationIds) => [...oldConversationIds, conversation.id]);
                                         }}
                                     />
                                 ))}

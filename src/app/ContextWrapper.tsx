@@ -12,9 +12,9 @@ interface IsNavbarCollapsedContext {
     setIsNavbarCollapsed: Dispatch<SetStateAction<boolean>>
 }
 
-interface SelectedConversationContext {
-    selectedConversationId: string | undefined,
-    setSelectedConversationId: Dispatch<SetStateAction<string | undefined>>
+interface SelectedConversationsContext {
+    selectedConversationIds: string[],
+    setSelectedConversationIds: Dispatch<SetStateAction<string[]>>
 }
 
 export const SelectedToursContext = createContext<SelectedTourIdsContext>({
@@ -27,10 +27,10 @@ export const IsNavbarCollapsedContext = createContext<IsNavbarCollapsedContext>(
     setIsNavbarCollapsed: () => { }
 });
 
-export const SelectedConversationContext = createContext<SelectedConversationContext>({
-    selectedConversationId: undefined,
-    setSelectedConversationId: () => { }
-})
+export const SelectedConversationsContext = createContext<SelectedConversationsContext>({
+    selectedConversationIds: [],
+    setSelectedConversationIds: () => { }
+});
 
 export default function ContextWrapper({ children }: { children: React.ReactNode }) {
 
@@ -42,14 +42,14 @@ export default function ContextWrapper({ children }: { children: React.ReactNode
 
     const [isNavBarCollapsed, setIsNavBarCollapsed] = useState(isMobile());
 
-    const [selectedConversationId, setSelectedConversationId] = useState<string>()
+    const [selectedConversationId, setSelectedConversationId] = useState<string[]>([])
 
     return (
-        <SelectedConversationContext.Provider
+        <SelectedConversationsContext.Provider
             value={
                 {
-                    selectedConversationId: selectedConversationId,
-                    setSelectedConversationId: setSelectedConversationId
+                    selectedConversationIds: selectedConversationId,
+                    setSelectedConversationIds: setSelectedConversationId
                 }
             }
         >
@@ -72,6 +72,6 @@ export default function ContextWrapper({ children }: { children: React.ReactNode
                     {children}
                 </SelectedToursContext.Provider>
             </IsNavbarCollapsedContext.Provider>
-        </SelectedConversationContext.Provider>
+        </SelectedConversationsContext.Provider>
     );
 }

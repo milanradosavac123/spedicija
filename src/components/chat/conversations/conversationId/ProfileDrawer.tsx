@@ -7,9 +7,10 @@ import User from "@/model/User";
 import { Dialog, Transition } from "@headlessui/react";
 import { format } from "date-fns/format";
 import { Fragment, useMemo, useState } from "react";
-import { IoClose, IoTrash } from "react-icons/io5";
 import ConfirmModal from "./ConfirmModal";
 import AvatarGroup from "@/components/chat/AvatarGroup";
+import XIconButton from "@/components/XIconButton";
+import { IconTrashXFilled } from "@tabler/icons-react";
 
 interface ProfileDrawerProps {
     data: Conversation & {
@@ -95,14 +96,17 @@ export default function ProfileDrawer({ data, isOpen, onClose }: ProfileDrawerPr
                                                         className="ml-3 flex flex-row h-7 items-center"
                                                     >
                                                         <button
-                                                            className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[#282147] focus:ring-offset-2"
+                                                            className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[#282147] focus:ring-offset-2 flex flex-row justify-center items-center"
                                                             type="button"
                                                             onClick={onClose}
                                                         >
                                                             <span className="sr-only">
                                                                 Close panel
                                                             </span>
-                                                            <IoClose size={24} />
+                                                            <XIconButton
+                                                                iconSize={24}
+                                                                colour="gray"
+                                                            />
                                                         </button>
                                                     </div>
                                                 </div>
@@ -140,7 +144,7 @@ export default function ProfileDrawer({ data, isOpen, onClose }: ProfileDrawerPr
                                                             <div
                                                                 className="w-10 h-10 bg-neutral-100 rounded-full flex flex-row items-center justify-center"
                                                             >
-                                                                <IoTrash size={20} />
+                                                                <IconTrashXFilled size={20} />
                                                             </div>
                                                             <div
                                                                 className="text-sm font-light text-neutral-600"

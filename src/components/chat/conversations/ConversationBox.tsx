@@ -11,17 +11,18 @@ import AvatarGroup from "../AvatarGroup";
 
 interface ConversationBoxProps {
     data: Conversation,
-    selected?: boolean
+    selected?: boolean,
+    onClick?: () => void,
 }
 
-export default function ConversationBox({ data, selected }: ConversationBoxProps) {
+export default function ConversationBox({ data, selected, onClick }: ConversationBoxProps) {
 
     const otherUser = users[3];
 
     const router = useRouter();
 
     const handleClick = useCallback(() => {
-        router.push(`/chat_conversations/${data.id}`)
+        onClick ? onClick() : router.push(`/chat_conversations/${data.id}`)
     }, [data.id, router]);
 
     const lastMessage = useMemo(() => {

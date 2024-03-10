@@ -1,22 +1,23 @@
 "use client";
 
 import Avatar from "@/components/chat/Avatar";
-import { conversations, users } from "@/dummyData/dummyData";
+import { users } from "@/dummyData/dummyData";
 import Conversation from "@/model/Conversation";
 import User from "@/model/User";
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { HiChevronLeft, HiEllipsisHorizontal } from "react-icons/hi2";
 import ProfileDrawer from "./ProfileDrawer";
 import AvatarGroup from "@/components/chat/AvatarGroup";
+import { IconChevronLeft, IconDots } from "@tabler/icons-react";
 
 interface HeaderProps {
     conversation: Conversation & {
         users: User[]
-    }
+    },
+    showDrawerButton?: boolean
 }
 
-export default function Header({ conversation }: HeaderProps) {
+export default function Header({ conversation, showDrawerButton = true }: HeaderProps) {
 
     const otherUser = users[3];
     const [drawerOpen, setDrawerOpen] = useState(false);
@@ -46,7 +47,7 @@ export default function Header({ conversation }: HeaderProps) {
                         className="lg:hidden block text-[#282147] hover:text-[#1F1A37] transition cursor-pointer"
                         href="/chat_conversations"
                     >
-                        <HiChevronLeft size={32} />
+                        <IconChevronLeft size={32} />
                     </Link>
                     {conversation.isGroup ? (
                         <AvatarGroup users={conversation.users} />
@@ -66,11 +67,11 @@ export default function Header({ conversation }: HeaderProps) {
                         </div>
                     </div>
                 </div>
-                <HiEllipsisHorizontal
+                {showDrawerButton && <IconDots
                     className="text-[#282147] cursor-pointer hover:text-[#1F1A37] transition"
                     size={32}
                     onClick={() => setDrawerOpen(true)}
-                />
+                />}
             </div>
         </>
     );
