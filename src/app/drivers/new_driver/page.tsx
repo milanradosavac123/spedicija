@@ -2,6 +2,7 @@
 
 import Header from "@/components/Header";
 import OutlinedTextField from "@/components/OutlinedTextField";
+import StandardCentredButton from "@/components/StandardCentredButton";
 import StandardLinkButton from "@/components/StandardLinkButton";
 import { Button } from "@mantine/core";
 import { useState } from "react";
@@ -35,15 +36,12 @@ export default function Vehicles() {
                         onChange={setLastName}
                     />
                 </div>
-                <div className="flex flex-row flex-auto justify-center">
-                    <Button
-                        className="bg-[#282147] w-[20vw]"
-                        onClick={() => {
-                        }}
-                    >
-                        Create Driver
-                    </Button>
-                </div>
+                <StandardCentredButton
+                    buttonText="Create Driver"
+                    onClick={() => {
+                        
+                    }}
+                />
             </div>
         </div>
     );

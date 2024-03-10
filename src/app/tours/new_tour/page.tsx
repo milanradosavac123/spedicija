@@ -15,6 +15,7 @@ import SaveDismissIconButtonGroup from "@/components/SaveDismissIconButtonGroup"
 import SelectInputFieldAlt from "@/components/SelectInputFieldAlt";
 import DocumentUploadButton from "@/components/DocumentUploadButton";
 import CompactFileCard from "@/components/CompactFileCard";
+import StandardCentredButton from "@/components/StandardCentredButton";
 
 export interface Task {
     text: string,
@@ -242,6 +243,7 @@ export default function NewTour() {
                             }}
                             rightSection={
                                 <ActionIcon
+                                    className="hover:bg-transparent"
                                     onClick={
                                         value.tasks === undefined ? (() => {
                                             if (openedDropDownIndex === undefined) {
@@ -336,18 +338,14 @@ export default function NewTour() {
                                     }}
                                 />
                             </div>}
-                            {!shouldShowAddNewTaskTextField && <div className="flex flex-row flex-auto justify-center">
-                                <Button
-                                    className="bg-[#282147] max-w-fit"
-                                    pr={12}
-                                    onClick={() => {
-                                        setCurrentTaskText("");
-                                        setShouldShowAddNewTaskTextField(!shouldShowAddNewTaskTextField);
-                                    }}
-                                >
-                                    Add New Task
-                                </Button>
-                            </div>}
+                            {!shouldShowAddNewTaskTextField && <StandardCentredButton
+                                buttonText="Add New Task"
+                                variant="REGULAR"
+                                onClick={() => {
+                                    setCurrentTaskText("");
+                                    setShouldShowAddNewTaskTextField(!shouldShowAddNewTaskTextField);
+                                }}
+                            />}
                         </div>}
                     </div>
                 ))}
@@ -357,7 +355,7 @@ export default function NewTour() {
                             <FormControl disabled={true} value="fidj[aofdjsodisfdosiopsf" className="text-white select-none" size="sm" />
                         </Group>
                         <Button
-                            className="bg-[#282147] min-w-[20vw]"
+                            className="bg-[#282147] hover:bg-[#1F1A37] min-w-[20vw]"
                             tabIndex={2}
                             rightSection={
                                 <Image
@@ -440,16 +438,12 @@ export default function NewTour() {
                     }}
                 />
             </div>
-            <div className="flex flex-row justify-center">
-                <Button
-                    className="bg-[#282147] w-[20vw]"
-                    onClick={() => {
+            <StandardCentredButton
+                buttonText="Create Tour"
+                onClick={() => {
 
-                    }}
-                >
-                    Create Tour
-                </Button>
-            </div>
+                }}
+            />
         </div>
     );
 }

@@ -17,7 +17,7 @@ export function AccountDropdown({ userName }: AccountDropdownProps) {
         >
             <Menu.Target>
                 <Button
-                    className="bg-[#FDFAEF] text-gray-500 max-w-fit "
+                    className="bg-[#FDFAEF] text-gray-500 max-w-fit hover:bg-[#FDFAEF] hover:text-gray-500"
                     leftSection={
                         <IconBellFilled style={{ width: rem(18), height: rem(18) }} stroke={1.5} />
                     }
