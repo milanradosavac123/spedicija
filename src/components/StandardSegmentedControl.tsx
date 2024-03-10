@@ -15,7 +15,7 @@ export function StandardSegmentedControl({ data, onChange }: StandardSegmentedCo
             data={data}
             classNames={{
                 "indicator": "bg-[#282147]",
-                "label": "text-white"
+                "label": "text-white hover:text-white"
             }}
             onChange={onChange}
         />

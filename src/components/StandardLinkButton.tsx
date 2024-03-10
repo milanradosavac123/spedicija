@@ -16,7 +16,7 @@ export default function StandardLinkButton({ href, text, forwardLink = true, onC
         <Button
             component={Link}
             href={href}
-            className="bg-[#282147] max-w-fit flex-center"
+            className="bg-[#282147] hover:bg-[#1F1A37] max-w-fit flex-center"
             pr={12}
             rightSection={
                 <Image

@@ -1,5 +1,6 @@
 import { ActionIcon, rem } from "@mantine/core";
 import { IconX } from "@tabler/icons-react";
+import clsx from "clsx";
 
 interface XIconButtonProps {
     iconSize?: number,
@@ -11,9 +12,7 @@ export default function XIconButton({ iconSize = 18, colour, onClick }: XIconBut
 
     return (
         <ActionIcon
-            className={
-                `${colour && colour === "white" ? "cursor-default" : ""}`
-            }
+            className={clsx("hover:bg-transparent", colour && colour === "white" && "cursor-default")}
             onClick={onClick}
         >
             <IconX

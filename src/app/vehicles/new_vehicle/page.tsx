@@ -6,6 +6,7 @@ import OutlinedNumberField from "@/components/OutlinedNumberField";
 import StandardLinkButton from "@/components/StandardLinkButton";
 import { Button } from "@mantine/core";
 import { useState } from "react";
+import StandardCentredButton from "@/components/StandardCentredButton";
 
 export default function Vehicles() {
 
@@ -64,15 +65,12 @@ export default function Vehicles() {
                         }}
                     />
                 </div>
-                <div className="flex flex-row flex-auto justify-center">
-                    <Button
-                        className="bg-[#282147] w-[20vw]"
-                        onClick={() => {
-                        }}
-                    >
-                        Create Vehicle
-                    </Button>
-                </div>
+                <StandardCentredButton
+                    buttonText="Create Vehicle"
+                    onClick={() => {
+                        
+                    }}
+                />
             </div>
         </div>
     );
