@@ -1,7 +1,6 @@
 import User from "@/model/User";
 import DesktopSideBar from "./DesktopSideBar";
 import MobileFooter from "./MobileFooter";
-import { StandardNavBar } from "@/components/StandardNavBar";
 
 export default async function SideBar({ children }: { children: React.ReactNode }) {
 

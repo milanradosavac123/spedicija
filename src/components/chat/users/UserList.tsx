@@ -16,12 +16,10 @@ interface UserListProps {
 export default function UserList({ items }: UserListProps) {
     
     const { isNavbarCollapsed } = useContext(IsNavbarCollapsedContext);
-    
-    const { setSelectedConversationIds: setSelectedConversationId } = useContext(SelectedConversationsContext);
 
     return (
         <aside
-            className={clsx("fixed inset-y-0 pb-20 lg:pb-0 lg:left-20 lg:w-80 lg:block overflow-y-auto border-r border-gray-200 block w-full left-0", isNavbarCollapsed ? "lg:left-44" : "lg:left-[315px]")}
+            className={clsx("fixed inset-y-0 pb-20 lg:pb-0 lg:left-20 lg:w-80 lg:block overflow-y-auto border-r border-gray-200 block w-full left-0 scrollbar-hide", isNavbarCollapsed ? "lg:left-44" : "lg:left-[315px]")}
         >
             <div
                 className="px-5"
