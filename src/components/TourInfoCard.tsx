@@ -6,7 +6,7 @@ import { RefObject } from "react";
 
 interface TourInfoCardProps {
     tourName: string,
-    tourDriver: string,
+    tourDrivers: string[],
     tourVehicle: string,
     tourDispacherName: string,
     dateCreated: Date,
@@ -15,7 +15,7 @@ interface TourInfoCardProps {
     onSelectedChanged: (newValue: boolean) => void;
 }
 
-export default function TourInfoCard({ tourName, tourDriver, tourVehicle, tourDispacherName, dateCreated, selected, reference, onSelectedChanged }: TourInfoCardProps) {
+export default function TourInfoCard({ tourName, tourDrivers, tourVehicle, tourDispacherName, dateCreated, selected, reference, onSelectedChanged }: TourInfoCardProps) {
     return (
         <Card
             ref={reference}
@@ -46,10 +46,7 @@ export default function TourInfoCard({ tourName, tourDriver, tourVehicle, tourDi
                     <Card.Text>Vehicle:</Card.Text>
                     <Card.Text className="text-black">{tourVehicle}</Card.Text>
                 </div>
-                <div className="flex flex-row gap-2 min-w-fit">
-                    <Card.Text>Driver:</Card.Text>
-                    <Card.Text className="text-black">{tourDriver}</Card.Text>
-                </div>
+                    <Card.Text className="text-black"><span className="text-gray-500">Drivers:</span> {tourDrivers.join(", ")}</Card.Text>
             </Card.Footer>
         </Card>
     );

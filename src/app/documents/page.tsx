@@ -82,9 +82,7 @@ export default function Documents() {
                         }}
                     />
                 </div>
-                <CardGrid
-                    shouldDistributeChildrenEvenly={pagedDocumentList.length > 6}
-                >
+                <CardGrid>
                     {pagedDocumentList.map((document, i) => (
                         <FileCard
                             key={i}

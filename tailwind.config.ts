@@ -13,6 +13,10 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      gridTemplateColumns: {
+        "respond-sm": "repeat(auto-fit, minmax(170px, 1fr))",
+        "respond": "repeat(auto-fit, minmax(245px, 1fr))"
+      },
       screens: {
         "min-h": { raw: "(min-height: 768px)" }
       }

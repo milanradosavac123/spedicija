@@ -1,20 +1,17 @@
 "use client";
 
-import { IsNavbarCollapsedContext } from "@/app/ContextWrapper";
 import clsx from "clsx";
 import { ReactNode, useContext } from "react";
 
 interface CardGridProps {
     children: ReactNode,
-    shouldDistributeChildrenEvenly?: boolean
+    isForStaticSizeSmallCards?: boolean
 }
 
-export default function CardGrid({ children, shouldDistributeChildrenEvenly = true }: CardGridProps) {
-    
-    const { isNavbarCollapsed } = useContext(IsNavbarCollapsedContext);
+export default function CardGrid({ children, isForStaticSizeSmallCards = true }: CardGridProps) {
     
     return (
-        <div className={clsx("flex flex-row flex-wrap overflow-y-auto overflow-x-hidden", shouldDistributeChildrenEvenly && "justify-around", isNavbarCollapsed && "gap-y-5")}>
+        <div className={clsx("grid grid-cols-respond overflow-y-auto overflow-x-hidden", !isForStaticSizeSmallCards && "grid-cols-respond-sm")}>
             {children}
         </div>
     );

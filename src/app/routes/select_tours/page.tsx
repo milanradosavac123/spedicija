@@ -105,7 +105,7 @@ export default function SelectTours() {
                     />
                 </div>
                 <CardGrid
-                    shouldDistributeChildrenEvenly={pagedTourDataList.length > 9}
+                    isForStaticSizeSmallCards={false}
                 >
                     {pagedTourDataList.map((tourInfo, i) => (
                         <TourInfoCard
