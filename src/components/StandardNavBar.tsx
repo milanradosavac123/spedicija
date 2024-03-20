@@ -74,26 +74,30 @@ export function StandardNavBar() {
 	return (
 		<nav className="bg-[#2A2830] h-screen p-[1rem] min-w-max flex flex-col sticky justify-between">
 
-			<div className={`flex ${isNavbarCollapsed ? "flex-col" : "flex-row"} items-center justify-between no-underline text-[#CCCCCC]`}>
-				<Image
-					className="pb-5"
-					src={IconTruckFilled}
-					alt="truck"
-				/>
-				<ActionIcon className="hover:bg-transparent" onClick={() => {
-					setIsNavbarCollapsed(!isNavbarCollapsed);
-				}} >
-					{isNavbarCollapsed
-						?
-						<IconArrowBarToRight className={`text-[#CCCCCC] w-[${rem(35)}] h-[${rem(35)}]`} stroke={1.5} />
-						:
-						<IconArrowBarToLeft className={`text-[#CCCCCC] w-[${rem(35)}] h-[${rem(35)}]`} stroke={1.5} />
-					}
-				</ActionIcon>
-			</div>
-
 			<div>
-				{links}
+
+
+				<div className={`flex ${isNavbarCollapsed ? "flex-col" : "flex-row"} items-center justify-between no-underline text-[#CCCCCC]`}>
+					<Image
+						className="pb-5"
+						src={IconTruckFilled}
+						alt="truck"
+					/>
+					<ActionIcon className="hover:bg-transparent" onClick={() => {
+						setIsNavbarCollapsed(!isNavbarCollapsed);
+					}} >
+						{isNavbarCollapsed
+							?
+							<IconArrowBarToRight className={`text-[#CCCCCC] w-[${rem(35)}] h-[${rem(35)}]`} stroke={1.5} />
+							:
+							<IconArrowBarToLeft className={`text-[#CCCCCC] w-[${rem(35)}] h-[${rem(35)}]`} stroke={1.5} />
+						}
+					</ActionIcon>
+				</div>
+
+				<div>
+					{links}
+				</div>
 			</div>
 
 			<div className="min-h:pt-[1rem] min-h:mt-[1rem]">

@@ -1,13 +1,12 @@
 "use client";
 
-import { ActionIcon, Button, Group, Text, TextInput, rem } from "@mantine/core";
+import { ActionIcon, Button, Group, Text, Textarea, rem } from "@mantine/core";
 import IconTabNew from "#/public/fluent_tab-new-24-filled.svg";
 import Image from "next/image";
 import OutlinedTextField from "@/components/OutlinedTextField";
 import Header from "@/components/Header";
 import { useState } from "react";
 import { IconHome, IconPlus } from "@tabler/icons-react";
-import { FormControl } from "react-bootstrap";
 import PencilIconButton from "@/components/PencilIconButton";
 import XIconButton from "@/components/XIconButton";
 import StandardLinkButton from "@/components/StandardLinkButton";
@@ -270,7 +269,7 @@ export default function NewTour() {
                             <ul>
                                 {value.tasks && value.tasks.map((task, j) => (
                                     <li className="flex flex-row flex-auto justify-between items-center px-3">
-                                        <p className="break-all max-w-[20vw]" >{j + 1}. {task.text[0].toUpperCase()}{task.text.substring(1)}</p>
+                                        <Text className="break-all max-w-[20vw]" >{j + 1}. {task.text[0].toUpperCase()}{task.text.substring(1)}</Text>
                                         <div>
                                             <PencilIconButton
                                                 onClick={() => {
@@ -352,7 +351,7 @@ export default function NewTour() {
                 {shouldShowAddNewLocationButton &&
                     <div className="flex flex-col flex-auto" >
                         <Group justify="space-between" mb={5}>
-                            <FormControl disabled={true} value="fidj[aofdjsodisfdosiopsf" className="text-white select-none" size="sm" />
+                            <Text className="text-transparent select-none">fjosqfhasdfiojadsofids</Text>
                         </Group>
                         <Button
                             className="bg-[#282147] hover:bg-[#1F1A37] min-w-[20vw]"
@@ -379,7 +378,7 @@ export default function NewTour() {
                         rightSectionWidth={52}
                         rightSection={
                             <Button
-                                className="bg-[#282147] min-w-fit rounded-s-none cursor-pointer"
+                                className="bg-[#282147] hover:bg-[#1F1A37] min-w-fit rounded-s-none cursor-pointer"
                                 onClick={() => {
                                     addLocation({
                                         name: newLocationName,
@@ -428,11 +427,17 @@ export default function NewTour() {
                 <Text className="text-[#282147] py-1" component="label" size="sm" fw={500} >
                     Comment
                 </Text>
-                <FormControl
-                    className="max-w-full min-h-fit mb-4 border-solid border-2 border-[#282147] rounded-xl p-2 resize"
+                <Textarea
+                    variant="unstyled"
+                    classNames={
+                        {
+                            "input": "mb-4 border-solid border-2 border-[#282147] rounded-xl px-2 resize"
+                        }
+                    }
+                    rows={5}
                     value={comment}
+                    resize="both"
                     placeholder="Add your Comment here..."
-                    as="textarea"
                     onChange={(e) => {
                         setComment(e.target.value);
                     }}

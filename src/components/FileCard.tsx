@@ -26,7 +26,7 @@ export default function FileCard({ fileName, fileUrl, dateCreated }: FileCardPro
             <Card.Footer className="flex flex-row z-999 bg-[#F7F5FA] border-2 border-t-gray-400 border-l-transparent border-r-transparent border-b-transparent">
                 <div className="flex-1">
                     <Button
-                        className="text-gray-500"
+                        className="text-gray-500 hover:bg-[#F7F5FA] hover:text-gray-500"
                         leftSection={
                             <IconDownload
                                 style={
@@ -46,7 +46,7 @@ export default function FileCard({ fileName, fileUrl, dateCreated }: FileCardPro
                 </div>
                 <div className="flex-1">
                     <Button
-                        className="border-2 border-l-gray-400 text-gray-500"
+                        className="border-2 border-l-gray-400 text-gray-500 hover:bg-[#F7F5FA] hover:text-gray-500"
                         leftSection={
                             <IconShare
                                 style={

@@ -1,9 +1,9 @@
 "use client";
 
 import Conversation from "@/model/Conversation";
-import Avatar from "./chat/Avatar";
-import AvatarGroup from "./chat/AvatarGroup";
-import React, { useEffect, useState } from "react";
+import Avatar from "../chat/Avatar";
+import AvatarGroup from "../chat/AvatarGroup";
+import React, { useState } from "react";
 import clsx from "clsx";
 
 interface ChatPopupAvatarGroupProps {

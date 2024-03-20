@@ -5,19 +5,22 @@ import { users } from "@/dummyData/dummyData";
 import Conversation from "@/model/Conversation";
 import User from "@/model/User";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { MouseEvent, useMemo, useState } from "react";
 import ProfileDrawer from "./ProfileDrawer";
 import AvatarGroup from "@/components/chat/AvatarGroup";
-import { IconChevronLeft, IconDots } from "@tabler/icons-react";
+import { IconChevronLeft, IconDots, IconGridDots } from "@tabler/icons-react";
 
 interface HeaderProps {
     conversation: Conversation & {
         users: User[]
     },
-    showDrawerButton?: boolean
+    showDrawerButton?: boolean,
+    showDragButton?: boolean,
+    onMouseMove: (e: MouseEvent<SVGSVGElement>) => void,
+    onDragButtonClick?: () => void, 
 }
 
-export default function Header({ conversation, showDrawerButton = true }: HeaderProps) {
+export default function Header({ conversation, showDrawerButton = true, showDragButton = false, onMouseMove, onDragButtonClick }: HeaderProps) {
 
     const otherUser = users[3];
     const [drawerOpen, setDrawerOpen] = useState(false);
@@ -71,6 +74,12 @@ export default function Header({ conversation, showDrawerButton = true }: Header
                     className="text-[#282147] cursor-pointer hover:text-[#1F1A37] transition"
                     size={32}
                     onClick={() => setDrawerOpen(true)}
+                />}
+                {showDragButton && <IconGridDots
+                    className="text-[#282147] cursor-pointer hover:text-[#1F1A37] transition"
+                    size={32}
+                    onClick={onDragButtonClick}
+                    onMouseMove={onMouseMove}
                 />}
             </div>
         </>

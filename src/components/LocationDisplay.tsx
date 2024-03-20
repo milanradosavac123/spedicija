@@ -2,7 +2,7 @@
 
 import { Location } from "@/app/tours/new_tour/page";
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
-import { ScrollArea, rem } from "@mantine/core";
+import { ScrollArea, Text, rem } from "@mantine/core";
 import { useListState, } from "@mantine/hooks";
 import { IconCircle, IconMapPin } from "@tabler/icons-react";
 import { useEffect, useRef, useState } from "react";
@@ -48,16 +48,7 @@ export default function LocationDisplay({ className, tours }: LocationDisplayPro
         </div>
     ));
 
-    const [offset, setOffset] = useState(0);
-
     const sideMenuRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        console.log(sideMenuRef.current?.checkVisibility());
-        if(!sideMenuRef.current?.checkVisibility()) {
-            setOffset(offset + 5);
-        } 
-    }, [openedSideMenuIndex, sideMenuRef.current?.checkVisibility(), offset])
 
     const locationItems = locations.map((location, i) => (
         <Draggable key={location.name + i} index={i} draggableId={i.toString()}>
@@ -81,18 +72,18 @@ export default function LocationDisplay({ className, tours }: LocationDisplayPro
                             }
                         }}
                     >
-                        <p className="text-white">
+                        <Text className="text-white">
                             {location.name} - {location.address}
-                        </p>
+                        </Text>
                         <div
                             className="relative"
                         >
-                            {openedSideMenuIndex !== undefined && openedSideMenuIndex === i && <div className={`flex flex-col absolute z-[999] -top-[${offset}vh] left-[5px] bg-white p-2`}>
+                            {openedSideMenuIndex !== undefined && openedSideMenuIndex === i && <div className={`flex flex-col absolute z-[999] top-[0px] left-[5px] bg-white p-2`}>
                                 <h1 className="text-nowrap whitespace-nowrap">{tours.find((tour, i) => tour.locations.includes(location))?.tourName}</h1>
-                                <h4>Driver: {tours.find((tour, i) => tour.locations.includes(location))?.tourDriver}</h4>
+                                <h4>Drivers: {tours.find((tour, i) => tour.locations.includes(location))?.tourDrivers.join(", ")}</h4>
                                 <ScrollArea h={200}>
                                     {location.tasks?.map((task, i) => (
-                                        <p key={i}>{i + 1}. {task.text}</p>
+                                        <Text key={i}>{i + 1}. {task.text}</Text>
                                     ))}
                                 </ScrollArea>
                                 <div ref={sideMenuRef} className="w-[2vw] h-[2vh]"></div>
@@ -113,7 +104,7 @@ export default function LocationDisplay({ className, tours }: LocationDisplayPro
                     handlers.reorder({ from: source.index, to: destination?.index || 0 })
                 }
             >
-                <Droppable key="droppable-location" droppableId="dnd-list" direction="vertical">
+                <Droppable key={Math.random()} droppableId="dnd-list" direction="vertical">
                     {(provided) => (
                         <div {...provided.droppableProps} ref={provided.innerRef}>
                             <div className="flex flex-row">

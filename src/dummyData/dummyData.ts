@@ -8,7 +8,7 @@ import favicon from "#/src/app/favicon.ico";
 export interface TourInfo {
     id: number,
     tourName: string,
-    tourDriver: string,
+    tourDrivers: string[],
     tourVehicle: string,
     tourDispacherName: string,
     dateCreated: Date,
@@ -69,7 +69,17 @@ export const dummyTourData = Array.from({ length: 73 }, (_, index) => index + 1)
     {
         id: number,
         tourName: `Berlin - Bonn_${number}`,
-        tourDriver: "Milos",
+        tourDrivers: number % 2 === 0
+            ? [
+                "Milos",
+                "Mileta",
+                "Milan",
+                "Nikola",
+                "Stanko"
+            ] :
+            [
+                "Milos"
+            ],
         tourVehicle: "Mercedes",
         tourDispacherName: "Philipp",
         dateCreated: new Date(),
@@ -169,7 +179,7 @@ export const messages = Array.from({ length: 10 }, (_, index) => index + 1).map(
             id: "sfgdfgfsdgfdg",
             createdAt: new Date(),
             lastMessageAt: new Date(),
-    
+
             userIds: userIds,
             users: users,
         } as Conversation,

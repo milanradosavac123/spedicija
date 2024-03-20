@@ -4,10 +4,11 @@ import { conversations, messages } from "@/dummyData/dummyData";
 import ChatPopupAvatarGroup from "./ChatPopupAvatarGroup";
 import { useContext, useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
-import Body from "./chat/conversations/conversationId/Body";
-import Form from "./chat/conversations/conversationId/Form";
-import Header from "./chat/conversations/conversationId/Header";
+import Body from "../chat/conversations/conversationId/Body";
+import Form from "../chat/conversations/conversationId/Form";
+import Header from "../chat/conversations/conversationId/Header";
 import { SelectedConversationsContext } from "@/app/ContextWrapper";
+import MiniChatPage from "./MiniChatPage";
 
 export default function ChatPopup() {
 
@@ -38,12 +39,23 @@ export default function ChatPopup() {
                         openedConversationIds.length == 1 && openedConversationIds.includes(conversationId) && setIsConversationDrawerOpened(false);
                     }}
                     onRemoveConversation={(conversationId) => {
-                        setSelectedConversationIds((oldSelectedConversationIds) => {
 
-                            oldSelectedConversationIds.length === 1 && (
-                                setOpenedConversationIds([]),
-                                setIsConversationDrawerOpened(false)
-                            )
+                        setOpenedConversationIds((oldOpenedConversationIds) => {
+                                
+                            oldOpenedConversationIds.length === 1 && setIsConversationDrawerOpened(false);
+                            
+                            return [
+                                ...oldOpenedConversationIds.slice(
+                                    undefined,
+                                    oldOpenedConversationIds.indexOf(conversationId)
+                                ),
+                                ...oldOpenedConversationIds.slice(
+                                    oldOpenedConversationIds.indexOf(conversationId) + 1
+                                )
+                            ]
+                        });
+
+                        setSelectedConversationIds((oldSelectedConversationIds) => {
 
                             return [
                                 ...oldSelectedConversationIds.slice(
@@ -55,6 +67,7 @@ export default function ChatPopup() {
                                 )
                             ]
                         });
+                        
                     }}
                 />
             </div>
@@ -63,16 +76,9 @@ export default function ChatPopup() {
                     className="flex flex-row-reverse h-full gap-x-5"
                 >
                     {openedConversationIds.map((selectedConversationId, i) => (
-                        <div key={i} className="bg-white w-96 h-full rounded-2xl border-2 border-solid border-[#282147] flex flex-col flex-auto overflow-clip">
-                            <Header
-                                conversation={conversations.filter((conversation) => selectedConversationId === conversation.id)[0]}
-                                showDrawerButton={false}
-                            />
-                            <div className="overflow-y-auto">
-                                <Body initialMessages={messages} />
-                            </div>
-                            <Form />
-                        </div>
+                        <MiniChatPage
+                            conversation={conversations.filter((conversation) => selectedConversationId === conversation.id)[0]}
+                        />
                     ))}
                 </div>
             </div>}

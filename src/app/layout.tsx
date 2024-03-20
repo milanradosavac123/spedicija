@@ -5,7 +5,7 @@ import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import React from "react";
 import ContextWrapper from "./ContextWrapper";
 import NavBar from "./NavBar";
-import ChatPopup from "@/components/ChatPopup";
+import ChatPopup from "@/components/mini_chat/ChatPopup";
 
 
 export const metadata: Metadata = {

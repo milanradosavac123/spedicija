@@ -1,6 +1,5 @@
 import React, { RefObject, useEffect, useRef, useState } from 'react';
-import { Group, TextInput } from '@mantine/core';
-import { FormControl } from 'react-bootstrap';
+import { Group, Text, TextInput } from '@mantine/core';
 import EditControl from './EditControl';
 
 interface OutlinedTextFieldProps {
@@ -50,14 +49,26 @@ export default function OutlinedTextField({ ref, className, id, isLabelEditable 
 	return (
 		<div className={`flex flex-col flex-auto ${className}`} >
 			<Group justify="space-between" className="flex flex-row items-center">
-				<FormControl
-					as="input"
+
+				{!isEditing && <Text
+					className="focus:outline-none text-[#282147]"
+				>
+					{labelText}
+				</Text>}
+
+				{isEditing && <TextInput
+					variant="unstyled"
+					component="input"
 					ref={editLabelInputRef}
 					type="text"
-					size="lg"
+					size="s"
 					disabled={!isEditing}
 					value={labelText}
-					className={`focus:outline-none text-[#282147] ${isEditing ? "border-solid border-2 border-b-[#282147] pl-1" : ""} flex-1`}
+					classNames={
+						{
+							"input": "text-[#282147]"
+						}
+					}
 					onChange={(e) => {
 						setLabelText(e.currentTarget.value);
 					}}
@@ -70,7 +81,7 @@ export default function OutlinedTextField({ ref, className, id, isLabelEditable 
 							setIsEditing(false);
 						}
 					}}
-				/>
+				/>}
 
 				<EditControl
 					isEditing={isLabelEditable && isEditing}
@@ -90,7 +101,7 @@ export default function OutlinedTextField({ ref, className, id, isLabelEditable 
 				placeholder={placeholder}
 				id={id !== undefined ? id : "outlined-text-field"}
 				value={value}
-				onChange={(event) =>  onChange(event.currentTarget.value)}
+				onChange={(event) => onChange(event.currentTarget.value)}
 				variant="outline"
 				leftSection={leftSection}
 				rightSectionWidth={rightSectionWidth}
