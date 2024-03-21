@@ -3,7 +3,7 @@ import Body from "@/components/chat/conversations/conversationId/Body";
 import Form from "@/components/chat/conversations/conversationId/Form";
 import Header from "@/components/chat/conversations/conversationId/Header";
 import { conversations, messages as dummyMessages } from "@/dummyData/dummyData";
-import PageWrapper from "./PageWrapper";
+import PageWrapper from "@/app/chat_conversations/[conversationId]/PageWrapper";
 
 interface Params {
     conversationId: string

@@ -51,7 +51,7 @@ export default function OutlinedTextField({ ref, className, id, isLabelEditable 
 			<Group justify="space-between" className="flex flex-row items-center">
 
 				{!isEditing && <Text
-					className="focus:outline-none text-[#282147]"
+					className="focus:outline-none text-standard-purple"
 				>
 					{labelText}
 				</Text>}
@@ -66,7 +66,7 @@ export default function OutlinedTextField({ ref, className, id, isLabelEditable 
 					value={labelText}
 					classNames={
 						{
-							"input": "text-[#282147]"
+							"input": "text-standard-purple"
 						}
 					}
 					onChange={(e) => {
@@ -97,7 +97,7 @@ export default function OutlinedTextField({ ref, className, id, isLabelEditable 
 				autoFocus={true}
 				ref={ref}
 				onMouseEnter={onMouseEnter}
-				className={`mb-4 border-solid text-[#282147] border-2 border-[#282147] rounded-t-xl ${shouldBottomBeRounded ? "rounded-b-xl" : ""} overflow-hidden`}
+				className={`mb-4 border-solid text-standard-purple border-2 border-standard-purple rounded-t-xl ${shouldBottomBeRounded ? "rounded-b-xl" : ""} overflow-hidden`}
 				placeholder={placeholder}
 				id={id !== undefined ? id : "outlined-text-field"}
 				value={value}

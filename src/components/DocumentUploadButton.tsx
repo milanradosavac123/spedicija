@@ -8,7 +8,7 @@ interface DocumentUploadButtonProps {
 export default function DocumentUploadButton({ files, onFilesChanged }: DocumentUploadButtonProps) {
   return (
     <FileButton onChange={onFilesChanged} accept="application/pdf, application/x-pdf" multiple>
-      {(props) => <Button className="bg-[#282147] hover:bg-[#1F1A37] max-w-fit flex-center" {...props}>Upload document</Button>}
+      {(props) => <Button className="bg-standard-purple hover:bg-standard-purple-dark max-w-fit flex-center" {...props}>Upload document</Button>}
     </FileButton>
   );
 }

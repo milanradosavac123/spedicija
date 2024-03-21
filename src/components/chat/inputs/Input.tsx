@@ -24,7 +24,7 @@ export default function Input({ label, id, type, required, errors, disabled, reg
             </label>
             <div className="mt-2">
                 <input
-                    className={clsx("pl-3 form-input block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#1F1A37] sm:text-sm sm:leading-6", errors[id] && "focus:ring-rose-500", disabled && "opacity-50 && cursor-default")}
+                    className={clsx("pl-3 form-input block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-standard-purple-dark sm:text-sm sm:leading-6", errors[id] && "focus:ring-rose-500", disabled && "opacity-50 && cursor-default")}
                     id={id}
                     type={type}
                     autoComplete={id}

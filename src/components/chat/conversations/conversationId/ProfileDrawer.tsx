@@ -96,7 +96,7 @@ export default function ProfileDrawer({ data, isOpen, onClose }: ProfileDrawerPr
                                                         className="ml-3 flex flex-row h-7 items-center"
                                                     >
                                                         <button
-                                                            className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[#282147] focus:ring-offset-2 flex flex-row justify-center items-center"
+                                                            className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-standard-purple focus:ring-offset-2 flex flex-row justify-center items-center"
                                                             type="button"
                                                             onClick={onClose}
                                                         >

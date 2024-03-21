@@ -11,7 +11,7 @@ export default function StandardCentredButton({ buttonText, variant = "WIDE", on
     return (
         <div className="flex flex-row flex-auto justify-center">
             <Button
-                className={clsx("bg-[#282147] hover:bg-[#1F1A37]", variant === "WIDE" && "w-[20vw]")}
+                className={clsx("bg-standard-purple hover:bg-standard-purple-dark", variant === "WIDE" && "w-[20vw]")}
                 onClick={onClick}
             >
                 {buttonText}

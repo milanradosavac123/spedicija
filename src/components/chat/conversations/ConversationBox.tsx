@@ -63,7 +63,7 @@ export default function ConversationBox({ data, selected, onClick }: Conversatio
 
     return (
         <div
-            className={clsx("my-2 w-full relative flex flex-row items-center space-x-3 hover:bg-[#282147] hover:text-white rounded-lg transition cursor-pointer p-3", selected ? "bg-[#282147] text-white" : "bg-white text-gray-900")}
+            className={clsx("my-2 w-full relative flex flex-row items-center space-x-3 hover:bg-standard-purple hover:text-white rounded-lg transition cursor-pointer p-3", selected ? "bg-standard-purple text-white" : "bg-white text-gray-900")}
             onClick={handleClick}
         >
             {data.isGroup ? (

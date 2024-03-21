@@ -49,7 +49,7 @@ export default function OutlinedNumberField({ ref, className, id, isLabelEditabl
 		<div className={`flex flex-col flex-auto ${className}`} >
 			<Group justify="space-between" className="flex flex-row items-center">
 				{!isEditing && <Text
-					className="focus:outline-none text-[#282147]"
+					className="focus:outline-none text-standard-purple"
 				>
 					{labelText}
 				</Text>}
@@ -64,7 +64,7 @@ export default function OutlinedNumberField({ ref, className, id, isLabelEditabl
 					value={labelText}
 					classNames={
 						{
-							"input": "text-[#282147]"
+							"input": "text-standard-purple"
 						}
 					}
 					onChange={(e) => {
@@ -95,7 +95,7 @@ export default function OutlinedNumberField({ ref, className, id, isLabelEditabl
 				autoFocus={true}
 				ref={ref}
 				onMouseEnter={onMouseEnter}
-				className={`mb-4 border-solid text-[#282147] border-2 border-[#282147] rounded-t-[10px] ${shouldBottomBeRounded ? "rounded-b-[10px]" : ""} overflow-hidden`}
+				className={`mb-4 border-solid text-standard-purple border-2 border-standard-purple rounded-t-[10px] ${shouldBottomBeRounded ? "rounded-b-[10px]" : ""} overflow-hidden`}
 				placeholder={placeholder}
 				id={id !== undefined ? id : "outlined-text-field"}
 				value={value}

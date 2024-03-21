@@ -31,7 +31,7 @@ export default function Form() {
         >
             <FileButton onChange={handleUpload} accept="image/png, image/jpeg">
                 {(props) => <IconPhotoFilled
-                className="text-[#282147] cursor-pointer"
+                className="text-standard-purple cursor-pointer"
                 size={30}
                 {...props}
             />}
@@ -48,7 +48,7 @@ export default function Form() {
                     register={register}
                 />
                 <button
-                    className="rounded-full p-2 bg-[#282147] hover:bg-[#1F1A37] cursor-pointer transition"
+                    className="rounded-full p-2 bg-standard-purple hover:bg-standard-purple-dark cursor-pointer transition"
                     type="submit"
                 >
                     <IconSend

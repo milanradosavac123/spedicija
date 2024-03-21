@@ -26,7 +26,7 @@ export default async function SideBar({ children }: { children: React.ReactNode 
             <DesktopSideBar currentUser={currentUser} />
             <MobileFooter />
             <main
-                className="lg:pl-20 h-full flex-1"
+                className="h-full flex-1"
             >
                 {children}
             </main>

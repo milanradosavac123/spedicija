@@ -98,7 +98,7 @@ export default function Header({ headerContent, editable = false, shouldShowSear
                         onClick={() => setIsChatOpened(!isChatOpened)}
                     />
                     {isChatOpened && <div
-                        className="absolute z-[999] bg-white right-0 rounded-2xl border-2 border-solid border-[#282147]"
+                        className="absolute z-[999] bg-white right-0 rounded-2xl border-2 border-solid border-standard-purple"
                     >
                         <div
                             className="px-2 pt-1"

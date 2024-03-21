@@ -4,17 +4,17 @@ import Link from "next/link";
 import clsx from "clsx";
 
 interface MobileItemProps {
-    href: string,
+    link: string,
     icon: any,
     active: boolean,
     onClick?: () => void,
 }
 
-export default function MobileItem({ href, icon: Icon, active, onClick }: MobileItemProps) {
+export default function MobileItem({ link, icon: Icon, active, onClick }: MobileItemProps) {
     return (
         <Link
-            className={clsx("group flex flex-row gap-x-3 text-sm leading-6 font-semibold w-full justify-center p-4 text-[#282147] hover:text-white hover:bg-[#282147]", active && "text-white bg-[#282147]")}
-            href={href}
+            className={clsx("group flex flex-row gap-x-3 text-sm leading-6 font-semibold w-full justify-center p-4 text-standard-purple hover:text-white hover:bg-standard-purple", active && "text-white bg-standard-purple")}
+            href={link}
             onClick={onClick}
         >
             <Icon

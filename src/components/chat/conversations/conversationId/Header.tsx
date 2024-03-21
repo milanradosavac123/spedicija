@@ -9,6 +9,7 @@ import { MouseEvent, useMemo, useState } from "react";
 import ProfileDrawer from "./ProfileDrawer";
 import AvatarGroup from "@/components/chat/AvatarGroup";
 import { IconChevronLeft, IconDots, IconGridDots } from "@tabler/icons-react";
+import { usePathname } from "next/navigation";
 
 interface HeaderProps {
     conversation: Conversation & {
@@ -16,7 +17,7 @@ interface HeaderProps {
     },
     showDrawerButton?: boolean,
     showDragButton?: boolean,
-    onMouseMove: (e: MouseEvent<SVGSVGElement>) => void,
+    onMouseMove?: (e: MouseEvent<SVGSVGElement>) => void,
     onDragButtonClick?: () => void, 
 }
 
@@ -24,6 +25,8 @@ export default function Header({ conversation, showDrawerButton = true, showDrag
 
     const otherUser = users[3];
     const [drawerOpen, setDrawerOpen] = useState(false);
+
+    const pathname = usePathname();
 
     const statusText = useMemo(() => {
         if (conversation.isGroup) {
@@ -47,8 +50,8 @@ export default function Header({ conversation, showDrawerButton = true, showDrag
                     className="flex flex-row gap-3 items-center"
                 >
                     <Link
-                        className="lg:hidden block text-[#282147] hover:text-[#1F1A37] transition cursor-pointer"
-                        href="/chat_conversations"
+                        className="lg:hidden block text-standard-purple hover:text-standard-purple-dark transition cursor-pointer"
+                        href={`/${pathname.split("/").filter(Boolean)[0]}`}
                     >
                         <IconChevronLeft size={32} />
                     </Link>
@@ -71,12 +74,12 @@ export default function Header({ conversation, showDrawerButton = true, showDrag
                     </div>
                 </div>
                 {showDrawerButton && <IconDots
-                    className="text-[#282147] cursor-pointer hover:text-[#1F1A37] transition"
+                    className="text-standard-purple cursor-pointer hover:text-standard-purple-dark transition"
                     size={32}
                     onClick={() => setDrawerOpen(true)}
                 />}
                 {showDragButton && <IconGridDots
-                    className="text-[#282147] cursor-pointer hover:text-[#1F1A37] transition"
+                    className="text-standard-purple cursor-pointer hover:text-standard-purple-dark transition"
                     size={32}
                     onClick={onDragButtonClick}
                     onMouseMove={onMouseMove}

@@ -35,7 +35,7 @@ export default function ConversationList({ users, initialItems }: ConversationLi
                 onClose={() => setIsModalOpen(false)}
             />
             <aside
-                className={clsx("fixed inset-y-0 pb-20 lg:pb-0 lg:w-80 lg:block overflow-y-auto border-r border-gray-200", isOpen ? "hidden" : "block w-full left-0", isNavbarCollapsed ? "lg:left-44" : "lg:left-[315px]")}
+                className={clsx("fixed inset-y-0 pb-20 lg:pb-0 lg:w-80 lg:block overflow-y-auto border-r border-gray-200 scrollbar-hide", isOpen ? "hidden" : "block w-full left-0", isNavbarCollapsed ? "lg:left-24" : "lg:left-[235px]")}
             >
                 <div
                     className="px-5"
@@ -43,7 +43,7 @@ export default function ConversationList({ users, initialItems }: ConversationLi
                     <div
                         className="flex flex-row justify-between pt-4 items-center"
                     >
-                        <ChatBanner text="Messages" />
+                        <ChatBanner text="Conversations" />
                         <div
                             className="rounded-full p-2 bg-gray-100 text-gray-600 cursor-pointer hover:opacity-75 transition"
                             onClick={() => setIsModalOpen(true)}

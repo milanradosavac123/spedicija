@@ -19,8 +19,15 @@ const config: Config = {
       },
       screens: {
         "min-h": { raw: "(min-height: 768px)" }
+      },
+      colors: {
+        "standard-purple": "#282147",
+        "standard-purple-dark": "#1F1A37"
       }
     },
+    data: {
+      "active": "active~=true"
+    }
   },
   plugins: [
     require("tailwind-scrollbar-hide")

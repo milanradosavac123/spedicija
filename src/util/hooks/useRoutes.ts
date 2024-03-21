@@ -10,20 +10,20 @@ export function useRoutes() {
 
     const routes = useMemo(() => [
         {
-            label: "Chat",
-            href: "/chat_conversations",
+            label: "Conversations",
+            link: "/chat_conversations",
             icon: IconMessageDots,
             active: pathname === "/chat_conversations" || !!conversationId
         },
         {
-            label: "Users",
-            href: "/chat",
+            label: "Contacts",
+            link: "/chat",
             icon: IconUsers,
-            active: pathname === "/chat"
+            active: pathname === "/chat" || !!conversationId
         },
         {
             label: "App",
-            href: "/tours",
+            link: "/tours",
             icon: IconLogout2,
             active: false
         },

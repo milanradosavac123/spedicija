@@ -19,7 +19,7 @@ export default function TourInfoCard({ tourName, tourDrivers, tourVehicle, tourD
     return (
         <Card
             ref={reference}
-            className="bg-[#F7F5FA] text-gray-500 drop-shadow-md p-2 m-[1vh] w-fit border-2 border-solid border-transparent rounded-xl hover:border-[#282147] cursor-default"
+            className="bg-[#F7F5FA] text-gray-500 drop-shadow-md p-2 m-[1vh] w-fit border-2 border-solid border-transparent rounded-xl hover:border-standard-purple cursor-default"
             onClick={() => {
                 onSelectedChanged(!selected);
             }}

@@ -22,7 +22,7 @@ export default function MobileFooter() {
                     key={i}
                     {...route}
                     onClick={() => {
-                        route.href === "/tours";
+                        route.link === "/tours";
                     }}
                 />
             ))}

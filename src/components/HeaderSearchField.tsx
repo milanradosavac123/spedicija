@@ -28,6 +28,7 @@ export function HeaderSearchField({ onSearch }: HeaderSearchFieldProps) {
                 rightSection={
                     <>
                         <ActionIcon
+                            className="hover:bg-transparent"
                             size={32}
                             radius="xl"
                             variant="filled"

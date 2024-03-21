@@ -33,7 +33,7 @@ export default function MiniChatPage({ conversation }: MiniChatPageProps) {
     return (
         <div
             ref={chatPageRef}
-            className={clsx("bg-white w-96 h-full rounded-2xl border-2 border-solid border-[#282147] flex flex-col flex-auto overflow-clip")}
+            className={clsx("bg-white w-96 h-full rounded-2xl border-2 border-solid border-standard-purple flex flex-col flex-auto overflow-clip")}
         >
             <Header
                 conversation={conversation}

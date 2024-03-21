@@ -265,7 +265,7 @@ export default function NewTour() {
                                 </ActionIcon>
                             }
                         />
-                        {openedDropDownIndex !== undefined && openedDropDownIndex === i && <div className="min-w-full max-w-full bg-white p-2 border-solid border-2 border-[#282147] rounded-b-xl absolute top-[65px]" style={{ zIndex: "999" }}>
+                        {openedDropDownIndex !== undefined && openedDropDownIndex === i && <div className="min-w-full max-w-full bg-white p-2 border-solid border-2 border-standard-purple rounded-b-xl absolute top-[65px]" style={{ zIndex: "999" }}>
                             <ul>
                                 {value.tasks && value.tasks.map((task, j) => (
                                     <li className="flex flex-row flex-auto justify-between items-center px-3">
@@ -354,7 +354,7 @@ export default function NewTour() {
                             <Text className="text-transparent select-none">fjosqfhasdfiojadsofids</Text>
                         </Group>
                         <Button
-                            className="bg-[#282147] hover:bg-[#1F1A37] min-w-[20vw]"
+                            className="bg-standard-purple hover:bg-standard-purple-dark min-w-[20vw]"
                             tabIndex={2}
                             rightSection={
                                 <Image
@@ -378,7 +378,7 @@ export default function NewTour() {
                         rightSectionWidth={52}
                         rightSection={
                             <Button
-                                className="bg-[#282147] hover:bg-[#1F1A37] min-w-fit rounded-s-none cursor-pointer"
+                                className="bg-standard-purple hover:bg-standard-purple-dark min-w-fit rounded-s-none cursor-pointer"
                                 onClick={() => {
                                     addLocation({
                                         name: newLocationName,
@@ -424,14 +424,14 @@ export default function NewTour() {
                 />
             </div>
             <div className="flex flex-col flex-auto">
-                <Text className="text-[#282147] py-1" component="label" size="sm" fw={500} >
+                <Text className="text-standard-purple py-1" component="label" size="sm" fw={500} >
                     Comment
                 </Text>
                 <Textarea
                     variant="unstyled"
                     classNames={
                         {
-                            "input": "mb-4 border-solid border-2 border-[#282147] rounded-xl px-2 resize"
+                            "input": "mb-4 border-solid border-2 border-standard-purple rounded-xl px-2 resize"
                         }
                     }
                     rows={5}

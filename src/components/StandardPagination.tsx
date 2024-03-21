@@ -7,7 +7,7 @@ interface StandardPaginationProps {
     onChange: (pageNumber: number) => void,
 }
 
-export default function StandardPagination({ value, total, shouldShowStandardWrapper = true, onChange }: StandardPaginationProps) {    
+export default function StandardPagination({ value, total, shouldShowStandardWrapper = true, onChange }: StandardPaginationProps) {
     return (
         <>
             {shouldShowStandardWrapper
@@ -16,9 +16,9 @@ export default function StandardPagination({ value, total, shouldShowStandardWra
                 <div className="flex flex-row justify-center flex-1 py-9">
                     <Pagination
                         classNames={{
-                            "control": "[&[data-active]]:bg-[#282147]",
+                            "control": "data-active:bg-standard-purple",
                         }}
-                        color="#282147"
+                        color="#1F1A37"
                         value={value}
                         total={Math.floor(total)}
                         withEdges={Math.floor(total) > 2}
@@ -26,18 +26,18 @@ export default function StandardPagination({ value, total, shouldShowStandardWra
                         onChange={onChange}
                     />
                 </div>
-                : 
+                :
                 <Pagination
-                        classNames={{
-                            "control": "[&[data-active]]:bg-[#282147]",
-                        }}
-                        color="#282147"
-                        value={value}
-                        total={Math.floor(total)}
-                        withEdges={Math.floor(total) > 2}
-                        withControls={Math.floor(total) !== 1}
-                        onChange={onChange}
-                    />
+                    classNames={{
+                        "control": "data-active:bg-standard-purple",
+                    }}
+                    color="#1F1A37"
+                    value={value}
+                    total={Math.floor(total)}
+                    withEdges={Math.floor(total) > 2}
+                    withControls={Math.floor(total) !== 1}
+                    onChange={onChange}
+                />
             }
         </>
     );

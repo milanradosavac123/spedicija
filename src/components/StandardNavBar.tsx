@@ -15,6 +15,7 @@ import {
 	IconArrowBarToLeft,
 	IconArrowBarToRight,
 	IconMessage,
+	TablerIconsProps,
 } from '@tabler/icons-react';
 import Link from 'next/link';
 import IconTruckFilled from "#/public/ri_truck-fill.svg";
@@ -22,20 +23,26 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { IsNavbarCollapsedContext } from '@/app/ContextWrapper';
 import clsx from 'clsx';
+import { useRoutes } from '@/util/hooks/useRoutes';
+import { useConversation } from '@/util/hooks/useConversation';
 
-const data = [
-	{ link: '/routes', label: 'Routes', icon: IconRoute },
-	{ link: '/tours', label: 'Tours', icon: IconFlag3 },
-	{ link: '/drivers', label: 'Drivers', icon: IconId },
-	{ link: '/vehicles', label: 'Vehicles', icon: IconTruck },
-	{ link: '/alarms', label: 'Alarms', icon: IconAlarm },
-	{ link: '/map', label: 'Map', icon: IconMap2 },
-	{ link: '/documents', label: 'Documents', icon: IconFileText },
-	{ link: '/analytics', label: 'Analytics', icon: IconGraph },
-	{ link: '/chat', label: 'Chat', icon: IconMessage },
-];
+interface StandardNavBarSubLocation {
+	link?: string,
+	label: string,
+	icon: (props: TablerIconsProps) => JSX.Element
+}
+
+interface StandardNavBarLocation {
+	link?: string,
+	label: string,
+	subLocations?: StandardNavBarSubLocation[],
+	icon: (props: TablerIconsProps) => JSX.Element,
+	onClick?: (label: string) => void,
+}
 
 export function StandardNavBar() {
+
+	const { conversationId } = useConversation();
 
 	const pathname = usePathname();
 
@@ -50,26 +57,116 @@ export function StandardNavBar() {
 
 	const { isNavbarCollapsed, setIsNavbarCollapsed } = useContext(IsNavbarCollapsedContext);
 
-	const links = data.map((item) => (
-		<Link
-			className={
-				clsx(
-					"flex flex-row items-center no-underline text-sm text-[#CCCCCC] my-5 p-[0.625rem] border-1 rounded-xl font-medium",
-					!isNavbarCollapsed ? "pr-[5rem]" : "justify-center",
-					(item.label === active || undefined) && "bg-[#D6A917]"
-				)
-			}
-			href={item.link}
-			key={item.label}
-			onClick={() => {
-				setActive(item.label);
-			}}
-		>
-			<item.icon className={`text-[#CCCCCC] ${!isNavbarCollapsed && "mr-[10px]"} w-[${rem(25)}] h-[${rem(25)}]`} stroke={1.5} />
-			{!isNavbarCollapsed && <span>{item.label}</span>}
-		</Link>
+	const [openedDropdownLabel, setOpenedDropdownLabel] = useState<string>();
+
+	const chatRoutes = useRoutes();
+
+	const subLocationsForChat = chatRoutes.slice(undefined, chatRoutes.length - 1).map((route, i) => (
+		{
+			...route
+		} as StandardNavBarSubLocation
 	));
 
+	const mainLocations = [
+		{
+			link: '/routes',
+			label: 'Routes',
+			icon: IconRoute
+		},
+		{
+			link: '/tours',
+			label: 'Tours',
+			icon: IconFlag3
+		},
+		{
+			link: '/drivers',
+			label: 'Drivers',
+			icon: IconId
+		},
+		{
+			link: '/vehicles',
+			label: 'Vehicles',
+			icon: IconTruck
+		},
+		{
+			link: '/alarms',
+			label: 'Alarms',
+			icon: IconAlarm
+		},
+		{
+			link: '/map',
+			label: 'Map',
+			icon: IconMap2
+		},
+		{
+			link: '/documents',
+			label: 'Documents',
+			icon: IconFileText
+		},
+		{
+			link: '/analytics',
+			label: 'Analytics',
+			icon: IconGraph
+		},
+		{
+			label: 'Chat',
+			icon: IconMessage,
+			subLocations: subLocationsForChat,
+			onClick(label) {
+				openedDropdownLabel !== label ? setOpenedDropdownLabel(label) : setOpenedDropdownLabel(undefined);
+			}
+		},
+	] as StandardNavBarLocation[];
+
+	const links = mainLocations.map((item) => (
+		<div
+			className="relative"
+			key={item.label}
+			onClick={() => {
+				item.onClick && item.onClick(item.label);
+			}}
+		>
+			<Link
+				className={
+					clsx(
+						"flex flex-row items-center no-underline text-sm text-[#CCCCCC] my-5 p-[0.625rem] border-1 font-medium",
+						!isNavbarCollapsed ? "pr-[5rem]" : "justify-center",
+						(item.label === active || undefined) && "bg-[#D6A917]",
+						openedDropdownLabel === item.label ? "rounded-t-xl" : "rounded-xl"
+					)
+				}
+				href={item.link ? item.link : ""}
+				onClick={() => {
+					setActive(item.label);
+				}}
+			>
+				<item.icon className={`text-[#CCCCCC] ${!isNavbarCollapsed && "mr-[10px]"} w-[${rem(25)}] h-[${rem(25)}]`} stroke={1.5} />
+				{!isNavbarCollapsed && <span>{item.label}</span>}
+			</Link>
+			{openedDropdownLabel === item.label && <div
+				className="absolute bg-[#D6A917] w-full h-fit top-[44px] border-1 border-t-[2px] rounded-b-xl border-t-black"
+			>
+				{item.subLocations && item.subLocations.map((subLocation) => (
+					<Link
+						className={
+							clsx(
+								"flex flex-row flex-auto items-center no-underline text-sm text-[#CCCCCC] my-1 p-[0.625rem] border-1 font-medium",
+								!isNavbarCollapsed ? "justify-start" : "justify-center"
+							)
+						}
+						href={subLocation.link ? conversationId === "" ? subLocation.link : `${subLocation.link}/${conversationId}` : ""}
+						onClick={() => {
+
+							setOpenedDropdownLabel(undefined);
+						}}
+					>
+						<subLocation.icon className={`text-[#CCCCCC] ${!isNavbarCollapsed && "mr-[10px]"} w-[${rem(25)}] h-[${rem(25)}]`} stroke={1.5} />
+						{!isNavbarCollapsed && <span>{subLocation.label}</span>}
+					</Link>
+				))}
+			</div>}
+		</div>
+	));
 
 	return (
 		<nav className="bg-[#2A2830] h-screen p-[1rem] min-w-max flex flex-col sticky justify-between">

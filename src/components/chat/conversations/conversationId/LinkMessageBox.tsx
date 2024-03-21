@@ -27,9 +27,9 @@ export default function LinkMessageBox({ data, isLast }: MessageBoxProps) {
 
     const body = clsx("flex flex-col gap-2", isOwn && "items-end");
 
-    const message = clsx("text-sm w-fit overflow-hidden rounded-t-[20px] py-2 px-3 brightness-[85%]", isOwn ? "bg-[#282147] text-white" : "bg-gray-100");
+    const message = clsx("text-sm w-fit overflow-hidden rounded-t-[20px] py-2 px-3 brightness-[85%]", isOwn ? "bg-standard-purple text-white" : "bg-gray-100");
 
-    const messageAlt = clsx("text-sm w-full overflow-hidden rounded-b-[20px] py-2 px-3", isOwn ? "bg-[#282147] text-white" : "bg-gray-100");
+    const messageAlt = clsx("text-sm w-full overflow-hidden rounded-b-[20px] py-2 px-3", isOwn ? "bg-standard-purple text-white" : "bg-gray-100");
 
     return (
         <div className={container}>

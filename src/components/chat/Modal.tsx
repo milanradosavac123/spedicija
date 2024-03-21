@@ -57,7 +57,7 @@ export default function Modal({ isOpen, children, onClose }: ModalProps) {
                                     className="absolute right-0 top-0 hidden pr-4 pt-4 sm:block z-10"
                                 >
                                     <button
-                                        className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:oiutline-none focus:ring-2 ring-[#282147] focus:ring-offset-2 flex flex-row justify-center, items-center"
+                                        className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:oiutline-none focus:ring-2 ring-standard-purple focus:ring-offset-2 flex flex-row justify-center, items-center"
                                         type="button"
                                         onClick={onClose}
                                     >
