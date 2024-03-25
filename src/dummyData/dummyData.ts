@@ -4,6 +4,7 @@ import Message from "@/model/Message";
 import User from "@/model/User";
 import next from "#/public/next.svg";
 import favicon from "#/src/app/favicon.ico";
+import { Notification } from "@mantine/core";
 
 export interface TourInfo {
     id: number,
@@ -48,6 +49,13 @@ export interface Document {
     fileName: string,
     fileUrl: string,
     dateCreated: Date
+}
+
+export interface Notification {
+    notificationType: "ARRIVAL" | "LEAVING" | "TASK_COMPLETION" | "INCOMING_MESSAGE",
+    location?: Location,
+    completedTasks?: Task[],
+    incomingMessage?: Message,
 }
 
 const dummyTasks = Array.from({ length: 20 }, (_, index) => index + 1).map((number) => (
@@ -158,7 +166,7 @@ export const users = Array.from({ length: 20 }, (_, index) => index + 1).map((nu
         seenMessages: [],
         accounts: [],
         messages: [],
-        image: favicon.src
+        image: favicon.src,
     } as User
 ));
 
@@ -173,6 +181,29 @@ export const messages = Array.from({ length: 10 }, (_, index) => index + 1).map(
 
         seenIds: userIds,
         seen: users,
+        replyToMessage: number % 6 === 0
+            ? {
+                id: "fdaksfjdsjfdklsfjdsl;fds",
+                body: number % 3 === 0 ? "Hello, how are you?" : number % 2 === 0 && "https://gitlab.com/MaskedRedstonerProZ",
+                image: number % 3 !== 0 && number % 2 !== 0 && next,
+                createdAt: new Date(),
+
+                seenIds: userIds,
+                seen: users,
+
+                conversationId: "1",
+                conversation: {
+                    id: "sfgdfgfsdgfdg",
+                    createdAt: new Date(),
+                    lastMessageAt: new Date(),
+
+                    userIds: userIds,
+                    users: users,
+                } as Conversation,
+
+                senderId: users[0].id,
+                sender: users[0],
+            } : undefined,
 
         conversationId: "1",
         conversation: {
@@ -205,4 +236,97 @@ export const conversations = Array.from({ length: 20 }, (_, index) => index + 1)
         userIds: userIds,
         users: i === 7 || i === 15 ? users.slice(undefined, 3) : users,
     } as Conversation
+));
+
+export const notificationsArrivalAndLeaving = Array.from({ length: 6 }, (_, index) => index + 1).map((number) => (
+    {
+        notificationType: number % 2 === 0 ? "LEAVING" : "ARRIVAL",
+        location: dummyLocations[0],
+        completedTasks: number % 2 === 0 && number % 4 === 0 ? dummyTasks.slice(undefined, dummyTasks.length - 5) : dummyTasks,
+    } as Notification
+));
+
+export const notificationsArrivalAndLeavingTaskless = Array.from({ length: 6 }, (_, index) => index + 1).map((number) => (
+    {
+        notificationType: number % 2 === 0 ? "LEAVING" : "ARRIVAL",
+        location: dummyLocations[0],
+    } as Notification
+));
+
+export const notificationsTaskCompletion = Array.from({ length: 6 }, (_, index) => index + 1).map((number) => (
+    {
+        notificationType: "TASK_COMPLETION",
+        completedTasks: [dummyTasks[0]],
+    } as Notification
+));
+
+export const notificationsMessagesText = Array.from({ length: 6 }, (_, index) => index + 1).map((number) => (
+    {
+        notificationType: "INCOMING_MESSAGE",
+        incomingMessage: messages[2]
+    } as Notification
+));
+
+export const notificationsMessagesLink = Array.from({ length: 6 }, (_, index) => index + 1).map((number) => (
+    {
+        notificationType: "INCOMING_MESSAGE",
+        incomingMessage: messages[3]
+    } as Notification
+));
+
+export const notificationsMessagesImage = Array.from({ length: 6 }, (_, index) => index + 1).map((number) => (
+    {
+        notificationType: "INCOMING_MESSAGE",
+        incomingMessage: messages[4]
+    } as Notification
+));
+
+export const notificationsMessagesReply = Array.from({ length: 6 }, (_, index) => index + 1).map((number) => (
+    {
+        notificationType: "INCOMING_MESSAGE",
+        incomingMessage: {
+            id: "fdaksfjdsjfdklsfjdsl;fds",
+            body: number % 3 === 0 ? "Hello, how are you?" : number % 2 === 0 && "https://gitlab.com/MaskedRedstonerProZ",
+            image: number % 3 !== 0 && number % 2 !== 0 && next,
+            createdAt: new Date(),
+
+            seenIds: userIds,
+            seen: users,
+            replyToMessage: {
+                id: "fdaksfjdsjfdklsfjdsl;fds",
+                body: number % 3 === 0 ? "Hello, how are you?" : number % 2 === 0 && "https://gitlab.com/MaskedRedstonerProZ",
+                image: number % 3 !== 0 && number % 2 !== 0 && next,
+                createdAt: new Date(),
+
+                seenIds: userIds,
+                seen: users,
+
+                conversationId: "1",
+                conversation: {
+                    id: "sfgdfgfsdgfdg",
+                    createdAt: new Date(),
+                    lastMessageAt: new Date(),
+
+                    userIds: userIds,
+                    users: users,
+                } as Conversation,
+
+                senderId: users[0].id,
+                sender: users[0],
+            },
+
+            conversationId: "1",
+            conversation: {
+                id: "sfgdfgfsdgfdg",
+                createdAt: new Date(),
+                lastMessageAt: new Date(),
+
+                userIds: userIds,
+                users: users,
+            } as Conversation,
+
+            senderId: users[0].id,
+            sender: users[0],
+        }
+    } as Notification
 ));

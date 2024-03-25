@@ -49,6 +49,22 @@ export default function LocationDisplay({ className, tours }: LocationDisplayPro
     ));
 
     const sideMenuRef = useRef<HTMLDivElement>(null);
+    const pageRef = useRef<HTMLDivElement>(null);
+
+    const [sideMenuTopOffset, setSideMenuTopOffset] = useState(0);
+
+    useEffect(() => {
+
+        const divBottomPosition = sideMenuRef.current?.getClientRects()[0].bottom || 0;
+        const pageBottomPosition = pageRef.current?.getClientRects()[0].bottom || 0;
+
+
+        console.info(pageBottomPosition);
+        if(divBottomPosition > pageBottomPosition) {
+            setSideMenuTopOffset(0);
+        }
+        console.info(sideMenuTopOffset);
+    }, [openedSideMenuIndex]);
 
     const locationItems = locations.map((location, i) => (
         <Draggable key={location.name + i} index={i} draggableId={i.toString()}>
@@ -72,13 +88,13 @@ export default function LocationDisplay({ className, tours }: LocationDisplayPro
                             }
                         }}
                     >
-                        <Text className="text-white">
+                        <p className="text-white">
                             {location.name} - {location.address}
-                        </Text>
+                        </p>
                         <div
                             className="relative"
                         >
-                            {openedSideMenuIndex !== undefined && openedSideMenuIndex === i && <div className={`flex flex-col absolute z-[999] top-[0px] left-[5px] bg-white p-2`}>
+                            {openedSideMenuIndex !== undefined && openedSideMenuIndex === i && <div ref={sideMenuRef} className={`flex flex-col absolute z-[999] top-[${sideMenuTopOffset}px] left-[5px] bg-white p-2`}>
                                 <h1 className="text-nowrap whitespace-nowrap">{tours.find((tour, i) => tour.locations.includes(location))?.tourName}</h1>
                                 <h4>Drivers: {tours.find((tour, i) => tour.locations.includes(location))?.tourDrivers.join(", ")}</h4>
                                 <ScrollArea h={200}>
@@ -86,7 +102,6 @@ export default function LocationDisplay({ className, tours }: LocationDisplayPro
                                         <Text key={i}>{i + 1}. {task.text}</Text>
                                     ))}
                                 </ScrollArea>
-                                <div ref={sideMenuRef} className="w-[2vw] h-[2vh]"></div>
                             </div>}
                         </div>
                     </div>
@@ -97,6 +112,7 @@ export default function LocationDisplay({ className, tours }: LocationDisplayPro
 
     return (
         <div
+            ref={pageRef}
             className={`flex flex-row ${className}`}
         >
             <DragDropContext
@@ -104,7 +120,7 @@ export default function LocationDisplay({ className, tours }: LocationDisplayPro
                     handlers.reorder({ from: source.index, to: destination?.index || 0 })
                 }
             >
-                <Droppable key={Math.random()} droppableId="dnd-list" direction="vertical">
+                <Droppable key="droppable-list" droppableId="dnd-list" direction="vertical">
                     {(provided) => (
                         <div {...provided.droppableProps} ref={provided.innerRef}>
                             <div className="flex flex-row">

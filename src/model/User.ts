@@ -11,6 +11,8 @@ export default interface User {
     hashedPassword?: string;
     createdAt: Date;
     updatedAt: Date;
+    isDispacher?: boolean,
+    isVehicle?: boolean,
   
     conversationIds: string[];
     conversations: Conversation[];

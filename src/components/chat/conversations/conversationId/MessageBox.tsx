@@ -23,20 +23,20 @@ export default function MessageBox({ data, isLast }: MessageBoxProps) {
         .map((user) => user.name)
         .join(", ");
 
-    const container = clsx("flex flex-row gap-3 p-4", isOwn && "justify-end");
+    const containerClasses = clsx("flex flex-row gap-3 p-4", isOwn && "justify-end");
 
-    const avatar = clsx(isOwn && "order-2");
+    const avatarClasses = clsx(isOwn && "order-2");
 
-    const body = clsx("flex flex-col gap-2", isOwn && "items-end");
+    const bodyClasses = clsx("flex flex-col gap-2", isOwn && "items-end");
 
-    const message = clsx("text-sm w-fit overflow-hidden", isOwn ? "bg-standard-purple text-white" : "bg-gray-100", data.image ? "rounded-md p-0" : "rounded-full py-2 px-3");
+    const messageClasses = clsx("text-sm w-fit overflow-hidden", isOwn ? "bg-standard-purple text-white" : "bg-gray-100", data.image ? "rounded-md p-0" : "rounded-full py-2 px-3");
 
     return (
-        <div className={container}>
-            <div className={avatar}>
+        <div className={containerClasses}>
+            <div className={avatarClasses}>
                 <Avatar user={data.sender} />
             </div>
-            <div className={body}>
+            <div className={bodyClasses}>
                 <div
                     className="flex flex-row items-center gap-1"
                 >
@@ -51,7 +51,7 @@ export default function MessageBox({ data, isLast }: MessageBoxProps) {
                         {format(new Date(data.createdAt), "p")}
                     </div>
                 </div>
-                <div className={message}>
+                <div className={messageClasses}>
                     <ImageModal
                         src={data.image}
                         isOpen={imageModalOpen}

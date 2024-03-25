@@ -13,6 +13,8 @@ export default interface Message {
     conversationId: string;
     conversation: Conversation;
 
+    replyToMessage: Message
+
     senderId: string;
     sender: User;
 }

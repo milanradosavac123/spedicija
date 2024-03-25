@@ -4,18 +4,21 @@ import Avatar from "@/components/chat/Avatar";
 import Message from "@/model/Message";
 import clsx from "clsx";
 import { format } from "date-fns/format";
-import TestOpenGraphImage from "#/public/logo.svg";
 import Image from "next/image";
-import Link from "next/link";
+import { useState } from "react";
+import ImageModal from "./ImageModal";
 
 interface MessageBoxProps {
     data: Message,
     isLast: boolean,
 }
 
-export default function LinkMessageBox({ data, isLast }: MessageBoxProps) {
+export default function ReplyMessageBox({ data, isLast }: MessageBoxProps) {
 
     const isOwn = true;
+
+    const isReplyToOwn = true;
+
     const seenList = (data.seen || [])
         .filter((user) => user.email !== data.sender.email)
         .map((user) => user.name)
@@ -27,7 +30,7 @@ export default function LinkMessageBox({ data, isLast }: MessageBoxProps) {
 
     const bodyClasses = clsx("flex flex-col gap-2", isOwn && "items-end");
 
-    const messageClasses = clsx("text-sm w-fit overflow-hidden rounded-t-[20px] py-2 px-3 brightness-[85%]", isOwn ? "bg-standard-purple text-white" : "bg-gray-100");
+    const messageClasses = clsx("text-sm w-fit overflow-hidden rounded-t-[20px] py-2 px-3 brightness-[85%]", isReplyToOwn ? "bg-standard-purple text-white" : "bg-gray-100");
 
     const messageAltClasses = clsx("text-sm w-full overflow-hidden rounded-b-[20px] py-2 px-3", isOwn ? "bg-standard-purple text-white" : "bg-gray-100");
 
@@ -51,23 +54,14 @@ export default function LinkMessageBox({ data, isLast }: MessageBoxProps) {
                         {format(new Date(data.createdAt), "p")}
                     </div>
                 </div>
-                <Link
-                    className="flex flex-col gap-[2px]"
-                    href={data.body!!}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
+                <div className="flex flex-col gap-y-1">
                     <div className={messageClasses}>
-                        <Image
-                            src={TestOpenGraphImage}
-                            alt="og-image"
-
-                        />
+                        <div>{data.replyToMessage.body}</div>
                     </div>
                     <div className={messageAltClasses}>
-                        {data.body}
+                        <div>{data.body}</div>
                     </div>
-                </Link>
+                </div>
                 {isLast && isOwn && seenList.length > 0 && (
                     <div
                         className="text-xs font-light text-gray-500"
