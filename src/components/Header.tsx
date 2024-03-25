@@ -32,7 +32,7 @@ export default function Header({ headerContent, editable = false, shouldShowSear
 
     const editHeaderContentInputRef = useRef<HTMLInputElement>(null);
 
-    const { selectedConversationIds, setSelectedConversationIds } = useContext(SelectedConversationsContext);
+    const { setSelectedConversationIds } = useContext(SelectedConversationsContext);
 
     useEffect(() => {
         if (isEditing && editHeaderContentInputRef.current) {

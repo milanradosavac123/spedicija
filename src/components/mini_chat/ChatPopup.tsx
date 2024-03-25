@@ -4,9 +4,6 @@ import { conversations, messages } from "@/dummyData/dummyData";
 import ChatPopupAvatarGroup from "./ChatPopupAvatarGroup";
 import { useContext, useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
-import Body from "../chat/conversations/conversationId/Body";
-import Form from "../chat/conversations/conversationId/Form";
-import Header from "../chat/conversations/conversationId/Header";
 import { SelectedConversationsContext } from "@/app/ContextWrapper";
 import MiniChatPage from "./MiniChatPage";
 

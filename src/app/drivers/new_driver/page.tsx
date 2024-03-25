@@ -4,7 +4,6 @@ import Header from "@/components/Header";
 import OutlinedTextField from "@/components/OutlinedTextField";
 import StandardCentredButton from "@/components/StandardCentredButton";
 import StandardLinkButton from "@/components/StandardLinkButton";
-import { Button } from "@mantine/core";
 import { useState } from "react";
 
 export default function Vehicles() {
